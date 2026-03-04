@@ -149,14 +149,6 @@ function GiveKudos() {
                         </div>
                     </div>
 
-                    {/* Privacy Checkbox */}
-                    <div className="privacy-section">
-                        <label className="privacy-checkbox">
-                            <input type="checkbox"/>
-                            <span>Do not sell or share my personal info</span>
-                        </label>
-                    </div>
-
                     {/* Submit Button */}
                     <button type="submit" className="submit-btn">
                         Send Kudos
@@ -174,7 +166,9 @@ function GiveKudos() {
 
                     <div className="preview-content">
                         <div className="preview-sender">
-                            {currentSender} → {selectedRecipients || "Select recipient"}
+                            {currentSender} → {teamMembers.filter((r) => selectedRecipients.includes(r.id)).map((member) => (
+                            <span>{member.name}</span>
+                        )) || "Select recipients"}
                         </div>
                         <div className="preview-label">Just now</div>
 
