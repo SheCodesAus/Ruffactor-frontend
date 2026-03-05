@@ -45,6 +45,14 @@
     padding-bottom: 2rem;
 }
 
+.recipient-section {
+    margin-bottom: 1rem;
+}
+
+.message-section {
+    margin-bottom: 1rem;
+}
+
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -172,12 +180,14 @@
     width: 100%;
     padding: 1rem;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 0;
     font-size: 0.9rem;
     font-family: inherit;
-    resize: vertical;
+    resize: none;
     min-height: 120px;
     transition: border-color 0.2s;
+    background-color: transparent;
+    box-sizing: border-box;
 }
 
 .message-textarea:focus {
@@ -190,7 +200,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0.75rem;
+
 }
 
 .character-count {
@@ -293,6 +303,7 @@
 }
 
 .recipient-section,
+.message-section,
 .skills-section,
 .preview-card,
 .tips-card {

@@ -105,7 +105,6 @@ function GiveKudos() {
                     <div className="section message-section">
                         <div className="section-header">
                             <h3>YOUR MESSAGE</h3>
-                            <span className="badge">Kudos Message</span>
                         </div>
 
                         <textarea
