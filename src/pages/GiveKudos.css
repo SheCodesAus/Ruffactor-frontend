@@ -118,38 +118,42 @@
 }
 
 .team-members-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
 .team-member {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    border: 2px solid #f0f0f0;
-    border-radius: 8px;
+    gap: 0.25rem;
+    padding: 0.25rem 0.4rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
     background: white;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
+    color: #333;
+    min-height: auto;
+    white-space: nowrap;
 }
 
 .team-member:hover {
-    border-color: #ddd;
-    background-color: #f9f9f9;
+    border-color: #5c6ac4;
+    background-color: #f0f8ff;
 }
 
 .team-member.selected {
-    border-color: #333;
-    background-color: #f0f0f0;
+    background-color: #1e3a4f;
+    color: white;
+    border-color: #1e3a4f;
 }
 
 .avatar {
-    width: 44px;
-    height: 44px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: #d0d0d0;
     display: flex;
@@ -157,7 +161,8 @@
     justify-content: center;
     font-weight: 600;
     color: white;
-    font-size: 0.875rem;
+    font-size: 0.55rem;
+    flex-shrink: 0;
 }
 
 /* Message Section */
@@ -279,6 +284,7 @@
     gap: 1.5rem;
 }
 
+.recipient-section,
 .preview-card,
 .tips-card {
     border: 1px solid #e0e0e0;
