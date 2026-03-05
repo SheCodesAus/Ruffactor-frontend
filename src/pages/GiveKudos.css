@@ -221,25 +221,31 @@
 }
 
 .skill-tag {
-    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.4rem;
     border: 1px solid #ddd;
     border-radius: 20px;
     background: white;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     color: #333;
     transition: all 0.2s;
+    min-height: auto;
+    white-space: nowrap;
 }
 
 .skill-tag:hover {
     border-color: #5c6ac4;
-    color: #5c6ac4;
+    background-color: #f0f8ff;
 }
 
 .skill-tag.selected {
-    background-color: #5c6ac4;
+    background-color: #1e3a4f;
     color: white;
-    border-color: #5c6ac4;
+    border-color: #1e3a4f;
 }
 
 /* Privacy Section */
@@ -287,6 +293,7 @@
 }
 
 .recipient-section,
+.skills-section,
 .preview-card,
 .tips-card {
     border: 1px solid #e0e0e0;

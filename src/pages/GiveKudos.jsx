@@ -130,7 +130,6 @@ function GiveKudos() {
                     <div className="section skills-section">
                         <div className="section-header">
                             <h3>TAG SKILLS DEMONSTRATED</h3>
-                            <span className="badge">Skill Tags</span>
                         </div>
 
                         <div className="skills-grid">
