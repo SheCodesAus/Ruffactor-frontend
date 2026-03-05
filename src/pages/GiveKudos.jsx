@@ -63,7 +63,6 @@ function GiveKudos() {
                     <div className="section recipient-section">
                         <div className="section-header">
                             <h3>WHO ARE YOU RECOGNIZING?</h3>
-                            <span className="badge">Recipient Selector</span>
                         </div>
 
                         <div className="team-members-grid">
