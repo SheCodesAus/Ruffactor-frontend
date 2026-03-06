@@ -44,7 +44,8 @@ function App() {
         </nav>
       </header>
 
-      <main style={{ padding: "1.5rem" }}>
+       {/* Removed padding so pages control their own layout */}
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/give-kudos" element={<GiveKudos />} />
