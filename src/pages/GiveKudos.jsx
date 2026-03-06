@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./GiveKudos.css";
 
 function GiveKudos() {
@@ -6,23 +6,25 @@ function GiveKudos() {
     const [message, setMessage] = useState("");
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSender] = useState("Jordan");
+    const [visibility, setVisibility] = useState("public");
+    const [attachedMedia, setAttachedMedia] = useState([]);
 
     const teamMembers = [
-        {id: 1, name: "Maria Lopez", initial: "ML"},
-        {id: 2, name: "Tom Bradley", initial: "TB"},
-        {id: 3, name: "Dana Wu", initial: "DW"},
-        {id: 4, name: "Chris Nguyen", initial: "CN"},
-        {id: 5, name: "Sam Rivera", initial: "SR"},
-        {id: 6, name: "Alex Chen", initial: "AC"},
+        { id: 1, name: "Maria Lopez", initial: "ML" },
+        { id: 2, name: "Tom Bradley", initial: "TB" },
+        { id: 3, name: "Dana Wu", initial: "DW" },
+        { id: 4, name: "Chris Nguyen", initial: "CN" },
+        { id: 5, name: "Sam Rivera", initial: "SR" },
+        { id: 6, name: "Alex Chen", initial: "AC" },
     ];
 
     const allSkills = [
-        {id: 1, name: "Leadership"},
-        {id: 2, name: "Communication"},
-        {id: 3, name: "Problem Solving"},
-        {id: 4, name: "Teamwork"},
-        {id: 5, name: "Creativity"},
-        {id: 6, name: "Technical Excellence"},
+        { id: 1, name: "Leadership" },
+        { id: 2, name: "Communication" },
+        { id: 3, name: "Problem Solving" },
+        { id: 4, name: "Teamwork" },
+        { id: 5, name: "Creativity" },
+        { id: 6, name: "Technical Excellence" },
     ];
 
     const tips = [
@@ -91,7 +93,7 @@ function GiveKudos() {
                                     key={member.id}
                                     type="button"
                                     className={`team-member ${selectedRecipients.includes(member.id) ? "selected" : ""
-                                    }`}
+                                        }`}
                                     onClick={() => handleSelectRecipient(member.id)}
                                 >
                                     <div className="avatar">{member.initial}</div>
@@ -116,9 +118,9 @@ function GiveKudos() {
                         />
 
                         <div className="message-footer">
-              <span className="character-count">
-                {characterCount} / {maxCharacters} characters
-              </span>
+                            <span className="character-count">
+                                {characterCount} / {maxCharacters} characters
+                            </span>
                             <button type="button" className="ai-suggestions">
                                 ✨ AI Suggestions
                             </button>
@@ -137,12 +139,70 @@ function GiveKudos() {
                                     key={skill.id}
                                     type="button"
                                     className={`skill-tag ${selectedSkills.includes(skill.id) ? "selected" : ""
-                                    }`}
+                                        }`}
                                     onClick={() => handleSelectSkill(skill.id)}
                                 >
                                     {skill.name}
                                 </button>
                             ))}
+                        </div>
+                    </div>
+
+                    {/* Media and Links Section */}
+                    <div className="section media-section">
+                        <div className="section-header">
+                            <h3>ATTACH MEDIA OR LINK (OPTIONAL)</h3>
+                        </div>
+
+                        <div className="media-buttons-container">
+                            <button type="button" className="media-button">
+                                <span className="media-icon">🖼️</span>
+                                <span>Add Image</span>
+                            </button>
+                            <button type="button" className="media-button">
+                                <span className="media-icon">🔗</span>
+                                <span>Add Link</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Post Visibility Section */}
+                    <div className="section visibility-section">
+                        <div className="section-header">
+                            <h3>POST VISIBILITY</h3>
+                        </div>
+
+                        <div className="visibility-options">
+                            <label className="visibility-option">
+                                <input
+                                    type="radio"
+                                    name="visibility"
+                                    value="public"
+                                    checked={visibility === "public"}
+                                    onChange={(e) => setVisibility(e.target.value)}
+                                />
+                                <span>Public (Everyone)</span>
+                            </label>
+                            <label className="visibility-option">
+                                <input
+                                    type="radio"
+                                    name="visibility"
+                                    value="team"
+                                    checked={visibility === "team"}
+                                    onChange={(e) => setVisibility(e.target.value)}
+                                />
+                                <span>Team Only</span>
+                            </label>
+                            <label className="visibility-option">
+                                <input
+                                    type="radio"
+                                    name="visibility"
+                                    value="private"
+                                    checked={visibility === "private"}
+                                    onChange={(e) => setVisibility(e.target.value)}
+                                />
+                                <span>Private</span>
+                            </label>
                         </div>
                     </div>
 
@@ -164,8 +224,8 @@ function GiveKudos() {
                     <div className="preview-content">
                         <div className="preview-sender">
                             {currentSender} → {teamMembers.filter((r) => selectedRecipients.includes(r.id)).map((member) => (
-                            <span>{member.name}</span>
-                        )) || "Select recipients"}
+                                <span>{member.name}</span>
+                            )) || "Select recipients"}
                         </div>
                         <div className="preview-label">Just now</div>
 

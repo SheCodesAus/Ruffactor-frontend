@@ -45,14 +45,6 @@
     padding-bottom: 2rem;
 }
 
-.recipient-section {
-    margin-bottom: 1rem;
-}
-
-.message-section {
-    margin-bottom: 1rem;
-}
-
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -307,12 +299,15 @@
 .recipient-section,
 .message-section,
 .skills-section,
+.media-section,
+.visibility-section,
 .preview-card,
 .tips-card {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 1.5rem;
     background-color: #fafafa;
+    margin-bottom: 1rem;
 }
 
 .preview-header {
@@ -399,6 +394,64 @@
 
 .tips-list li:last-child {
     margin-bottom: 0;
+}
+
+.media-buttons-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.media-button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 2rem 1rem;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+    color: #999;
+    min-height: 120px;
+}
+
+.media-button:hover {
+    border-color: #5c6ac4;
+    background-color: #f0f8ff;
+}
+
+.media-icon {
+    font-size: 2rem;
+}
+
+.visibility-options {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.visibility-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.visibility-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #5c6ac4;
+}
+
+.visibility-option:hover {
+    color: #5c6ac4;
 }
 
 /* Responsive */
