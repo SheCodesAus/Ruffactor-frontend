@@ -119,6 +119,7 @@
     transition: border-color 0.2s;
     background: transparent;
     box-sizing: border-box;
+    color: #333;
 }
 
 .search-input:focus {
@@ -188,6 +189,7 @@
     transition: border-color 0.2s;
     background-color: transparent;
     box-sizing: border-box;
+    color: #333;
 }
 
 .message-textarea:focus {
