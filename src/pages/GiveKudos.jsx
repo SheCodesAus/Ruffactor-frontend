@@ -207,7 +207,7 @@ function GiveKudos() {
                     </div>
 
                     {/* Submit Button */}
-                    <button type="submit" className="submit-btn">
+                    <button type="submit" className="primary-button">
                         Send Kudos
                     </button>
                 </form>

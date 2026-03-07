@@ -1,3 +1,52 @@
+:root {
+    /* primitive colors */
+    --deep-navy: #011627;
+    --soft-purple: #7768AE;
+    --blush-pink: #F88DAD;
+    --powder-pink: #FDE8E9;
+    --bright-yellow: #FFFD82;
+    /* semantic colors */
+    --primary-dark: var(--deep-navy);
+    --primary-brand: var(--soft-purple);
+    --secondary-brand: var(--blush-pink);
+    --warm: var(--powder-pink);
+    --accent: var(--bright-yellow);
+    /* semantic color variants */
+    --primary-brand-opacity-10-pct: color-mix(in srgb, var(--primary-brand) 10%, transparent);
+    --accent-opacity-20-pct: color-mix(in srgb, var(--accent) 20%, transparent);
+    /* semantic gradients */
+    --brand-gradient: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+    --warm-accent-gradient: linear-gradient(135deg, var(--warm), var(--accent));
+    --full-spectrum-gradient: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand), var(--accent));
+    --warm-background-gradient: linear-gradient(to bottom right, var(--warm), var(--accent-opacity-20-pct), var(--primary-brand-opacity-10-pct));
+}
+
+.primary-button,
+.secondary-button {
+    margin-top: 0.5rem;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-left: auto;
+    display: block;
+    width: fit-content;
+}
+
+.primary-button {
+    background: var(--primary-brand);
+    border: none;
+    color: white;
+}
+
+.secondary-button {
+    background: var(--secondary-brand);
+    border: none;
+    color: white;
+}
+
 .give-kudos-container {
     display: flex;
     gap: 2rem;
