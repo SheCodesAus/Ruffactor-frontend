@@ -1,16 +1,16 @@
 import {useState} from "react";
-import {EditingKudosContext as EditingKudosContext1} from "../context/EditingKudosContext.jsx";
+import EditingKudosContext from "../context/EditingKudosContext.jsx";
 
 export const EditingKudosProvider = (props) => {
+    const [currentSender] = useState("Jordan");
     const [selectedRecipients, setSelectedRecipients] = useState([]);
-    const [editingKudos, setEditingKudos] = useState({
-        selectedRecipients: [],
-        message: "",
-        selectedSkills: []
-    });
+    const [message, setMessage] = useState("");
+    const [selectedSkills, setSelectedSkills] = useState([]);
+
     return (
-        <EditingKudosContext1 value={{selectedRecipients, setSelectedRecipients,editingKudos, setEditingKudos}}>
+        <EditingKudosContext
+            value={{currentSender,selectedRecipients, setSelectedRecipients, message, setMessage, selectedSkills, setSelectedSkills}}>
             {props.children}
-        </EditingKudosContext1>
+        </EditingKudosContext>
     );
 };

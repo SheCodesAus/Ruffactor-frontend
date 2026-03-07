@@ -5,8 +5,6 @@ import {EditingKudosProvider} from "../components/EditingKudosProvider.jsx";
 import "../components/GiveKudos.css";
 
 function GiveKudos() {
-    const [currentSender] = useState("Jordan");
-
     return (
         <EditingKudosProvider>
             <div className="give-kudos-container">

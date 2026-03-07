@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import "./GiveKudos.css";
+import {useEditingKudos} from "../hooks/use-editing-kudos.js";
 
 function EditKudosMessageCard() {
-    const [message, setMessage] = useState("");
+    const {message, setMessage} = useEditingKudos();
     const characterCount = message.length;
     const maxCharacters = 500;
 

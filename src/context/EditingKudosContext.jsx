@@ -1,3 +1,4 @@
 import {createContext} from "react";
 
-export const EditingKudosContext = createContext();
+const EditingKudosContext = createContext(undefined);
+export default EditingKudosContext
