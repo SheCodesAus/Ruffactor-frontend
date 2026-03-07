@@ -12,37 +12,23 @@ function App() {
   return (
     <div className="app">
       <header>
-        <nav>
-          <ul
-            style={{
-              display: "flex",
-              gap: "1rem",
-              listStyle: "none",
-              padding: "1rem",
-              borderBottom: "1px solid #eee",
-            }}
-          >
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/give-kudos">Give Kudos</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/notifications">Notifications</Link>
-            </li>
-            <li>
-              <Link to="/settings">Settings</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+  <nav>
+    <ul className="main-nav">
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/give-kudos">Give Kudos</Link>
+      </li>
+      <li>
+        <Link to="/dashboard">Dashboard</Link>
+      </li>
+      <li>
+        <Link to="/profile">Profile</Link>
+      </li>
+    </ul>
+  </nav>
+</header>
 
        {/* Removed padding so pages control their own layout */}
       <main>
