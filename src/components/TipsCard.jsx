@@ -1,14 +1,9 @@
 import "./GiveKudos.css";
 import React from "react";
+import {useEditingKudos} from "../hooks/use-editing-kudos.js";
 
 function TipsCard() {
-    const tips = [
-        "Be specific about what they did",
-        "Explain the impact on the team",
-        "Tag relevant skills",
-        "Keep it genuine and personal",
-    ];
-
+    const {tips} = useEditingKudos();
     return (<div className="tips-card">
         <h4>TIPS</h4>
         <ul className="tips-list">

@@ -9,6 +9,12 @@ export const EditingKudosProvider = (props) => {
     const [visibility, setVisibility] = useState("public");
     const [mediaImage, setMediaImage] = useState("");
     const [mediaLink, setMediaLink] = useState("");
+    const [tips] = useState([
+        "Be specific about what they did",
+        "Explain the impact on the team",
+        "Tag relevant skills",
+        "Keep it genuine and personal",
+    ]);
 
     return (
         <EditingKudosContext
@@ -19,7 +25,8 @@ export const EditingKudosProvider = (props) => {
                 selectedSkills, setSelectedSkills,
                 mediaImage, setMediaImage,
                 mediaLink, setMediaLink,
-                visibility, setVisibility
+                visibility, setVisibility,
+                tips
             }}>
             {props.children}
         </EditingKudosContext>
