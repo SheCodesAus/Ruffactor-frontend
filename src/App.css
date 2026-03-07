@@ -129,3 +129,8 @@ header {
 .signup-btn:hover {
   background: #6575ff;
 }
+
+.nav-link-btn {
+  text-decoration: none;
+  display: inline-block;
+}
