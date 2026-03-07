@@ -1,6 +1,8 @@
 import "./GiveKudos.css";
+import {useEditingKudos} from "../hooks/use-editing-kudos.js";
 
 function SetMediaAndLinkCard() {
+    const {mediaImage, setMediaImage, mediaLink, setMediaLink} = useEditingKudos();
     return (<div className="section media-section">
         <div className="section-header">
             <h3>ATTACH MEDIA OR LINK (OPTIONAL)</h3>

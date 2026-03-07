@@ -419,6 +419,7 @@
 .tips-card {
     background-color: white;
     border: 1px solid #e0e0e0;
+    text-align: left;
 }
 
 .tips-card h4 {
@@ -433,6 +434,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    text-align: left;
 }
 
 .tips-list li {
@@ -442,6 +444,7 @@
     padding-left: 1.25rem;
     position: relative;
     line-height: 1.5;
+    text-align: left;
 }
 
 .tips-list li:before {

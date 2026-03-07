@@ -7,14 +7,20 @@ export const EditingKudosProvider = (props) => {
     const [message, setMessage] = useState("");
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [visibility, setVisibility] = useState("public");
+    const [mediaImage, setMediaImage] = useState("");
+    const [mediaLink, setMediaLink] = useState("");
 
     return (
         <EditingKudosContext
-            value={{currentSender,
+            value={{
+                currentSender,
                 selectedRecipients, setSelectedRecipients,
                 message, setMessage,
                 selectedSkills, setSelectedSkills,
-                visibility, setVisibility}}>
+                mediaImage, setMediaImage,
+                mediaLink, setMediaLink,
+                visibility, setVisibility
+            }}>
             {props.children}
         </EditingKudosContext>
     );
