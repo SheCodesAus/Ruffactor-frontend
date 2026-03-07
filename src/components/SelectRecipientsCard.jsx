@@ -14,8 +14,9 @@ function SelectRecipientsCard() {
         {id: 6, name: "Alex Chen", initial: "AC"},
     ];
 
-    const handleSelectRecipient = (recipient) => {
-        setSelectedRecipients((prev) => prev.includes(recipient) ? prev.filter((r) => r !== recipient) : [...prev, recipient]);
+    const handleSelectRecipient = (incomingRecipient) => {
+        const id = incomingRecipient.id;
+        setSelectedRecipients((prev) => prev.some(person => person.id === id) ? prev.filter(person => person.id !== id) : [...prev, incomingRecipient]);
     };
 
     return (<div className="section recipient-section">
@@ -24,11 +25,11 @@ function SelectRecipientsCard() {
         </div>
 
         <div className="team-members-grid">
-            {teamMembers.filter((r) => selectedRecipients.includes(r.id)).map((member) => (<button
+            {selectedRecipients.map((member) => (<button
                 key={member.id}
                 type="button"
                 className={`team-member selected`}
-                onClick={() => handleSelectRecipient(member.id)}
+                onClick={() => handleSelectRecipient(member)}
             >
                 <div className="avatar">{member.initial}</div>
                 <span>{member.name}</span>
@@ -45,8 +46,8 @@ function SelectRecipientsCard() {
             {teamMembers.map((member) => (<button
                 key={member.id}
                 type="button"
-                className={`team-member ${selectedRecipients.includes(member.id) ? "selected" : ""}`}
-                onClick={() => handleSelectRecipient(member.id)}
+                className={`team-member ${selectedRecipients.some(person => person.id === member.id) ? "selected" : ""}`}
+                onClick={() => handleSelectRecipient(member)}
             >
                 <div className="avatar">{member.initial}</div>
                 <span>{member.name}</span>

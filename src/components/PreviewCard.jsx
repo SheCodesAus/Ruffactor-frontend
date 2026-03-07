@@ -12,7 +12,7 @@ function PreviewCard() {
         <div className="preview-content">
             <div className="preview-sender">
                 "currentSender" → {selectedRecipients.map((member) => (
-                <span>{member}</span>
+                <span key={member.id}>{member.name}</span>
             )) || "Select recipients"}
             </div>
             <div className="preview-label">Just now</div>
