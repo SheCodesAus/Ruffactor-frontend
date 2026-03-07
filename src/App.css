@@ -45,15 +45,41 @@ header {
   border-bottom: 1px solid #444;
 }
 
+.site-header {
+  border-bottom: 1px solid #2a2a2a;
+  background: #1c1c1c;
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  color: #7c8cff;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
 .main-nav {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 2rem;
-
-  list-style: none;     /* removes bullets */
-  padding: 1rem 0;
+  list-style: none;
   margin: 0;
+  padding: 0;
 }
 
 .main-nav li {
@@ -69,4 +95,37 @@ header {
 
 .main-nav a:hover {
   color: white;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.login-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  color: #7c8cff;
+}
+
+.signup-btn {
+  background: #7c8cff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.signup-btn:hover {
+  background: #6575ff;
 }

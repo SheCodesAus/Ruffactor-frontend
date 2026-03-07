@@ -1,31 +1,34 @@
 import React from "react";
 import "./Home.css";
 
-function Home() {
+function Home({ isLoggedIn, handleLogin, handleLogout }) {
   return (
     <div className="home-page">
+
       <section className="home-header">
         <h1>Kudos Board</h1>
-        <p>Celebrate great work at Pixel Pulse 🎉</p>
+        <p>Recognise and celebrate great work across the Pixel Pulse team.</p>
       </section>
 
-      <section className="search-section">
-        <input type="text" placeholder="Search kudos by employee..." />
-      </section>
+      
 
-      <section className="kudos-feed">
-        <h2>Recent Kudos</h2>
-
-        <div className="kudos-card">
-          <h3>Jane → Mark</h3>
-          <p>Great job on the client campaign presentation! 🚀</p>
+      <section className="home-features">
+        <div className="feature-card">
+          <h3>Give Kudos</h3>
+          <p>Recognize teammates for great work and collaboration.</p>
         </div>
 
-        <div className="kudos-card">
-          <h3>Alex → Sarah</h3>
-          <p>Thanks for helping the team hit the deadline!</p>
+        <div className="feature-card">
+          <h3>Track Recognition</h3>
+          <p>See the kudos you've received and shared.</p>
+        </div>
+
+        <div className="feature-card">
+          <h3>Team Culture</h3>
+          <p>Build a culture of appreciation across the company.</p>
         </div>
       </section>
+
     </div>
   );
 }
