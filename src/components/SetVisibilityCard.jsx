@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import "./GiveKudos.css";
+import {useEditingKudos} from "../hooks/use-editing-kudos.js";
 
 function SetVisibilityCard() {
-    const [visibility, setVisibility] = useState("public");
+    const {visibility, setVisibility} = useEditingKudos();
     return (<div className="section visibility-section">
         <div className="section-header">
             <h3>POST VISIBILITY</h3>

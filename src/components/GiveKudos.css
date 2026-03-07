@@ -409,6 +409,13 @@
     min-height: 60px;
 }
 
+.preview-visibility {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    min-height: 60px;
+}
+
 .tips-card {
     background-color: white;
     border: 1px solid #e0e0e0;

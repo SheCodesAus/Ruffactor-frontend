@@ -3,7 +3,7 @@ import React from "react";
 import {useEditingKudos} from "../hooks/use-editing-kudos.js";
 
 function PreviewCard() {
-    const {currentSender,selectedRecipients,message,selectedSkills} = useEditingKudos();
+    const {currentSender, selectedRecipients, message, selectedSkills, visibility} = useEditingKudos();
     return (<div className="preview-card">
         <div className="preview-header">
             <span className="live-badge">Live Preview</span>
@@ -23,6 +23,9 @@ function PreviewCard() {
 
             <div className="preview-message">
                 {message || "Your message will appear here..."}
+            </div>
+            <div className="preview-visibility">
+                {visibility}
             </div>
         </div>
     </div>);
