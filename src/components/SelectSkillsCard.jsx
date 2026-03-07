@@ -3,17 +3,7 @@ import React from "react";
 import {useEditingKudos} from "../hooks/use-editing-kudos.js";
 
 function SelectSkillsCard() {
-    const {selectedSkills, setSelectedSkills} = useEditingKudos();
-
-    const allSkills =
-        [
-            {id: 1, name: "Leadership"},
-            {id: 2, name: "Communication"},
-            {id: 3, name: "Problem Solving"},
-            {id: 4, name: "Teamwork"},
-            {id: 5, name: "Creativity"},
-            {id: 6, name: "Technical Excellence"},
-        ];
+    const {allSkills, selectedSkills, setSelectedSkills} = useEditingKudos();
 
     const handleSelectSkill = (incomingSkill) => {
         const id = incomingSkill.id;

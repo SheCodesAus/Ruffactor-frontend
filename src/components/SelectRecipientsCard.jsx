@@ -3,16 +3,7 @@ import {useEditingKudos} from "../hooks/use-editing-kudos.js";
 import "./GiveKudos.css";
 
 function SelectRecipientsCard() {
-    const {selectedRecipients, setSelectedRecipients} = useEditingKudos();
-
-    const teamMembers = [
-        {id: 1, name: "Maria Lopez", initial: "ML"},
-        {id: 2, name: "Tom Bradley", initial: "TB"},
-        {id: 3, name: "Dana Wu", initial: "DW"},
-        {id: 4, name: "Chris Nguyen", initial: "CN"},
-        {id: 5, name: "Sam Rivera", initial: "SR"},
-        {id: 6, name: "Alex Chen", initial: "AC"},
-    ];
+    const {teamMembers, selectedRecipients, setSelectedRecipients} = useEditingKudos();
 
     const handleSelectRecipient = (incomingRecipient) => {
         const id = incomingRecipient.id;
