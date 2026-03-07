@@ -1,39 +1,17 @@
 import React, {useState} from "react";
-import SelectRecipientsCard from "../components/SelectRecipientsCard.jsx";
-import EditKudosMessageCard from "../components/EditKudosMessageCard.jsx";
-import SelectSkillsCard from "../components/SelectSkillsCard.jsx";
-import SetMediaAndLinkCard from "../components/SetMediaAndLinkCard.jsx";
-import SetVisibilityCard from "../components/SetVisibilityCard.jsx";
-import PreviewCard from "../components/PreviewCard.jsx";
-import TipsCard from "../components/TipsCard.jsx";
-import "./GiveKudos.css";
+import GiveKudosMain from "../components/GiveKudosMain.jsx";
+import GiveKudosSide from "../components/GiveKudosSide.jsx";
+import "../components/GiveKudos.css";
 
 function GiveKudos() {
     const [currentSender] = useState("Jordan");
 
-    return (<div className="give-kudos-container">
-        <div className="give-kudos-main">
-            <div className="give-kudos-header">
-                <h1>Give Kudos</h1>
-            </div>
-
-            <form className="give-kudos-form">
-                <SelectRecipientsCard/>
-                <EditKudosMessageCard/>
-                <SelectSkillsCard/>
-                <SetMediaAndLinkCard/>
-                <SetVisibilityCard/>
-                <button type="submit" className="primary-button">
-                    Send Kudos
-                </button>
-            </form>
+    return (
+        <div className="give-kudos-container">
+            <GiveKudosMain/>
+            <GiveKudosSide/>
         </div>
-
-        <aside className="give-kudos-sidebar">
-            <PreviewCard/>
-            <TipsCard/>
-        </aside>
-    </div>);
+    );
 }
 
 export default GiveKudos;

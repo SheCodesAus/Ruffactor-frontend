@@ -10,6 +10,8 @@
     --primary-brand: var(--soft-purple);
     --secondary-brand: var(--blush-pink);
     --warm: var(--powder-pink);
+    --page-background: var(--warm);
+    --card-background: var(--warm);
     --accent: var(--bright-yellow);
     /* semantic color variants */
     --primary-brand-opacity-10-pct: color-mix(in srgb, var(--primary-brand) 10%, transparent);
@@ -53,6 +55,7 @@
     padding: 2rem;
     max-width: 1400px;
     margin: 0 auto;
+    background: var(--page-background);
 }
 
 .give-kudos-main {
