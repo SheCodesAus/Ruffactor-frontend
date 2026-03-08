@@ -195,13 +195,13 @@
     object-fit: contain;
 }
 
-.team-members-grid {
+.recipients-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
-.team-member {
+.recipient {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -218,7 +218,7 @@
     white-space: nowrap;
 }
 
-.team-member:hover {
+.recipient:hover {
     border-color: #5c6ac4;
     background-color: #f0f8ff;
 }
@@ -296,7 +296,7 @@
 .skills-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
 .skill-tag {
@@ -304,7 +304,7 @@
     flex-direction: row;
     align-items: center;
     gap: 0.25rem;
-    padding: 0.25rem 0.4rem;
+    padding: 0.25rem 0.8rem;
     border: 1px solid #ddd;
     border-radius: 20px;
     background: white;
@@ -404,8 +404,7 @@
     font-weight: 600;
 }
 
-
-.preview-sender {
+.preview-sender-recipients {
     font-size: 0.9rem;
     color: var(--primary-dark);
     font-weight: 500;
@@ -418,13 +417,7 @@
     margin-bottom: 1rem;
 }
 
-.preview-category {
-    display: inline-block;
-    background-color: #e8e8e8;
-    color: #666;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
+.preview-skill {
     margin-bottom: 1rem;
 }
 
@@ -627,7 +620,7 @@
         align-items: flex-start;
     }
 
-    .team-members-grid {
+    .recipients-grid {
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     }
 
@@ -635,7 +628,7 @@
         flex-direction: column;
     }
 
-    .preview-card,
+    .preview-section,
     .tips-card {
         flex: none;
     }

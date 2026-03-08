@@ -2,7 +2,7 @@ import {useState} from "react";
 import EditingKudosContext from "../context/EditingKudosContext.jsx";
 
 export const EditingKudosProvider = (props) => {
-    const [currentSender] = useState("Jordan");
+    const [currentSender] = useState({id: 7, name: "Jordan Diesel", initial: "JD"},);
     const [teamMembers] = useState([
         {id: 1, name: "Maria Lopez", initial: "ML"},
         {id: 2, name: "Tom Bradley", initial: "TB"},

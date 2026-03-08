@@ -19,17 +19,39 @@ function PreviewCard() {
             </div>
 
             <div className="preview-content">
-                <div className="preview-sender">
-                    {currentSender} → {selectedRecipients.map((member) => (
-                    <span key={member.id}>{member.name}</span>
-                )) || "Select recipients"}
+                <div className="preview-sender-recipients">
+                    <span
+                        key={currentSender.id}
+                        className="recipient"
+                    >
+                        <div className="avatar">{currentSender.initial}</div>
+                        <span>{currentSender.name}</span>
+                    </span>
+                    ↓
+                    <div className="recipients-grid">
+                        {selectedRecipients.map((recipient) => (<span
+                            key={recipient.id}
+                            className="recipient"
+                        >
+                        <div className="avatar">{recipient.initial}</div>
+                        <span>{recipient.name}</span>
+                    </span>))}
+                    </div>
                 </div>
 
                 <div className="preview-label">Just now</div>
 
-                <div className="preview-category">{selectedSkills.map((skill) => (
-                    <span key={skill.id}>{skill.name}</span>
-                )) || "Select skills"}</div>
+                <div className="preview-skill">
+                    <div className="skills-grid">
+                        {selectedSkills.map((skill) => (
+                            <span
+                                key={skill.id}
+                                className={`skill-tag`}
+                            >
+                                {skill.name}
+                            </span>))}
+                    </div>
+                </div>
 
                 <div className="preview-message">
                     {message || "Your message will appear here..."}
