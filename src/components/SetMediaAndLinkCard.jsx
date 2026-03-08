@@ -53,6 +53,9 @@ function SetMediaAndLinkCard() {
         <div className="media-buttons-container">
             {showImageInput ? (
                 <div className="media-input-container">
+                    <div className="section-header small">
+                        <h4>ADD MEDIA</h4>
+                    </div>
                     <input
                         type="url"
                         placeholder="https://..."
@@ -85,6 +88,9 @@ function SetMediaAndLinkCard() {
             )}
             {showLinkInput ? (
                 <div className="media-input-container">
+                    <div className="section-header small">
+                        <h4>ADD LINK</h4>
+                    </div>
                     <input
                         type="url"
                         placeholder="https://..."

@@ -13,6 +13,7 @@
     --accent: var(--bright-yellow);
     /* semantic color variants */
     --primary-dark-lighter-20-pct: color-mix(in srgb, var(--primary-dark), white 20%);
+    --primary-dark-lighter-40-pct: color-mix(in srgb, var(--primary-dark), white 40%);
     --warm-darker-20-pct: color-mix(in srgb, var(--warm), black 20%);
     --primary-brand-opacity-10-pct: color-mix(in srgb, var(--primary-brand) 10%, transparent);
     --accent-opacity-20-pct: color-mix(in srgb, var(--accent) 20%, transparent);
@@ -20,7 +21,7 @@
     --page-background: var(--warm);
     --card-background: var(--warm);
     --primary-text: var(--primary-dark);
-    --secondary-text: var(--primary-dark-lighter-20-pct);
+    --secondary-text: var(--primary-dark-lighter-40-pct);
     --chip-background-view: var(--warm-darker-20-pct);
     /* semantic gradients */
     --brand-gradient: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
@@ -117,10 +118,25 @@
 .section-header h3 {
     margin: 0;
     font-size: 0.875rem;
-    color: #999;
+    color: var(--secondary-text);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 600;
+}
+
+.section-header h4 {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.section-header.small {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.15rem;
 }
 
 .badge {
