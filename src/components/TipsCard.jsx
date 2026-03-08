@@ -4,8 +4,10 @@ import {useEditingKudos} from "../hooks/use-editing-kudos.js";
 
 function TipsCard() {
     const {tips} = useEditingKudos();
-    return (<div className="tips-card">
-        <h4>TIPS</h4>
+    return (<div className="section tips-section">
+        <div className="section-header">
+            <h3>TIPS</h3>
+        </div>
         <ul className="tips-list">
             {tips.map((tip, index) => (<li key={index}>{tip}</li>))}
         </ul>

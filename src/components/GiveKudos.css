@@ -376,13 +376,19 @@
 .skills-section,
 .media-section,
 .visibility-section,
-.preview-card,
-.tips-card {
+.preview-section,
+.tips-section,
+.preview-content {
     border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1.5rem;
+    border-radius: 16px;
+    padding: 1rem;
     background-color: #fafafa;
     margin-bottom: 1rem;
+}
+
+.preview-content {
+    background: var(--card-background);
+    margin-bottom: 0;
 }
 
 .preview-header {
@@ -398,15 +404,12 @@
     font-weight: 600;
 }
 
-.preview-content {
-    padding: 1rem 0;
-}
 
 .preview-sender {
     font-size: 0.9rem;
-    color: #333;
+    color: var(--primary-dark);
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .preview-label {
@@ -430,6 +433,12 @@
     color: #666;
     line-height: 1.5;
     min-height: 60px;
+    margin-bottom: 1rem;
+}
+
+.preview-image,
+.preview-link {
+    margin-bottom: 1rem;
 }
 
 .preview-visibility {
@@ -465,9 +474,9 @@
     font-size: 0.875rem;
     color: #666;
     margin-bottom: 0.75rem;
-    padding-left: 1.25rem;
+    padding-left: 1rem;
     position: relative;
-    line-height: 1.5;
+    line-height: 1.25rem;
     text-align: left;
 }
 
