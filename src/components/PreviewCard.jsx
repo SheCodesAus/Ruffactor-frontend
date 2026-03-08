@@ -27,7 +27,7 @@ function PreviewCard() {
                 <div className="preview-sender-recipients">
                     <span
                         key={currentSender.id}
-                        className="recipient">
+                        className="recipient selected">
                         <div className="avatar">{currentSender.initial}</div>
                         <span>{currentSender.name}</span>
                     </span>
@@ -36,7 +36,7 @@ function PreviewCard() {
                         {selectedRecipients.map((recipient) => (
                             <span
                                 key={recipient.id}
-                                className="recipient">
+                                className="recipient selected">
                                 <div className="avatar">{recipient.initial}</div>
                                 <span>{recipient.name}</span>
                             </span>))}
@@ -48,7 +48,7 @@ function PreviewCard() {
                         {selectedSkills.map((skill) => (
                             <span
                                 key={skill.id}
-                                className="skill-tag in-preview"
+                                className="skill-tag selected"
                             >
                                 {skill.name}
                             </span>))}

@@ -14,7 +14,7 @@
     /* semantic color variants */
     --primary-dark-lighter-20-pct: color-mix(in srgb, var(--primary-dark), white 20%);
     --primary-dark-lighter-40-pct: color-mix(in srgb, var(--primary-dark), white 40%);
-    --warm-darker-20-pct: color-mix(in srgb, var(--warm), black 20%);
+    --warm-darker-5-pct: color-mix(in srgb, var(--warm), black 5%);
     --primary-brand-opacity-10-pct: color-mix(in srgb, var(--primary-brand) 10%, transparent);
     --accent-opacity-20-pct: color-mix(in srgb, var(--accent) 20%, transparent);
     /* ui colors */
@@ -22,7 +22,8 @@
     --card-background: var(--warm);
     --primary-text: var(--primary-dark);
     --secondary-text: var(--primary-dark-lighter-40-pct);
-    --chip-background-view: var(--warm-darker-20-pct);
+    --chip-background-view: var(--warm-darker-5-pct);
+    --chip-text-view: var(--primary-brand);
     /* semantic gradients */
     --brand-gradient: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
     --warm-accent-gradient: linear-gradient(135deg, var(--warm), var(--accent));
@@ -272,16 +273,16 @@
 }
 
 .recipient.selected {
-    background-color: #1e3a4f;
+    background: var(--brand-gradient);
     color: white;
-    border-color: #1e3a4f;
+    border-color: var(--primary-brand);
 }
 
 .avatar {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #d0d0d0;
+    background: var(--full-spectrum-gradient);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -370,15 +371,9 @@
 }
 
 .skill-tag.selected {
-    background-color: #1e3a4f;
+    background: var(--brand-gradient);
     color: white;
-    border-color: #1e3a4f;
-}
-
-.skill-tag.in-preview {
-    background-color: var(--chip-background-view);
-    color: white;
-    border-color: var(--primary-dark);
+    border-color: var(--primary-brand);
 }
 
 /* Privacy Section */
@@ -475,11 +470,6 @@
     font-size: 0.9rem;
     color: var(--secondary-text);
     margin-bottom: 1rem;
-}
-
-.preview-link {
-    font-size: 0.825rem;
-    line-height: 1rem;
 }
 
 .preview-skill,
