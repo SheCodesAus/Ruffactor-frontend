@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import GiveKudosMain from "../components/GiveKudosMain.jsx";
 import GiveKudosSide from "../components/GiveKudosSide.jsx";
 import {EditingKudosProvider} from "../components/EditingKudosProvider.jsx";

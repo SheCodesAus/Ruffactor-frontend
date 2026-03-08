@@ -24,7 +24,8 @@
 }
 
 .primary-button,
-.secondary-button {
+.secondary-button,
+.accent-button {
     margin-top: 0.5rem;
     padding: 14px 24px;
     border-radius: 12px;
@@ -32,8 +33,6 @@
     font-weight: 600;
     cursor: pointer;
     transition: opacity 0.2s;
-    margin-left: auto;
-    display: block;
     width: fit-content;
 }
 
@@ -47,6 +46,12 @@
     background: var(--secondary-brand);
     border: none;
     color: white;
+}
+
+.accent-button {
+    background: var(--accent);
+    border: none;
+    color: var(--primary-dark);
 }
 
 .give-kudos-container {
@@ -153,6 +158,7 @@
     color: #333;
 }
 
+.media-url-input,
 .search-input {
     width: 100%;
     padding: 0.75rem 1rem;
@@ -166,10 +172,26 @@
     color: #333;
 }
 
+.media-url-input:focus,
 .search-input:focus {
     outline: none;
     border-color: #5c6ac4;
     box-shadow: 0 0 0 3px rgba(92, 106, 196, 0.1);
+}
+
+.image-preview {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 144px;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .team-members-grid {
@@ -464,13 +486,28 @@
     gap: 1rem;
 }
 
-.media-button {
-    flex: 1;
+.media-input-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: 0.5rem;
+    width: 100%;
+}
+
+.button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.media-url-input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.media-button {
+    flex: 1;
     padding: 2rem 1rem;
     border: 2px dashed #ddd;
     border-radius: 8px;
@@ -480,6 +517,14 @@
     font-size: 0.875rem;
     color: #999;
     min-height: 120px;
+}
+
+.media-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .media-button:hover {
