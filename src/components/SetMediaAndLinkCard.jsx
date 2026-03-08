@@ -5,24 +5,44 @@ import {useState} from "react";
 function SetMediaAndLinkCard() {
     const {mediaImage, setMediaImage, mediaLink, setMediaLink} = useEditingKudos();
     const [showImageInput, setShowImageInput] = useState(false);
+    const [showLinkInput, setShowLinkInput] = useState(false);
     const [imageUrl, setImageUrl] = useState(mediaImage);
+    const [linkUrl, setLinkUrl] = useState(mediaLink);
 
-    const handleAdd = () => {
+    const handleAddImage = () => {
         if (imageUrl.trim()) {
             setMediaImage(imageUrl.trim());
         }
         setShowImageInput(false);
     };
 
-    const handleCancel = () => {
+    const handleCancelImage = () => {
         setImageUrl(mediaImage);
         setShowImageInput(false);
     };
 
-    const handleDelete = () => {
+    const handleDeleteImage = () => {
         setMediaImage("");
         setImageUrl("");
         setShowImageInput(false);
+    };
+
+    const handleAddLink = () => {
+        if (linkUrl.trim()) {
+            setMediaLink(linkUrl.trim());
+        }
+        setShowLinkInput(false);
+    };
+
+    const handleCancelLink = () => {
+        setLinkUrl(mediaLink);
+        setShowLinkInput(false);
+    };
+
+    const handleDeleteLink = () => {
+        setMediaLink("");
+        setLinkUrl("");
+        setShowLinkInput(false);
     };
 
     return (<div className="section media-section">
@@ -41,13 +61,13 @@ function SetMediaAndLinkCard() {
                         className="media-url-input"
                     />
                     <div className="button-row">
-                        <button type="button" onClick={handleAdd} className="primary-button">
+                        <button type="button" onClick={handleAddImage} className="primary-button">
                             Add
                         </button>
-                        <button type="button" onClick={handleCancel} className="secondary-button">
+                        <button type="button" onClick={handleCancelImage} className="secondary-button">
                             Cancel
                         </button>
-                        <button type="button" onClick={handleDelete} className="accent-button">
+                        <button type="button" onClick={handleDeleteImage} className="accent-button">
                             Delete
                         </button>
                     </div>
@@ -63,12 +83,38 @@ function SetMediaAndLinkCard() {
                         </div>)}
                 </button>
             )}
-            <button type="button" className="media-button">
-                <div className="media-div">
-                    <span className="media-icon">🔗</span>
-                    <span>Add Link</span>
+            {showLinkInput ? (
+                <div className="media-input-container">
+                    <input
+                        type="url"
+                        placeholder="https://..."
+                        value={linkUrl}
+                        onChange={(e) => setLinkUrl(e.target.value)}
+                        className="media-url-input"
+                    />
+                    <div className="button-row">
+                        <button type="button" onClick={handleAddLink} className="primary-button">
+                            Add
+                        </button>
+                        <button type="button" onClick={handleCancelLink} className="secondary-button">
+                            Cancel
+                        </button>
+                        <button type="button" onClick={handleDeleteLink} className="accent-button">
+                            Delete
+                        </button>
+                    </div>
                 </div>
-            </button>
+            ) : (
+                <button type="button" className="media-button" onClick={() => setShowLinkInput(true)}>
+                    {mediaLink ? (
+                            <div className="link-preview" aria-hidden="true"><img src={mediaLink} alt="Kudos link"/>
+                            </div>) :
+                        (<div className="media-div">
+                            <span className="media-icon">🔗</span>
+                            <span>Add Link</span>
+                        </div>)}
+                </button>
+            )}
         </div>
     </div>);
 }
