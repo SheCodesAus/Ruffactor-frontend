@@ -81,21 +81,6 @@
     margin-bottom: 2rem;
 }
 
-.back-button {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    color: #666;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.back-button:hover {
-    background-color: #f0f0f0;
-}
-
 .give-kudos-header h1 {
     margin: 0;
     font-size: 2rem;
@@ -119,7 +104,7 @@
 .section-header h3 {
     margin: 0;
     font-size: 0.875rem;
-    color: var(--secondary-text);
+    color: var(--primary-brand);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 600;
@@ -185,11 +170,11 @@
     width: 100%;
     padding: 0.75rem 1rem;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 16px;
     font-size: 0.9rem;
     margin: 0.75rem 0;
     transition: border-color 0.2s;
-    background: transparent;
+    background: var(--warm);
     box-sizing: border-box;
     color: #333;
 }
@@ -327,9 +312,9 @@
 }
 
 .ai-suggestions {
-    background: white;
+    background: transparent;
     border: none;
-    color: #666;
+    color: var(--secondary-text);
     cursor: pointer;
     font-size: 0.875rem;
     padding: 0.5rem 1rem;
