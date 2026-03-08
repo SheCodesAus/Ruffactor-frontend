@@ -1,0 +1,134 @@
+/*
+ * Global Styles - Pixel Pulse
+ *
+ * This file holds styles that apply to the whole app.
+ * Use the variables below in your components instead of hardcoding colors.
+ * If you need to change a colour, change it here and it updates everywhere!
+ */
+
+/* --- Font --- */
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap");
+
+/* --- Colors --- */
+:root {
+  --color-deep-navy: #011627;
+  --color-soft-purple: #7768ae;
+  --color-blush-pink: #f88dad;
+  --color-powder-pink: #fde8e9;
+  --color-bright-yellow: #fffd82;
+
+  --color-text-primary: #011627;
+  --color-text-secondary: #7768ae;
+  --color-text-muted: rgba(1, 22, 39, 0.6);
+  --color-text-accent: #f88dad;
+
+  --color-bg-card: #ffffff;
+  --color-bg-page: #fde8e9;
+  --color-border: #e5e7eb;
+}
+
+/* --- Gradients --- */
+:root {
+  --gradient-primary: linear-gradient(135deg, #7768ae, #f88dad);
+  --gradient-page-bg: linear-gradient(
+    to bottom right,
+    #fde8e9,
+    rgba(255, 253, 130, 0.2),
+    rgba(119, 104, 174, 0.1)
+  );
+  --gradient-full: linear-gradient(135deg, #7768ae, #f88dad, #fffd82);
+}
+
+/* --- Spacing --- */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+}
+
+/* --- Border radius --- */
+:root {
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+/* --- Font sizes --- */
+:root {
+  --font-size-body-1: 1rem;
+  --font-size-body-2: 0.875rem;
+  --font-size-subtitle-1: 1.5rem;
+  --font-size-subtitle-2: 1.25rem;
+  --font-size-heading-1: 3rem;
+  --font-size-heading-2: 2.25rem;
+
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --font-heading: "Raleway", sans-serif;
+  --font-body: "Raleway", sans-serif;
+}
+
+/* --- Shadows --- */
+:root {
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Transitions --- */
+:root {
+  --transition-fast: 0.15s ease-out;
+}
+
+/* --- Base styles --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  background: var(--gradient-page-bg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text-primary);
+}
+
+a {
+  color: var(--color-soft-purple);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover {
+  color: var(--color-blush-pink);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
