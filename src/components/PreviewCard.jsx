@@ -48,7 +48,7 @@ function PreviewCard() {
                         {selectedSkills.map((skill) => (
                             <span
                                 key={skill.id}
-                                className={`skill-tag`}
+                                className="skill-tag in-preview"
                             >
                                 {skill.name}
                             </span>))}

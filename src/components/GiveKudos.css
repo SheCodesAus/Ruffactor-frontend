@@ -12,15 +12,16 @@
     --warm: var(--powder-pink);
     --accent: var(--bright-yellow);
     /* semantic color variants */
-    --primary-dark-opacity-70-pct: color-mix(in srgb, var(--primary-dark) 70%, transparent);
-    --primary-dark-opacity-80-pct: color-mix(in srgb, var(--primary-dark) 80%, transparent);
+    --primary-dark-lighter-20-pct: color-mix(in srgb, var(--primary-dark), white 20%);
+    --warm-darker-20-pct: color-mix(in srgb, var(--warm), black 20%);
     --primary-brand-opacity-10-pct: color-mix(in srgb, var(--primary-brand) 10%, transparent);
     --accent-opacity-20-pct: color-mix(in srgb, var(--accent) 20%, transparent);
     /* ui colors */
     --page-background: var(--warm);
     --card-background: var(--warm);
     --primary-text: var(--primary-dark);
-    --secondary-text: var(--primary-dark-opacity-80-pct);
+    --secondary-text: var(--primary-dark-lighter-20-pct);
+    --chip-background-view: var(--warm-darker-20-pct);
     /* semantic gradients */
     --brand-gradient: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
     --warm-accent-gradient: linear-gradient(135deg, var(--warm), var(--accent));
@@ -340,6 +341,12 @@
     background-color: #1e3a4f;
     color: white;
     border-color: #1e3a4f;
+}
+
+.skill-tag.in-preview {
+    background-color: var(--chip-background-view);
+    color: white;
+    border-color: var(--primary-dark);
 }
 
 /* Privacy Section */
