@@ -61,12 +61,15 @@ function PreviewCard() {
 
                 {mediaImage ? (
                     <div className="preview-image">
-                        <div className="image-preview fix-width" aria-hidden="true"><img src={mediaImage} alt="Kudos image"/>
+                        <div className="image-preview fix-width" aria-hidden="true"><img src={mediaImage}
+                                                                                         alt="Kudos image"/>
                         </div>
                     </div>) : null}
 
                 {mediaLink ? (<div className="preview-link">
-                    <div className="link-preview fix-width" aria-hidden="true"><img src={mediaLink} alt="Kudos link"/>
+                    <div className="link-preview fix-width" aria-hidden="true">
+                        <a className="truncate-multiline" href={mediaLink} target="_blank"
+                           rel="noopener noreferrer">{mediaLink}</a>
                     </div>
                 </div>) : null}
             </div>

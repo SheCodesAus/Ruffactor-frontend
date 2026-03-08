@@ -45,84 +45,92 @@ function SetMediaAndLinkCard() {
         setShowLinkInput(false);
     };
 
-    return (<div className="section media-section">
-        <div className="section-header">
-            <h3>ATTACH MEDIA OR LINK (OPTIONAL)</h3>
-        </div>
+    const handleLinkClick = (event) => {
+        event.stopPropagation();
+    };
 
-        <div className="media-buttons-container">
-            {showImageInput ? (
-                <div className="media-input-container">
-                    <div className="section-header small">
-                        <h4>ADD MEDIA</h4>
+    return (
+        <div className="section media-section">
+            <div className="section-header">
+                <h3>ATTACH MEDIA OR LINK (OPTIONAL)</h3>
+            </div>
+
+            <div className="media-buttons-container">
+                {showImageInput ? (
+                    <div className="media-input-container">
+                        <div className="section-header small">
+                            <h4>ADD MEDIA</h4>
+                        </div>
+                        <input
+                            type="url"
+                            placeholder="https://..."
+                            value={imageUrl}
+                            onChange={(e) => setImageUrl(e.target.value)}
+                            className="media-url-input"
+                        />
+                        <div className="button-row">
+                            <button type="button" onClick={handleAddImage} className="primary-button">
+                                Add
+                            </button>
+                            <button type="button" onClick={handleCancelImage} className="secondary-button">
+                                Cancel
+                            </button>
+                            <button type="button" onClick={handleDeleteImage} className="accent-button">
+                                Delete
+                            </button>
+                        </div>
                     </div>
-                    <input
-                        type="url"
-                        placeholder="https://..."
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)}
-                        className="media-url-input"
-                    />
-                    <div className="button-row">
-                        <button type="button" onClick={handleAddImage} className="primary-button">
-                            Add
-                        </button>
-                        <button type="button" onClick={handleCancelImage} className="secondary-button">
-                            Cancel
-                        </button>
-                        <button type="button" onClick={handleDeleteImage} className="accent-button">
-                            Delete
-                        </button>
+                ) : (
+                    <button type="button" className="media-button" onClick={() => setShowImageInput(true)}>
+                        {mediaImage ? (
+                                <div className="image-preview" aria-hidden="true"><img src={mediaImage} alt="Kudos image"/>
+                                </div>) :
+                            (<div className="media-div">
+                                <span className="media-icon">🖼️</span>
+                                <span>Add Image</span>
+                            </div>)}
+                    </button>
+                )}
+                {showLinkInput ? (
+                    <div className="media-input-container">
+                        <div className="section-header small">
+                            <h4>ADD LINK</h4>
+                        </div>
+                        <input
+                            type="url"
+                            placeholder="https://..."
+                            value={linkUrl}
+                            onChange={(e) => setLinkUrl(e.target.value)}
+                            className="media-url-input"
+                        />
+                        <div className="button-row">
+                            <button type="button" onClick={handleAddLink} className="primary-button">
+                                Add
+                            </button>
+                            <button type="button" onClick={handleCancelLink} className="secondary-button">
+                                Cancel
+                            </button>
+                            <button type="button" onClick={handleDeleteLink} className="accent-button">
+                                Delete
+                            </button>
+                        </div>
                     </div>
-                </div>
-            ) : (
-                <button type="button" className="media-button" onClick={() => setShowImageInput(true)}>
-                    {mediaImage ? (
-                            <div className="image-preview" aria-hidden="true"><img src={mediaImage} alt="Kudos image"/>
-                            </div>) :
-                        (<div className="media-div">
-                            <span className="media-icon">🖼️</span>
-                            <span>Add Image</span>
-                        </div>)}
-                </button>
-            )}
-            {showLinkInput ? (
-                <div className="media-input-container">
-                    <div className="section-header small">
-                        <h4>ADD LINK</h4>
-                    </div>
-                    <input
-                        type="url"
-                        placeholder="https://..."
-                        value={linkUrl}
-                        onChange={(e) => setLinkUrl(e.target.value)}
-                        className="media-url-input"
-                    />
-                    <div className="button-row">
-                        <button type="button" onClick={handleAddLink} className="primary-button">
-                            Add
-                        </button>
-                        <button type="button" onClick={handleCancelLink} className="secondary-button">
-                            Cancel
-                        </button>
-                        <button type="button" onClick={handleDeleteLink} className="accent-button">
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            ) : (
-                <button type="button" className="media-button" onClick={() => setShowLinkInput(true)}>
-                    {mediaLink ? (
-                            <div className="link-preview" aria-hidden="true"><img src={mediaLink} alt="Kudos link"/>
-                            </div>) :
-                        (<div className="media-div">
-                            <span className="media-icon">🔗</span>
-                            <span>Add Link</span>
-                        </div>)}
-                </button>
-            )}
+                ) : (
+                    <button type="button" className="media-button" onClick={() => setShowLinkInput(true)}>
+                        {mediaLink ? (
+                                <div className="link-preview" aria-hidden="true">
+                                    <a className="truncate-multiline" href={mediaLink} onClick={handleLinkClick} target="_blank"
+                                       rel="noopener noreferrer">{mediaLink}</a>
+                                </div>) :
+                            (<div className="media-div">
+                                <span className="media-icon">🔗</span>
+                                <span>Add Link</span>
+                            </div>)}
+                    </button>
+                )}
+            </div>
         </div>
-    </div>);
+    );
 }
 
 export default SetMediaAndLinkCard;

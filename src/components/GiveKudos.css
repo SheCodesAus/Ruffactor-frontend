@@ -227,6 +227,22 @@
     object-fit: contain;
 }
 
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 288px;
+}
+
+.truncate-multiline {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 288px;
+}
+
 .recipients-grid {
     display: flex;
     flex-wrap: wrap;
@@ -461,6 +477,11 @@
     margin-bottom: 1rem;
 }
 
+.preview-link {
+    font-size: 0.825rem;
+    line-height: 1rem;
+}
+
 .preview-skill,
 .preview-image,
 .preview-link {
@@ -510,7 +531,7 @@
     transition: all 0.2s;
     font-size: 0.875rem;
     color: #999;
-    min-height: 96px;
+    height: 144px;
 }
 
 .media-url-input {
@@ -535,8 +556,7 @@
     cursor: pointer;
     transition: all 0.2s;
     font-size: 0.875rem;
-    color: #999;
-    min-height: 96px;
+    color: var(--secondary-text);
 }
 
 .media-div {
