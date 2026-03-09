@@ -1,8 +1,11 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import "./App.css";
-import { useState } from "react";
+import { useAuth } from "./context/AuthContext.jsx";
 
 import Home from "./pages/Home.jsx";
+import Login from "./pages/Login.jsx";
+import SignUp from "./pages/SignUp.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 import GiveKudos from "./pages/GiveKudos.jsx";
 import Profile from "./pages/Profile.jsx";
 import ProfileActivity from "./pages/ProfileActivity.jsx";
@@ -10,15 +13,9 @@ import ProfileSettings from "./pages/ProfileSettings.jsx";
 import ProfileNotifications from "./pages/ProfileNotifications.jsx";
 
 function App() {
-const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-const handleLogin = () => {
-  setIsLoggedIn(true);
-};
-
-const handleLogout = () => {
-  setIsLoggedIn(false);
-};
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
+  const goToLogin = () => navigate("/login");
   return (
     <div className="app">
       <header className="site-header">
@@ -42,17 +39,17 @@ const handleLogout = () => {
 
     <div className="nav-right">
       {isLoggedIn ? (
-        <button className="login-btn" onClick={handleLogout}>
+        <button type="button" className="login-btn" onClick={logout}>
           Logout
         </button>
       ) : (
         <>
-          <button className="login-btn" onClick={handleLogin}>
+          <Link to="/login" className="login-btn nav-link-btn">
             Login
-          </button>
-          <button className="signup-btn">
+          </Link>
+          <Link to="/signup" className="signup-btn nav-link-btn">
             Sign Up
-          </button>
+          </Link>
         </>
       )}
     </div>
@@ -62,7 +59,19 @@ const handleLogout = () => {
        {/* Removed padding so pages control their own layout */}
       <main>
       <Routes>
-  <Route path="/" element={<Home />} />
+  <Route
+    path="/"
+    element={
+      <Home
+        isLoggedIn={isLoggedIn}
+        handleLogin={goToLogin}
+        handleLogout={logout}
+      />
+    }
+  />
+  <Route path="/login" element={<Login />} />
+  <Route path="/signup" element={<SignUp />} />
+  <Route path="/forgot-password" element={<ForgotPassword />} />
   <Route path="/give-kudos" element={<GiveKudos />} />
 
   <Route path="/profile" element={<Profile />}>
