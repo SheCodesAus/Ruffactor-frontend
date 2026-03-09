@@ -21,7 +21,7 @@ function App() {
       <header className="site-header">
   <nav className="navbar">
     <div className="nav-left">
-    <img src="/logo.png" alt="Pixel Pulse logo" className="logo-image" />
+    <img src="img/pp-logo-v.png" alt="Pixel Pulse logo" className="logo-image" />
     </div>
 
     <ul className="main-nav">
