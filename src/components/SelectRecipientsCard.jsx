@@ -1,5 +1,5 @@
 import React from "react";
-import {useEditingKudos} from "../hooks/use-editing-kudos.js";
+import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 import "./GiveKudos.css";
 
 function SelectRecipientsCard() {

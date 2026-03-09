@@ -1,6 +1,6 @@
 import React from "react";
 import "./GiveKudos.css";
-import {useEditingKudos} from "../hooks/use-editing-kudos.js";
+import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 
 function SetVisibilityCard() {
     const {visibility, setVisibility} = useEditingKudos();
