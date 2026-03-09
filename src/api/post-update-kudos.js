@@ -1,9 +1,10 @@
-async function postCreateKudos(recipientId, message, skillIds, media, link, visibility) {
+async function postUpdateKudos(id, recipientId, message, skillIds, media, link, visibility) {
     const loggedInUser = window.localStorage.getItem("loggedInUser");
     const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
-    const url = `${import.meta.env.VITE_API_URL}/kudos/`;
+    const url = `${import.meta.env.VITE_API_URL}/kudos/${id}`;
+
     const response = await fetch(url, {
-        method: "POST",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Token ${token}`
@@ -19,12 +20,10 @@ async function postCreateKudos(recipientId, message, skillIds, media, link, visi
     });
 
     if (!response.ok) {
-        const fallbackError = `Error trying to create kudos`;
-
+        const fallbackError = `Error trying to update kudos`;
         const data = await response.json().catch(() => {
             throw new Error(fallbackError);
         });
-
         const errorMessage = data?.detail ?? fallbackError;
         throw new Error(errorMessage);
     }
@@ -32,4 +31,4 @@ async function postCreateKudos(recipientId, message, skillIds, media, link, visi
     return await response.json();
 }
 
-export default postCreateKudos;
+export default postUpdateKudos;
