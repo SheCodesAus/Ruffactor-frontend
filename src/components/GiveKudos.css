@@ -13,15 +13,17 @@
     --accent: var(--bright-yellow);
     /* semantic color variants */
     --primary-dark-lighter-20-pct: color-mix(in srgb, var(--primary-dark), white 20%);
-    --warm-darker-20-pct: color-mix(in srgb, var(--warm), black 20%);
+    --primary-dark-lighter-40-pct: color-mix(in srgb, var(--primary-dark), white 40%);
+    --warm-darker-5-pct: color-mix(in srgb, var(--warm), black 5%);
     --primary-brand-opacity-10-pct: color-mix(in srgb, var(--primary-brand) 10%, transparent);
     --accent-opacity-20-pct: color-mix(in srgb, var(--accent) 20%, transparent);
     /* ui colors */
     --page-background: var(--warm);
     --card-background: var(--warm);
     --primary-text: var(--primary-dark);
-    --secondary-text: var(--primary-dark-lighter-20-pct);
-    --chip-background-view: var(--warm-darker-20-pct);
+    --secondary-text: var(--primary-dark-lighter-40-pct);
+    --chip-background-view: var(--warm-darker-5-pct);
+    --chip-text-view: var(--primary-brand);
     /* semantic gradients */
     --brand-gradient: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
     --warm-accent-gradient: linear-gradient(135deg, var(--warm), var(--accent));
@@ -79,21 +81,6 @@
     margin-bottom: 2rem;
 }
 
-.back-button {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    color: #666;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.back-button:hover {
-    background-color: #f0f0f0;
-}
-
 .give-kudos-header h1 {
     margin: 0;
     font-size: 2rem;
@@ -117,10 +104,25 @@
 .section-header h3 {
     margin: 0;
     font-size: 0.875rem;
-    color: #999;
+    color: var(--primary-brand);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 600;
+}
+
+.section-header h4 {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.section-header.small {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.15rem;
 }
 
 .badge {
@@ -168,11 +170,11 @@
     width: 100%;
     padding: 0.75rem 1rem;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 16px;
     font-size: 0.9rem;
     margin: 0.75rem 0;
     transition: border-color 0.2s;
-    background: transparent;
+    background: var(--warm);
     box-sizing: border-box;
     color: #333;
 }
@@ -211,6 +213,22 @@
     object-fit: contain;
 }
 
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 288px;
+}
+
+.truncate-multiline {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 288px;
+}
+
 .recipients-grid {
     display: flex;
     flex-wrap: wrap;
@@ -240,16 +258,16 @@
 }
 
 .recipient.selected {
-    background-color: #1e3a4f;
+    background: var(--brand-gradient);
     color: white;
-    border-color: #1e3a4f;
+    border-color: var(--primary-brand);
 }
 
 .avatar {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #d0d0d0;
+    background: var(--full-spectrum-gradient);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -294,9 +312,9 @@
 }
 
 .ai-suggestions {
-    background: white;
+    background: transparent;
     border: none;
-    color: #666;
+    color: var(--secondary-text);
     cursor: pointer;
     font-size: 0.875rem;
     padding: 0.5rem 1rem;
@@ -338,15 +356,9 @@
 }
 
 .skill-tag.selected {
-    background-color: #1e3a4f;
+    background: var(--brand-gradient);
     color: white;
-    border-color: #1e3a4f;
-}
-
-.skill-tag.in-preview {
-    background-color: var(--chip-background-view);
-    color: white;
-    border-color: var(--primary-dark);
+    border-color: var(--primary-brand);
 }
 
 /* Privacy Section */
@@ -494,7 +506,7 @@
     transition: all 0.2s;
     font-size: 0.875rem;
     color: #999;
-    min-height: 96px;
+    height: 144px;
 }
 
 .media-url-input {
@@ -519,8 +531,7 @@
     cursor: pointer;
     transition: all 0.2s;
     font-size: 0.875rem;
-    color: #999;
-    min-height: 96px;
+    color: var(--secondary-text);
 }
 
 .media-div {

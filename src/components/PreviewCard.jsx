@@ -27,7 +27,7 @@ function PreviewCard() {
                 <div className="preview-sender-recipients">
                     <span
                         key={currentSender.id}
-                        className="recipient">
+                        className="recipient selected">
                         <div className="avatar">{currentSender.initial}</div>
                         <span>{currentSender.name}</span>
                     </span>
@@ -36,7 +36,7 @@ function PreviewCard() {
                         {selectedRecipients.map((recipient) => (
                             <span
                                 key={recipient.id}
-                                className="recipient">
+                                className="recipient selected">
                                 <div className="avatar">{recipient.initial}</div>
                                 <span>{recipient.name}</span>
                             </span>))}
@@ -48,7 +48,7 @@ function PreviewCard() {
                         {selectedSkills.map((skill) => (
                             <span
                                 key={skill.id}
-                                className="skill-tag in-preview"
+                                className="skill-tag selected"
                             >
                                 {skill.name}
                             </span>))}
@@ -61,12 +61,15 @@ function PreviewCard() {
 
                 {mediaImage ? (
                     <div className="preview-image">
-                        <div className="image-preview fix-width" aria-hidden="true"><img src={mediaImage} alt="Kudos image"/>
+                        <div className="image-preview fix-width" aria-hidden="true"><img src={mediaImage}
+                                                                                         alt="Kudos image"/>
                         </div>
                     </div>) : null}
 
                 {mediaLink ? (<div className="preview-link">
-                    <div className="link-preview fix-width" aria-hidden="true"><img src={mediaLink} alt="Kudos link"/>
+                    <div className="link-preview fix-width" aria-hidden="true">
+                        <a className="truncate-multiline" href={mediaLink} target="_blank"
+                           rel="noopener noreferrer">{mediaLink}</a>
                     </div>
                 </div>) : null}
             </div>
