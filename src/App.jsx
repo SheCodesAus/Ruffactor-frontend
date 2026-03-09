@@ -4,10 +4,10 @@ import { useState } from "react";
 
 import Home from "./pages/Home.jsx";
 import GiveKudos from "./pages/GiveKudos.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import Notifications from "./pages/Notifications.jsx";
-import Settings from "./pages/Settings.jsx";
 import Profile from "./pages/Profile.jsx";
+import ProfileActivity from "./pages/ProfileActivity.jsx";
+import ProfileSettings from "./pages/ProfileSettings.jsx";
+import ProfileNotifications from "./pages/ProfileNotifications.jsx";
 
 function App() {
 const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,9 +34,7 @@ const handleLogout = () => {
       <li>
         <Link to="/give-kudos">Give Kudos</Link>
       </li>
-      <li>
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
+      
       <li>
         <Link to="/profile">Profile</Link>
       </li>
@@ -63,18 +61,17 @@ const handleLogout = () => {
 
        {/* Removed padding so pages control their own layout */}
       <main>
-        <Routes>
-          <Route
-                path="/"
-                element={<Home isLoggedIn={isLoggedIn} handleLogin={handleLogin} handleLogout={handleLogout} />}
-/>
+      <Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/give-kudos" element={<GiveKudos />} />
 
-          <Route path="/give-kudos" element={<GiveKudos />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
+  <Route path="/profile" element={<Profile />}>
+    <Route index element={<ProfileActivity />} />
+    <Route path="activity" element={<ProfileActivity />} />
+    <Route path="settings" element={<ProfileSettings />} />
+    <Route path="notifications" element={<ProfileNotifications />} />
+  </Route>
+</Routes>
       </main>
     </div>
   );
