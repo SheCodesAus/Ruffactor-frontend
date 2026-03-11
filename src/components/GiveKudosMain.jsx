@@ -5,23 +5,25 @@ import SetMediaAndLinkCard from "../components/SetMediaAndLinkCard.jsx";
 import SetVisibilityCard from "../components/SetVisibilityCard.jsx";
 import React from "react";
 
-function GiveKudosSide() {
-    return (<div className="give-kudos-main">
-        <div className="give-kudos-header">
-            <h1>Give Kudos</h1>
-        </div>
+function GiveKudosMain() {
+    return (
+        <div className="give-kudos-main">
+            <div className="give-kudos-header">
+                <h1>Give Kudos</h1>
+            </div>
 
-        <form className="give-kudos-form">
-            <SelectRecipientsCard/>
-            <EditKudosMessageCard/>
-            <SelectSkillsCard/>
-            <SetMediaAndLinkCard/>
-            <SetVisibilityCard/>
-            <button type="submit" className="primary-button">
-                Send Kudos
-            </button>
-        </form>
-    </div>);
+            <form className="give-kudos-form">
+                <SelectRecipientsCard/>
+                <EditKudosMessageCard/>
+                <SelectSkillsCard/>
+                <SetMediaAndLinkCard/>
+                <SetVisibilityCard/>
+                <button type="submit" className="primary-button">
+                    Send Kudos
+                </button>
+            </form>
+        </div>
+    );
 }
 
-export default GiveKudosSide;
+export default GiveKudosMain;
