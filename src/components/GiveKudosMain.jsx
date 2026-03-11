@@ -85,7 +85,7 @@ function GiveKudosMain() {
                 <SelectRecipientsCard/>
                 <EditKudosMessageCard/>
                 <SelectSkillsCard/>
-                <SetMediaAndLinkCard/>
+                {/*<SetMediaAndLinkCard/>*/}
                 <SetVisibilityCard/>
                 <button type="submit" className="primary-button">
                     Send Kudos
