@@ -1,4 +1,4 @@
-async function postUpdateKudos(id, recipientId, message, skillIds, media, link, visibility) {
+async function patchUpdateKudos(id, recipientId, message, skillIds, media, link, visibility) {
     const loggedInUser = window.localStorage.getItem("loggedInUser");
     const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
     const url = `${import.meta.env.VITE_API_URL}/kudos/${id}`;
@@ -31,4 +31,4 @@ async function postUpdateKudos(id, recipientId, message, skillIds, media, link, 
     return await response.json();
 }
 
-export default postUpdateKudos;
+export default patchUpdateKudos;

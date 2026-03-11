@@ -73,6 +73,20 @@
     flex: 1;
 }
 
+.kudos-dialog {
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    max-width: 420px;
+    width: min(90vw, 420px);
+}
+
+.kudos-dialog[open] {
+    position: fixed;              /* ensure it sits in the viewport */
+    inset: 50% auto auto 50%;     /* top/left at 50% */
+    transform: translate(-50%, -50%); /* perfect center */
+}
+
 .give-kudos-header {
     display: flex;
     align-items: center;
