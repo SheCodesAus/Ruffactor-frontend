@@ -23,8 +23,11 @@ export const EditingKudosProvider = ({children}) => {
     }, {id: 4, name: "Teamwork"}, {id: 5, name: "Creativity"}, {id: 6, name: "Technical Excellence"},]);
     const [tips] = useState(["Be specific about what they did", "Explain the impact on the team", "Tag relevant skills", "Keep it genuine and personal",]);
     const [selectedRecipients, setSelectedRecipients] = useState([]);
+    const [recipientsError, setRecipientsError] = useState("");
     const [message, setMessage] = useState("");
+    const [messageError, setMessageError] = useState("");
     const [selectedSkills, setSelectedSkills] = useState([]);
+    const [skillsError, setSkillsError] = useState("");
     const [visibility, setVisibility] = useState("public");
     const [mediaImage, setMediaImage] = useState("");
     const [mediaLink, setMediaLink] = useState("");
@@ -38,10 +41,16 @@ export const EditingKudosProvider = ({children}) => {
                 tips,
                 selectedRecipients,
                 setSelectedRecipients,
+                recipientsError,
+                setRecipientsError,
                 message,
                 setMessage,
+                messageError,
+                setMessageError,
                 selectedSkills,
                 setSelectedSkills,
+                skillsError,
+                setSkillsError,
                 mediaImage,
                 setMediaImage,
                 mediaLink,
