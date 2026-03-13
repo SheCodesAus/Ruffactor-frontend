@@ -1,9 +1,9 @@
 import React from "react";
 import "./GiveKudos.css";
-import {useEditingKudos} from "../hooks/use-editing-kudos.js";
+import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 
 function EditKudosMessageCard() {
-    const {message, setMessage} = useEditingKudos();
+    const {message, setMessage, messageError, setMessageError} = useEditingKudos();
     const characterCount = message.length;
     const maxCharacters = 500;
 
@@ -14,7 +14,10 @@ function EditKudosMessageCard() {
 
         <textarea
             value={message}
-            onChange={(e) => setMessage(e.target.value.slice(0, maxCharacters))}
+            onChange={(e) => {
+                setMessage(e.target.value.slice(0, maxCharacters));
+                setMessageError("");
+            }}
             placeholder="Describe what they did and why it matters..."
             className="message-textarea"
             maxLength={maxCharacters}
@@ -28,6 +31,8 @@ function EditKudosMessageCard() {
                 ✨ AI Suggestions
             </button>
         </div>
+
+        {messageError && <p className="error">{messageError}</p>}
     </div>);
 }
 

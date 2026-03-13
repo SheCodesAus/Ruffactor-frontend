@@ -1,13 +1,20 @@
 import React from "react";
-import {useEditingKudos} from "../hooks/use-editing-kudos.js";
+import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 import "./GiveKudos.css";
 
 function SelectRecipientsCard() {
-    const {teamMembers, selectedRecipients, setSelectedRecipients} = useEditingKudos();
+    const {
+        teamMembers,
+        selectedRecipients,
+        setSelectedRecipients,
+        recipientsError,
+        setRecipientsError
+    } = useEditingKudos();
 
     const handleSelectRecipient = (incomingRecipient) => {
         const id = incomingRecipient.id;
         setSelectedRecipients((prev) => prev.some(person => person.id === id) ? prev.filter(person => person.id !== id) : [...prev, incomingRecipient]);
+        setRecipientsError("");
     };
 
     return (
@@ -45,6 +52,8 @@ function SelectRecipientsCard() {
                     <span>{member.name}</span>
                 </button>))}
             </div>
+
+            {recipientsError && <p className="error">{recipientsError}</p>}
         </div>
     );
 }

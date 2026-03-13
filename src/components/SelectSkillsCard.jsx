@@ -1,13 +1,14 @@
 import "./GiveKudos.css";
 import React from "react";
-import {useEditingKudos} from "../hooks/use-editing-kudos.js";
+import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 
 function SelectSkillsCard() {
-    const {allSkills, selectedSkills, setSelectedSkills} = useEditingKudos();
+    const {allSkills, selectedSkills, setSelectedSkills, skillsError, setSkillsError} = useEditingKudos();
 
     const handleSelectSkill = (incomingSkill) => {
         const id = incomingSkill.id;
         setSelectedSkills((prev) => prev.some(skill => skill.id === id) ? prev.filter(skill => skill.id !== id) : [...prev, incomingSkill]);
+        setSkillsError("");
     };
 
     return (
@@ -26,6 +27,8 @@ function SelectSkillsCard() {
                     {skill.name}
                 </button>))}
             </div>
+
+            {skillsError && <p className="error">{skillsError}</p>}
         </div>
     );
 }
