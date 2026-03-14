@@ -7,33 +7,35 @@ function EditKudosMessageCard() {
     const characterCount = message.length;
     const maxCharacters = 500;
 
-    return (<div className="section message-section">
-        <div className="section-header">
-            <h3>YOUR MESSAGE</h3>
-        </div>
+    return (
+        <div className="section message-section">
+            <div className="section-header">
+                <h3>YOUR MESSAGE</h3>
+            </div>
 
-        <textarea
-            value={message}
-            onChange={(e) => {
-                setMessage(e.target.value.slice(0, maxCharacters));
-                setMessageError("");
-            }}
-            placeholder="Describe what they did and why it matters..."
-            className="message-textarea"
-            maxLength={maxCharacters}
-        />
+            <textarea
+                value={message}
+                onChange={(e) => {
+                    setMessage(e.target.value.slice(0, maxCharacters));
+                    setMessageError("");
+                }}
+                placeholder="Describe what they did and why it matters..."
+                className="message-textarea"
+                maxLength={maxCharacters}
+            />
 
-        <div className="message-footer">
+            <div className="message-footer">
                             <span className="character-count">
                                 {characterCount} / {maxCharacters} characters
                             </span>
-            <button type="button" className="ai-suggestions">
-                ✨ AI Suggestions
-            </button>
-        </div>
+                <button type="button" className="ai-suggestions">
+                    ✨ AI Suggestions
+                </button>
+            </div>
 
-        {messageError && <p className="error">{messageError}</p>}
-    </div>);
+            {messageError && <p className="error">{messageError}</p>}
+        </div>
+    );
 }
 
 export default EditKudosMessageCard;

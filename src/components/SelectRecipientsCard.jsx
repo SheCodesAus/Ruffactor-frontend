@@ -10,10 +10,12 @@ function SelectRecipientsCard() {
         recipientsError,
         setRecipientsError
     } = useEditingKudos();
+    const recipientCount = selectedRecipients.length;
+    const maxRecipients = 5;
 
     const handleSelectRecipient = (incomingRecipient) => {
         const id = incomingRecipient.id;
-        setSelectedRecipients((prev) => prev.some(person => person.id === id) ? prev.filter(person => person.id !== id) : [...prev, incomingRecipient]);
+        setSelectedRecipients((prev) => prev.some(person => person.id === id) ? prev.filter(person => person.id !== id) : (prev.length < maxRecipients ? [...prev, incomingRecipient] : prev));
         setRecipientsError("");
     };
 
@@ -21,6 +23,11 @@ function SelectRecipientsCard() {
         <div className="section recipient-section">
             <div className="section-header">
                 <h3>WHO ARE YOU RECOGNIZING?</h3>
+                <div className="recipients-footer">
+                    <span className="recipients-count">
+                        {recipientCount} / {maxRecipients} recipients
+                    </span>
+                </div>
             </div>
 
             <div className="recipients-grid">

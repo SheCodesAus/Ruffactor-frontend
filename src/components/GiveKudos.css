@@ -316,14 +316,17 @@
     box-shadow: 0 0 0 3px rgba(92, 106, 196, 0.1);
 }
 
-.message-footer {
+.recipients-footer,
+.message-footer,
+.skills-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
-.character-count {
+.recipients-count,
+.character-count,
+.skills-count {
     font-size: 0.875rem;
     color: #999;
 }
