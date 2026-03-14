@@ -1,4 +1,5 @@
 import {createContext, useContext, useState} from "react";
+import useSkills from "../hook/use-skills.js";
 
 const EditingKudosContext = createContext(null);
 
@@ -7,6 +8,7 @@ export const useEditingKudos = () => {
 };
 
 export const EditingKudosProvider = ({children}) => {
+    const {allSkills, allSkillsIsLoading, allSkillsError} = useSkills();
     const [currentSender] = useState({id: 7, name: "Jordan Diesel", initial: "JD"},);
     const [teamMembers] = useState(
         [
@@ -18,16 +20,16 @@ export const EditingKudosProvider = ({children}) => {
             {id: 6, name: "Alex Chen", initial: "AC"},
         ]
     );
-    const [allSkills] = useState(
-        [
-            {id: 1, name: "Leadership"},
-            {id: 2, name: "Communication"},
-            {id: 3, name: "Problem Solving"},
-            {id: 4, name: "Teamwork"},
-            {id: 5, name: "Creativity"},
-            {id: 6, name: "Technical Excellence"}
-        ]
-    );
+    // const [allSkills] = useState(
+    //     [
+    //         {id: 1, name: "Leadership"},
+    //         {id: 2, name: "Communication"},
+    //         {id: 3, name: "Problem Solving"},
+    //         {id: 4, name: "Teamwork"},
+    //         {id: 5, name: "Creativity"},
+    //         {id: 6, name: "Technical Excellence"}
+    //     ]
+    // );
     const [tips] = useState(["Be specific about what they did", "Explain the impact on the team", "Tag relevant skills", "Keep it genuine and personal",]);
     const [selectedRecipients, setSelectedRecipients] = useState([]);
     const [recipientsError, setRecipientsError] = useState("");
