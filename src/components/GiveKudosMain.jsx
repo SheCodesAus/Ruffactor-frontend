@@ -3,9 +3,10 @@ import EditKudosMessageCard from "../components/EditKudosMessageCard.jsx";
 import SelectSkillsCard from "../components/SelectSkillsCard.jsx";
 import SetMediaAndLinkCard from "../components/SetMediaAndLinkCard.jsx";
 import SetVisibilityCard from "../components/SetVisibilityCard.jsx";
-import React, { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useEditingKudos } from "../context/EditingKudosContext.jsx";
+import React, {useEffect, useRef} from "react";
+import {useNavigate} from "react-router-dom";
+import {useEditingKudos} from "../context/EditingKudosContext.jsx";
+import postCreateKudos from "../api/post-create-kudos.js";
 
 function GiveKudosMain() {
     const {
@@ -47,7 +48,7 @@ function GiveKudosMain() {
         closeDialog();
         navigate("/");
         requestAnimationFrame(() => {
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            window.scrollTo({top: 0, left: 0, behavior: "smooth"});
         });
     };
 
@@ -57,23 +58,19 @@ function GiveKudosMain() {
         const me = message.trim() ? "" : "Please add a message!";
         const se = selectedSkills.length > 0 ? "" : "Please select at least one skill!";
         const allGood = re.length === 0 && me.length === 0 && se.length === 0;
-        console.log(re);
-        console.log(me);
-        console.log(se);
         setRecipientsError(re);
         setMessageError(me);
         setSkillsError(se);
         if (allGood) {
-            openDialog();
+            postCreateKudos(
+                selectedRecipients,
+                message,
+                selectedSkills,
+                mediaImage,
+                mediaLink,
+                visibility
+            ).then(() => openDialog());
         }
-        // postCreateKudos(
-        //     selectedRecipients,
-        //     message,
-        //     selectedSkills,
-        //     mediaImage,
-        //     mediaLink,
-        //     visibility
-        // ).then(() => navigate("/"));
     };
 
     useEffect(() => {
@@ -82,7 +79,7 @@ function GiveKudosMain() {
             ev.preventDefault();
             navigate("/");
             requestAnimationFrame(() => {
-                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                window.scrollTo({top: 0, left: 0, behavior: "smooth"});
             });
         };
         const dlg = dialogRef.current;
@@ -97,19 +94,19 @@ function GiveKudosMain() {
             </div>
 
             <form className="give-kudos-form" onSubmit={handleSubmit}>
-                <SelectRecipientsCard />
-                <EditKudosMessageCard />
-                <SelectSkillsCard />
+                <SelectRecipientsCard/>
+                <EditKudosMessageCard/>
+                <SelectSkillsCard/>
                 {/*<SetMediaAndLinkCard/>*/}
-                <SetVisibilityCard />
+                <SetVisibilityCard/>
                 <button type="submit" className="primary-button">
                     Send Kudos
                 </button>
             </form>
 
             <dialog ref={dialogRef} className="kudos-dialog">
-                <p style={{ marginBottom: 16 }}>Kudos created</p>
-                <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
+                <p style={{marginBottom: 16}}>Kudos created</p>
+                <div style={{display: "flex", justifyContent: "flex-end", gap: 8}}>
                     <button onClick={handleOk} autoFocus>OK</button>
                 </div>
             </dialog>
