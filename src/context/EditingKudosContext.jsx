@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import useSkills from "../hook/use-skills.js";
 import useSelfProfile from "../hook/use-self-profile.js";
 import useKudos from "../hook/use-kudos.js";
@@ -54,6 +54,19 @@ export const EditingKudosProvider = ({children, updatingKudosId}) => {
     const [visibility, setVisibility] = useState("public");
     const [mediaImage, setMediaImage] = useState("");
     const [mediaLink, setMediaLink] = useState("");
+
+    useEffect(() => {
+        console.log(`updatingKudos 1: ${updatingKudos}`);
+        if (updatingKudos) {
+            console.log(`updatingKudos 2: ${updatingKudos}`);
+            setTimeout(() => {
+                setSelectedRecipients(updatingKudos.recipients);
+                setMessage(updatingKudos.message);
+                setSelectedSkills(updatingKudos.skills);
+                setVisibility(updatingKudos.visibility);
+            });
+        }
+    }, [updatingKudos]);
 
     return (
         <EditingKudosContext.Provider
