@@ -11,7 +11,7 @@ const STATS = [
 
 const KUDOS_FEED = [
   {
-    id: 1,
+    id: 7,
     giver: "Alex Chen",
     recipient: "Maria Lopez",
     timeAgo: "2h ago",
@@ -22,7 +22,7 @@ const KUDOS_FEED = [
     comments: 4,
   },
   {
-    id: 2,
+    id: 8,
     giver: "Sam Rivera",
     recipient: "Tom Bradley",
     timeAgo: "4h ago",
@@ -33,7 +33,7 @@ const KUDOS_FEED = [
     comments: 2,
   },
   {
-    id: 3,
+    id: 9,
     giver: "Priya Nair",
     recipient: "Jordan Kim",
     timeAgo: "Yesterday",
@@ -130,7 +130,7 @@ function Home() {
                 </button>
               </div>
               <div className="kudos-actions">
-                  <button className="action-btn edit-btn" onClick={() => navigate("/update-kudos/7")}>
+                  <button className="action-btn edit-btn" onClick={() => navigate(`/update-kudos/${k.id}`)}>
                       Edit
                   </button>
               <button className="action-btn share-btn">
