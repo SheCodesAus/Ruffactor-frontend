@@ -1,6 +1,7 @@
 import {createContext, useContext, useState} from "react";
 import useSkills from "../hook/use-skills.js";
 import useSelfProfile from "../hook/use-self-profile.js";
+import useKudos from "../hook/use-kudos.js";
 
 const EditingKudosContext = createContext(null);
 
@@ -8,7 +9,8 @@ export const useEditingKudos = () => {
     return useContext(EditingKudosContext);
 };
 
-export const EditingKudosProvider = ({children}) => {
+export const EditingKudosProvider = ({children, updatingKudosId}) => {
+    const {updatingKudos, updatingKudosIsLoading, updatingKudosError} = useKudos(updatingKudosId);
     // const [selfProfile] = useState({id: 8, first_name: "Jordan", last_name: "Diesel", username: "jordandisel"},);
     const {selfProfile, selfProfileIsLoading, selfProfileError} = useSelfProfile();
     // const [allSkills] = useState(
@@ -56,28 +58,21 @@ export const EditingKudosProvider = ({children}) => {
     return (
         <EditingKudosContext.Provider
             value={{
-                selfProfile,
+                updatingKudosId,
+                updatingKudos, updatingKudosIsLoading, updatingKudosError,
+                selfProfile, selfProfileIsLoading, selfProfileError,
                 teamMembers,
-                allSkills,
+                allSkills, allSkillsIsLoading, allSkillsError,
                 tips,
-                selectedRecipients,
-                setSelectedRecipients,
-                recipientsError,
-                setRecipientsError,
-                message,
-                setMessage,
-                messageError,
-                setMessageError,
-                selectedSkills,
-                setSelectedSkills,
-                skillsError,
-                setSkillsError,
-                mediaImage,
-                setMediaImage,
-                mediaLink,
-                setMediaLink,
-                visibility,
-                setVisibility
+                selectedRecipients, setSelectedRecipients,
+                recipientsError, setRecipientsError,
+                message, setMessage,
+                messageError, setMessageError,
+                selectedSkills, setSelectedSkills,
+                skillsError, setSkillsError,
+                mediaImage, setMediaImage,
+                mediaLink, setMediaLink,
+                visibility, setVisibility
             }}>
             {children}
         </EditingKudosContext.Provider>
