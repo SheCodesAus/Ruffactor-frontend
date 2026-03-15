@@ -1,13 +1,13 @@
 import {useState, useEffect} from "react";
 
-import getSkills from "../api/get-get-skills.js";
+import getGetSkills from "../api/get-get-skills.js";
 
 export default function useSkills() {
     const [allSkills, setAllSkills] = useState([]);
     const [allSkillsIsLoading, setAllSkillsIsLoading] = useState(true);
     const [allSkillsError, setAllSkillsError] = useState();
     useEffect(() => {
-        getSkills()
+        getGetSkills()
             .then((skillsResponse) => {
                 setAllSkills(skillsResponse.results);
                 setAllSkillsIsLoading(false);

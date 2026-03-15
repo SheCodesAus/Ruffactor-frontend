@@ -1,5 +1,6 @@
 import {createContext, useContext, useState} from "react";
 import useSkills from "../hook/use-skills.js";
+import useSelfProfile from "../hook/use-self-profile.js";
 
 const EditingKudosContext = createContext(null);
 
@@ -8,8 +9,19 @@ export const useEditingKudos = () => {
 };
 
 export const EditingKudosProvider = ({children}) => {
+    // const [selfProfile] = useState({id: 8, first_name: "Jordan", last_name: "Diesel", username: "jordandisel"},);
+    const {selfProfile, selfProfileIsLoading, selfProfileError} = useSelfProfile();
+    // const [allSkills] = useState(
+    //     [
+    //         {id: 1, name: "Leadership"},
+    //         {id: 2, name: "Communication"},
+    //         {id: 3, name: "Problem Solving"},
+    //         {id: 4, name: "Teamwork"},
+    //         {id: 5, name: "Creativity"},
+    //         {id: 6, name: "Technical Excellence"}
+    //     ]
+    // );
     const {allSkills, allSkillsIsLoading, allSkillsError} = useSkills();
-    const [currentSender] = useState({id: 7, name: "Jordan Diesel", initial: "JD"},);
     const [teamMembers] = useState(
         [
             {id: 1, name: "Maria Lopez", initial: "ML"},
@@ -44,7 +56,7 @@ export const EditingKudosProvider = ({children}) => {
     return (
         <EditingKudosContext.Provider
             value={{
-                currentSender,
+                selfProfile,
                 teamMembers,
                 allSkills,
                 tips,

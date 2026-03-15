@@ -4,7 +4,7 @@ import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 
 function PreviewCard() {
     const {
-        currentSender,
+        selfProfile,
         selectedRecipients,
         message,
         selectedSkills,
@@ -12,6 +12,26 @@ function PreviewCard() {
         mediaLink,
         visibility
     } = useEditingKudos();
+
+    const getInitials = (firstName, lastName) => {
+        if (!firstName || !lastName) {
+            return "";
+        }
+
+        // Get the first character of each name and convert to uppercase
+        const firstInitial = firstName.charAt(0).toUpperCase();
+        const lastInitial = lastName.charAt(0).toUpperCase();
+
+        return `${firstInitial}${lastInitial}`;
+    };
+
+    const getFullName = (firstName, lastName) => {
+        if (!firstName || !lastName) {
+            return "";
+        }
+        return `${firstName} ${lastName}`;
+    };
+
     return (
         <div className="section preview-section">
             <div className="section-header">
@@ -26,10 +46,10 @@ function PreviewCard() {
 
                 <div className="preview-sender-recipients">
                     <span
-                        key={currentSender.id}
+                        key={selfProfile?.id}
                         className="recipient selected">
-                        <div className="avatar">{currentSender.initial}</div>
-                        <span>{currentSender.name}</span>
+                        <div className="avatar">{getInitials(selfProfile?.first_name,selfProfile?.last_name)}</div>
+                        <span>{getFullName(selfProfile?.first_name,selfProfile?.last_name)}</span>
                     </span>
                     ↓
                     <div className="recipients-grid">

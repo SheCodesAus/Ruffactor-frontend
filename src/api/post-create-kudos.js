@@ -1,5 +1,5 @@
 async function postCreateKudos(selectedRecipients, message, selectedSkills, mediaImage, mediaLink, visibility) {
-    window.localStorage.setItem('loggedInUser','{"username":"bridget002","token":"6f65789c1201c2930d3d8892735f655f6646db72"}');
+    window.localStorage.setItem('loggedInUser','{"username":"bridget008","token":"1962ce91f14eb704f8e9c4810449388c7a531853"}');
     const loggedInUser = window.localStorage.getItem("loggedInUser");
     const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
     const url = `${import.meta.env.VITE_API_URL}/api/kudos/`;
