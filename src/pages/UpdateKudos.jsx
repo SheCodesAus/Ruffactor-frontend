@@ -1,6 +1,6 @@
+import React from "react";
 import {useParams} from "react-router-dom";
 import {EditingKudosProvider} from "../context/EditingKudosContext.jsx";
-import React from "react";
 import EditingKudosForm from "../components/EditingKudosForm.jsx";
 
 function UpdateKudos() {

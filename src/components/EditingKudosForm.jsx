@@ -5,14 +5,14 @@ import GiveKudosSide from "./GiveKudosSide.jsx";
 
 function EditingKudosForm() {
     const {
-        updatingKudosIsLoading, updatingKudosError,
+        kudosIsLoading, kudosError,
     } = useEditingKudos();
 
     return (
         <div>
             {
-                updatingKudosIsLoading ? (<h1>Loading...</h1>) :
-                    (updatingKudosError ? (<h3>{updatingKudosError.message}</h3>) :
+                kudosIsLoading ? (<h1>Loading...</h1>) :
+                    (kudosError ? (<h3>{kudosError.message}</h3>) :
                             (
                                 <div className="give-kudos-container">
                                     <GiveKudosMain/>

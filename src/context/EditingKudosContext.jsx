@@ -10,7 +10,7 @@ export const useEditingKudos = () => {
 };
 
 export const EditingKudosProvider = ({children, updatingKudosId}) => {
-    const {updatingKudos, updatingKudosIsLoading, updatingKudosError} = useKudos(updatingKudosId);
+    const {kudos, kudosIsLoading, kudosError} = useKudos(updatingKudosId);
     // const [selfProfile] = useState({id: 8, first_name: "Jordan", last_name: "Diesel", username: "jordandisel"},);
     const {selfProfile, selfProfileIsLoading, selfProfileError} = useSelfProfile();
     // const [allSkills] = useState(
@@ -56,23 +56,21 @@ export const EditingKudosProvider = ({children, updatingKudosId}) => {
     const [mediaLink, setMediaLink] = useState("");
 
     useEffect(() => {
-        console.log(`updatingKudos 1: ${updatingKudos}`);
-        if (updatingKudos) {
-            console.log(`updatingKudos 2: ${updatingKudos}`);
+        if (kudos) {
             setTimeout(() => {
-                setSelectedRecipients(updatingKudos.recipients);
-                setMessage(updatingKudos.message);
-                setSelectedSkills(updatingKudos.skills);
-                setVisibility(updatingKudos.visibility);
+                setSelectedRecipients(kudos.recipients);
+                setMessage(kudos.message);
+                setSelectedSkills(kudos.skills);
+                setVisibility(kudos.visibility);
             });
         }
-    }, [updatingKudos]);
+    }, [kudos]);
 
     return (
         <EditingKudosContext.Provider
             value={{
                 updatingKudosId,
-                updatingKudos, updatingKudosIsLoading, updatingKudosError,
+                kudos, kudosIsLoading, kudosError,
                 selfProfile, selfProfileIsLoading, selfProfileError,
                 teamMembers,
                 allSkills, allSkillsIsLoading, allSkillsError,
