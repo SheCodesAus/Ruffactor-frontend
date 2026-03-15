@@ -56,8 +56,8 @@ function SelectRecipientsCard() {
                     className={`recipient ${selectedRecipients.some(person => person.id === member.id) ? "selected" : ""}`}
                     onClick={() => handleSelectRecipient(member)}
                 >
-                    <div className="avatar">{member.initial}</div>
-                    <span>{member.name}</span>
+                    <div className="avatar">{getInitials(member.first_name, member.last_name)}</div>
+                    <span>{getFullName(member.first_name, member.last_name)}</span>
                 </button>))}
             </div>
 

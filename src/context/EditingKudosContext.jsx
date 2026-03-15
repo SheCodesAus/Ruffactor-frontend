@@ -26,12 +26,15 @@ export const EditingKudosProvider = ({children, updatingKudosId}) => {
     const {allSkills, allSkillsIsLoading, allSkillsError} = useSkills();
     const [teamMembers] = useState(
         [
-            {id: 1, name: "Maria Lopez", initial: "ML"},
-            {id: 2, name: "Tom Bradley", initial: "TB"},
-            {id: 3, name: "Dana Wu", initial: "DW"},
-            {id: 4, name: "Chris Nguyen", initial: "CN"},
-            {id: 5, name: "Sam Rivera", initial: "SR"},
-            {id: 6, name: "Alex Chen", initial: "AC"},
+            {id: 1, first_name: "Maria",last_name: "Lopez"},
+            {id: 2, first_name: "Tom",last_name: "Bradley"},
+            {id: 3, first_name: "Dana",last_name: "Wu"},
+            {id: 4, first_name: "Chris",last_name: "Nguyen"},
+            {id: 5, first_name: "Sam",last_name: "Rivera"},
+            {id: 6, first_name: "Alex",last_name: "Chen"},
+            {id: 7, first_name: "Sean",last_name: "Hwang"},
+            {id: 8, first_name: "Luke",last_name: "Shan"},
+            {id: 9, first_name: "James",last_name: "Douglas"},
         ]
     );
     // const [allSkills] = useState(

@@ -1,22 +1,24 @@
-async function patchUpdateKudos(id, recipientId, message, skillIds, media, link, visibility) {
+async function patchUpdateKudos(id, selectedRecipients, message, selectedSkills, mediaImage, mediaLink, visibility) {
+    window.localStorage.setItem('loggedInUser', '{"username":"bridget008","token":"1962ce91f14eb704f8e9c4810449388c7a531853"}');
     const loggedInUser = window.localStorage.getItem("loggedInUser");
     const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
-    const url = `${import.meta.env.VITE_API_URL}/kudos/${id}`;
-
+    const url = `${import.meta.env.VITE_API_URL}/api/kudos/${id}/`;
+    const recipientIds = selectedRecipients.map(recipient => recipient.id);
+    const skillIds = selectedSkills.map(skill => skill.id);
+    const json = JSON.stringify({
+        "recipient_ids": recipientIds,
+        "message": message,
+        "skill_ids": skillIds,
+        "visibility": visibility
+    });
+    console.log(json);
     const response = await fetch(url, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Token ${token}`
         },
-        body: JSON.stringify({
-            "recipient": recipientId,
-            "message": message,
-            "skills": skillIds,
-            "media": media,
-            "link": link,
-            "visibility": visibility
-        }),
+        body: json
     });
 
     if (!response.ok) {
