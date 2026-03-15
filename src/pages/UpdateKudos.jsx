@@ -1,7 +1,5 @@
 import {useParams} from "react-router-dom";
 import {EditingKudosProvider} from "../context/EditingKudosContext.jsx";
-import GiveKudosMain from "../components/GiveKudosMain.jsx";
-import GiveKudosSide from "../components/GiveKudosSide.jsx";
 import React from "react";
 import EditingKudosForm from "../components/EditingKudosForm.jsx";
 
