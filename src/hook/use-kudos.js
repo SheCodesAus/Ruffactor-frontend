@@ -10,6 +10,7 @@ export default function useKudos(kudosId) {
         if (kudosId !== null) {
             getGetKudosById(kudosId)
                 .then((kudosResponse) => {
+                    console.log(kudosResponse);
                     setKudos(kudosResponse);
                     setKudosIsLoading(false);
                 })

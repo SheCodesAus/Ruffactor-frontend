@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import {useNavigate} from "react-router-dom";
 
 const STATS = [
   { value: 24, label: "Kudos Given", gradient: "var(--stat-gradient-1)" },
@@ -54,6 +55,7 @@ function AvatarIcon() {
 }
 
 function Home() {
+    const navigate = useNavigate();
   return (
     <div className="home-page">
 
@@ -127,6 +129,10 @@ function Home() {
                   {k.comments}
                 </button>
               </div>
+              <div className="kudos-actions">
+                  <button className="action-btn edit-btn" onClick={() => navigate("/update-kudos/7")}>
+                      Edit
+                  </button>
               <button className="action-btn share-btn">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
@@ -135,6 +141,7 @@ function Home() {
                 Share
               </button>
             </div>
+          </div>
           </div>
         ))}
       </section>

@@ -10,6 +10,7 @@ import postCreateKudos from "../api/post-create-kudos.js";
 
 function GiveKudosMain() {
     const {
+        updatingKudosId,
         selectedRecipients,
         setRecipientsError,
         message,
@@ -90,7 +91,7 @@ function GiveKudosMain() {
     return (
         <div className="give-kudos-main">
             <div className="give-kudos-header">
-                <h1>Give Kudos</h1>
+                {updatingKudosId?(<h1>Update Kudos</h1>):(<h1>Give Kudos</h1>)}
             </div>
 
             <form className="give-kudos-form" onSubmit={handleSubmit}>

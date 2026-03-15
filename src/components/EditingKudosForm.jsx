@@ -5,7 +5,6 @@ import GiveKudosSide from "./GiveKudosSide.jsx";
 
 function EditingKudosForm() {
     const {
-        updatingKudosId,
         updatingKudosIsLoading, updatingKudosError,
     } = useEditingKudos();
 

@@ -9,6 +9,7 @@ export default function useSkills() {
     useEffect(() => {
         getGetSkills()
             .then((skillsResponse) => {
+                console.log(skillsResponse);
                 setAllSkills(skillsResponse.results);
                 setAllSkillsIsLoading(false);
             })

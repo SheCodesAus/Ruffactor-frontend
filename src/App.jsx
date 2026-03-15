@@ -11,6 +11,7 @@ import Profile from "./pages/Profile.jsx";
 import ProfileActivity from "./pages/ProfileActivity.jsx";
 import ProfileSettings from "./pages/ProfileSettings.jsx";
 import ProfileNotifications from "./pages/ProfileNotifications.jsx";
+import UpdateKudos from "./pages/UpdateKudos.jsx";
 
 function App() {
   const { isLoggedIn, logout } = useAuth();
@@ -73,6 +74,7 @@ function App() {
   <Route path="/signup" element={<SignUp />} />
   <Route path="/forgot-password" element={<ForgotPassword />} />
   <Route path="/give-kudos" element={<GiveKudos />} />
+  <Route path="/update-kudos/:updatingKudosId" element={<UpdateKudos />} />
 
   <Route path="/profile" element={<Profile />}>
     <Route index element={<ProfileActivity />} />
