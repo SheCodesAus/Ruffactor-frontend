@@ -4,19 +4,27 @@ import { useAuth } from "../context/AuthContext.jsx";
 import "./SignUp.css";
 
 function SignUp() {
+  const teamOptions = [
+    "Account Management",
+    "Sales",
+    "Tech",
+    "Management",
+    "Administration",
+  ];
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [team, setTeam] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) return;
-    if (!agreedToTerms) return;
+    if (!team) return;
     login();
     navigate("/");
   };
@@ -51,6 +59,24 @@ function SignUp() {
             </div>
           </div>
           <div className="form-group">
+            <label htmlFor="signup-team">Team</label>
+            <select
+              id="signup-team"
+              value={team}
+              onChange={(e) => setTeam(e.target.value)}
+              required
+            >
+              <option value="" disabled>
+                Select your team
+              </option>
+              {teamOptions.map((teamName) => (
+                <option key={teamName} value={teamName}>
+                  {teamName}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
             <label htmlFor="signup-email">Email</label>
             <input
               id="signup-email"
@@ -83,15 +109,6 @@ function SignUp() {
               required
             />
           </div>
-          <label className="terms-label">
-            <input
-              type="checkbox"
-              checked={agreedToTerms}
-              onChange={(e) => setAgreedToTerms(e.target.checked)}
-              required
-            />
-            <span>I agree to the Terms of Service and Privacy Policy</span>
-          </label>
           <button type="submit" className="auth-submit-btn">
             Create Account
           </button>
