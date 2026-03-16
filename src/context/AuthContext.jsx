@@ -3,10 +3,16 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedInState, setIsLoggedInState] = useState(false);
+  const isDevAuthMode = import.meta.env.DEV;
+  const isLoggedIn = isDevAuthMode ? true : isLoggedInState;
 
-  const login = () => setIsLoggedIn(true);
-  const logout = () => setIsLoggedIn(false);
+  const login = () => setIsLoggedInState(true);
+  const logout = () => {
+    // Keep user "logged in" during local dev until backend auth is connected.
+    if (isDevAuthMode) return;
+    setIsLoggedInState(false);
+  };
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, login, logout }}>

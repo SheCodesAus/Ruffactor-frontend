@@ -7,12 +7,35 @@
 }
 
 .auth-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
   padding: 2rem;
   width: 100%;
   max-width: 400px;
+}
+
+.login-page-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.login-page-logo {
+  width: 72px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.login-page-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+}
+
+.login-page-subtitle {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
 }
 
 .auth-title {
@@ -25,18 +48,19 @@
   margin: 0 0 1.5rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--color-text-primary);
+  text-align: center;
 }
 
 .auth-switch {
   margin: 1.25rem 0 0;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   text-align: center;
 }
 
 .auth-switch a {
-  color: #7c3aed;
+  color: var(--color-soft-purple);
   text-decoration: none;
 }
 
@@ -58,21 +82,21 @@
 
 .form-group label {
   font-weight: 600;
-  color: #1f2937;
+  color: var(--color-text-primary);
   font-size: 14px;
 }
 
 .form-group input {
   padding: 12px 14px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   font-size: 15px;
   outline: none;
   transition: border-color 0.2s;
 }
 
 .form-group input:focus {
-  border-color: #8b5cf6;
+  border-color: var(--color-soft-purple);
 }
 
 .form-options {
@@ -83,7 +107,7 @@
 
 .forgot-link {
   font-size: 14px;
-  color: #7c3aed;
+  color: var(--color-soft-purple);
   text-decoration: none;
 }
 
@@ -94,9 +118,9 @@
 .auth-submit-btn {
   margin-top: 0.5rem;
   padding: 14px 24px;
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  background: var(--gradient-primary);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   color: white;
   font-size: 16px;
   font-weight: 600;

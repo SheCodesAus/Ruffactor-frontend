@@ -50,6 +50,10 @@
   gap: 1rem;
 }
 
+.form-row .form-group {
+  min-width: 0;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -63,6 +67,7 @@
 }
 
 .form-group input {
+  width: 100%;
   padding: 12px 14px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -112,4 +117,10 @@
 
 #root .auth-page {
   text-align: left;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
