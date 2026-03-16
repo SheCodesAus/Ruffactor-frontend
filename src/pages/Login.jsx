@@ -18,6 +18,17 @@ function Login() {
   return (
     <div className="auth-page">
       <div className="auth-card">
+        <div className="login-page-header">
+          <img
+            src="img/pp-logo-v.png"
+            alt="Pixel Pulse logo"
+            className="login-page-logo"
+          />
+          <h1 className="login-page-title">Pixel Pulse</h1>
+          <p className="login-page-subtitle">
+            Celebrate great work with your team. Log in to continue.
+          </p>
+        </div>
         <h2 className="auth-heading">Log In</h2>
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
