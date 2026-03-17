@@ -112,7 +112,7 @@ function GiveKudosMain() {
                 <EditKudosMessageCard/>
                 <SelectSkillsCard/>
                 {/*<SetMediaAndLinkCard/>*/}
-                <SetVisibilityCard/>
+                {/*<SetVisibilityCard/>*/}
                 <button type="submit" className="primary-button">
                     {updatingKudosId ? ("Update Kudos") : ("Send Kudos")}
                 </button>

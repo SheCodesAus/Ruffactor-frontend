@@ -31,23 +31,23 @@ function SelectRecipientsCard() {
                 </div>
             </div>
 
-            <div className="recipients-grid">
-                {selectedRecipients.map((member) => (<button
-                    key={member.id}
-                    type="button"
-                    className="recipient selected"
-                    onClick={() => handleSelectRecipient(member)}
-                >
-                    <div className="avatar">{getInitials(member.first_name, member.last_name)}</div>
-                    <span>{getFullName(member.first_name, member.last_name)}</span>
-                </button>))}
-            </div>
+            {/*<div className="recipients-grid">*/}
+            {/*    {selectedRecipients.map((member) => (<button*/}
+            {/*        key={member.id}*/}
+            {/*        type="button"*/}
+            {/*        className="recipient selected"*/}
+            {/*        onClick={() => handleSelectRecipient(member)}*/}
+            {/*    >*/}
+            {/*        <div className="avatar">{getInitials(member.first_name, member.last_name)}</div>*/}
+            {/*        <span>{getFullName(member.first_name, member.last_name)}</span>*/}
+            {/*    </button>))}*/}
+            {/*</div>*/}
 
-            <input
-                type="text"
-                placeholder="Search team members..."
-                className="search-input"
-            />
+            {/*<input*/}
+            {/*    type="text"*/}
+            {/*    placeholder="Search team members..."*/}
+            {/*    className="search-input"*/}
+            {/*/>*/}
 
             <div className="recipients-grid">
                 {teamMembers.map((member) => (<button

@@ -28,9 +28,9 @@ function EditKudosMessageCard() {
                             <span className="character-count">
                                 {characterCount} / {maxCharacters} characters
                             </span>
-                <button type="button" className="ai-suggestions">
-                    ✨ AI Suggestions
-                </button>
+                {/*<button type="button" className="ai-suggestions">*/}
+                {/*    ✨ AI Suggestions*/}
+                {/*</button>*/}
             </div>
 
             {messageError && <p className="error">{messageError}</p>}
