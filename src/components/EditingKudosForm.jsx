@@ -1,7 +1,7 @@
 import React from "react";
 import {useEditingKudos} from "../context/EditingKudosContext.jsx";
-import GiveKudosMain from "./GiveKudosMain.jsx";
-import GiveKudosSide from "./GiveKudosSide.jsx";
+import EditKudosMain from "./EditKudosMain.jsx";
+import EditKudosSide from "./EditKudosSide.jsx";
 
 function EditingKudosForm() {
     const {
@@ -15,8 +15,8 @@ function EditingKudosForm() {
                     (kudosError ? (<h3>{kudosError.message}</h3>) :
                             (
                                 <div className="give-kudos-container">
-                                    <GiveKudosMain/>
-                                    <GiveKudosSide/>
+                                    <EditKudosMain/>
+                                    <EditKudosSide/>
                                 </div>
                             )
                     )

@@ -8,8 +8,7 @@ async function patchUpdateKudos(id, selectedRecipients, message, selectedSkills,
     const json = JSON.stringify({
         "recipient_ids": recipientIds,
         "message": message,
-        "skill_ids": skillIds,
-        "visibility": visibility
+        "skill_ids": skillIds
     });
     console.log(json);
     const response = await fetch(url, {

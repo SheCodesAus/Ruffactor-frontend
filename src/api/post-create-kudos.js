@@ -8,8 +8,7 @@ async function postCreateKudos(selectedRecipients, message, selectedSkills, medi
     const json = JSON.stringify({
         "recipient_ids": recipientIds,
         "message": message,
-        "skill_ids": skillIds,
-        "visibility": visibility
+        "skill_ids": skillIds
     });
     console.log(json);
     const response = await fetch(url, {
@@ -23,11 +22,9 @@ async function postCreateKudos(selectedRecipients, message, selectedSkills, medi
 
     if (!response.ok) {
         const fallbackError = `Error trying to create kudos`;
-
         const data = await response.json().catch(() => {
             throw new Error(fallbackError);
         });
-
         const errorMessage = data?.detail ?? fallbackError;
         throw new Error(errorMessage);
     }

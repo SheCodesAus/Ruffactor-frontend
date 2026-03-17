@@ -9,7 +9,7 @@ import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 import postCreateKudos from "../api/post-create-kudos.js";
 import patchUpdateKudos from "../api/patch-update-kudos.js";
 
-function GiveKudosMain() {
+function EditKudosMain() {
     const {
         updatingKudosId,
         selectedRecipients,
@@ -128,4 +128,4 @@ function GiveKudosMain() {
     );
 }
 
-export default GiveKudosMain;
+export default EditKudosMain;

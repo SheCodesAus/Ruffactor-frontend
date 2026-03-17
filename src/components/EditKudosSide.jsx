@@ -1,7 +1,7 @@
 import PreviewCard from "../components/PreviewCard.jsx";
 import TipsCard from "../components/TipsCard.jsx";
 
-function GiveKudosSide() {
+function EditKudosSide() {
     return (
         <aside className="give-kudos-sidebar">
             <PreviewCard/>
@@ -10,4 +10,4 @@ function GiveKudosSide() {
     );
 }
 
-export default GiveKudosSide;
+export default EditKudosSide;
