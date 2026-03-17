@@ -7,7 +7,7 @@ export default function useKudos(kudosId) {
     const [kudosError, setKudosError] = useState();
 
     useEffect(() => {
-        if (kudosId !== null) {
+        if (kudosId) {
             getGetKudosById(kudosId)
                 .then((kudosResponse) => {
                     console.log(kudosResponse);
