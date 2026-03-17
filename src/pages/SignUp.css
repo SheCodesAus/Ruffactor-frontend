@@ -50,6 +50,10 @@
   gap: 1rem;
 }
 
+.form-row .form-group {
+  min-width: 0;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -63,6 +67,7 @@
 }
 
 .form-group input {
+  width: 100%;
   padding: 12px 14px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -71,26 +76,23 @@
   transition: border-color 0.2s;
 }
 
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
 .form-group input:focus {
   border-color: #8b5cf6;
 }
 
-.terms-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  background: #f5f3ff;
-  border-radius: 10px;
-  font-size: 14px;
-  color: #374151;
-  cursor: pointer;
-}
-
-.terms-label input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: #8b5cf6;
+.form-group select:focus {
+  border-color: #8b5cf6;
 }
 
 .auth-submit-btn {
@@ -112,4 +114,10 @@
 
 #root .auth-page {
   text-align: left;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }

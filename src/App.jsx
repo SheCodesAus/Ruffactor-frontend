@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import { useAuth } from "./context/AuthContext.jsx";
 
@@ -16,48 +16,46 @@ import UpdateKudos from "./pages/UpdateKudos.jsx";
 function App() {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const goToLogin = () => navigate("/login");
+  const isAuthPage = ["/login", "/signup", "/forgot-password"].includes(
+    location.pathname,
+  );
   return (
     <div className="app">
-      <header className="site-header">
-  <nav className="navbar">
-    <div className="nav-left">
-    <img src="img/pp-logo-v.png" alt="Pixel Pulse logo" className="logo-image" />
-    </div>
+      {isLoggedIn && !isAuthPage && (
+        <header className="site-header">
+          <nav className="navbar">
+            <div className="nav-left">
+              <img
+                src="img/pp-logo-v.png"
+                alt="Pixel Pulse logo"
+                className="logo-image"
+              />
+            </div>
 
-    <ul className="main-nav">
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/give-kudos">Give Kudos</Link>
-      </li>
-      
-      <li>
-        <Link to="/profile">Profile</Link>
-      </li>
-    </ul>
+            <ul className="main-nav">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/give-kudos">Give Kudos</Link>
+              </li>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+            </ul>
 
-    <div className="nav-right">
-      {isLoggedIn ? (
-        <button type="button" className="login-btn" onClick={logout}>
-          Logout
-        </button>
-      ) : (
-        <>
-          <Link to="/login" className="login-btn nav-link-btn">
-            Login
-          </Link>
-          <Link to="/signup" className="signup-btn nav-link-btn">
-            Sign Up
-          </Link>
-        </>
+            <div className="nav-right">
+              <button type="button" className="login-btn" onClick={logout}>
+                Logout
+              </button>
+            </div>
+          </nav>
+        </header>
       )}
-    </div>
-  </nav>
-</header>
 
-       {/* Removed padding so pages control their own layout */}
+      {/* Removed padding so pages control their own layout */}
       <main>
       <Routes>
   <Route
