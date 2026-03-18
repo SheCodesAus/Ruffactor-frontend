@@ -1,12 +1,12 @@
 import React from "react";
-import {EditingKudosProvider} from "../context/EditingKudosContext.jsx";
-import EditingKudosForm from "../components/EditingKudosForm.jsx";
+import {AdminDashboardProvider} from "../context/AdminDashboardContext.jsx";
+import AdminDashboardForm from "../components/AdminDashboardForm.jsx";
 
 function AdminDashboard() {
     return (
-        <EditingKudosProvider>
-            <EditingKudosForm/>
-        </EditingKudosProvider>
+        <AdminDashboardProvider>
+            <AdminDashboardForm/>
+        </AdminDashboardProvider>
     );
 }
 

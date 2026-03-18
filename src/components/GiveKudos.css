@@ -440,6 +440,14 @@
     margin-bottom: 1rem;
 }
 
+.user-summary-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: white;
+    margin: 1rem;
+}
+
 .preview-content {
     background: var(--card-background);
     margin-bottom: 0;

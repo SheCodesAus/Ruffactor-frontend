@@ -5,7 +5,7 @@ import {getFullName, getInitials} from "./utility.js";
 
 function SelectRecipientsCard() {
     const {
-        teamMembers,
+        users,
         selectedRecipients,
         setSelectedRecipients,
         recipientsError,
@@ -50,7 +50,7 @@ function SelectRecipientsCard() {
             {/*/>*/}
 
             <div className="recipients-grid">
-                {teamMembers.map((member) => (<button
+                {users.map((member) => (<button
                     key={member.id}
                     type="button"
                     className={`recipient ${selectedRecipients.some(person => person.id === member.id) ? "selected" : ""}`}

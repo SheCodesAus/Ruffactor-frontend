@@ -2,6 +2,7 @@ import {createContext, useContext, useEffect, useState} from "react";
 import useSkills from "../hook/use-skills.js";
 import useSelfProfile from "../hook/use-self-profile.js";
 import useKudos from "../hook/use-kudos.js";
+import useUsers from "../hook/use-users.js";
 
 const EditingKudosContext = createContext(null);
 
@@ -11,42 +12,9 @@ export const useEditingKudos = () => {
 
 export const EditingKudosProvider = ({children, updatingKudosId}) => {
     const {kudos, kudosIsLoading, kudosError} = useKudos(updatingKudosId);
-    // const [selfProfile] = useState({id: 8, first_name: "Jordan", last_name: "Diesel", username: "jordandisel"},);
     const {selfProfile, selfProfileIsLoading, selfProfileError} = useSelfProfile();
-    // const [allSkills] = useState(
-    //     [
-    //         {id: 1, name: "Leadership"},
-    //         {id: 2, name: "Communication"},
-    //         {id: 3, name: "Problem Solving"},
-    //         {id: 4, name: "Teamwork"},
-    //         {id: 5, name: "Creativity"},
-    //         {id: 6, name: "Technical Excellence"}
-    //     ]
-    // );
     const {allSkills, allSkillsIsLoading, allSkillsError} = useSkills();
-    const [teamMembers] = useState(
-        [
-            {id: 1, first_name: "Maria",last_name: "Lopez"},
-            {id: 2, first_name: "Tom",last_name: "Bradley"},
-            {id: 3, first_name: "Dana",last_name: "Wu"},
-            {id: 4, first_name: "Chris",last_name: "Nguyen"},
-            {id: 5, first_name: "Sam",last_name: "Rivera"},
-            {id: 6, first_name: "Alex",last_name: "Chen"},
-            {id: 7, first_name: "Sean",last_name: "Hwang"},
-            {id: 8, first_name: "Luke",last_name: "Shan"},
-            {id: 9, first_name: "James",last_name: "Douglas"},
-        ]
-    );
-    // const [allSkills] = useState(
-    //     [
-    //         {id: 1, name: "Leadership"},
-    //         {id: 2, name: "Communication"},
-    //         {id: 3, name: "Problem Solving"},
-    //         {id: 4, name: "Teamwork"},
-    //         {id: 5, name: "Creativity"},
-    //         {id: 6, name: "Technical Excellence"}
-    //     ]
-    // );
+    const {users, usersIsLoading, usersError} = useUsers();
     const [tips] = useState(["Be specific about what they did", "Explain the impact on the team", "Tag relevant skills", "Keep it genuine and personal",]);
     const [selectedRecipients, setSelectedRecipients] = useState([]);
     const [recipientsError, setRecipientsError] = useState("");
@@ -75,7 +43,7 @@ export const EditingKudosProvider = ({children, updatingKudosId}) => {
                 updatingKudosId,
                 kudos, kudosIsLoading, kudosError,
                 selfProfile, selfProfileIsLoading, selfProfileError,
-                teamMembers,
+                users, usersIsLoading, usersError,
                 allSkills, allSkillsIsLoading, allSkillsError,
                 tips,
                 selectedRecipients, setSelectedRecipients,
