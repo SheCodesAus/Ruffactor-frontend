@@ -4,6 +4,7 @@ import GiveKudosSide from "../components/GiveKudosSide.jsx";
 import {EditingKudosProvider} from "../context/EditingKudosContext.jsx";
 import "../components/GiveKudos.css";
 
+
 function GiveKudos() {
     return (
         <EditingKudosProvider>
