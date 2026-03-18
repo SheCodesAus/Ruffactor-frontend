@@ -1,5 +1,5 @@
 import React from "react";
-import "./GiveKudos.css";
+import "./EditKudos.css";
 import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 
 function EditKudosMessageCard() {

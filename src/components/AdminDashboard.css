@@ -1,0 +1,91 @@
+:root {
+    /* primitive colors */
+    --deep-navy: #011627;
+    --soft-purple: #7768AE;
+    --blush-pink: #F88DAD;
+    --powder-pink: #FDE8E9;
+    --bright-yellow: #FFFD82;
+    /* semantic colors */
+    --primary-dark: var(--deep-navy);
+    --primary-brand: var(--soft-purple);
+    --secondary-brand: var(--blush-pink);
+    --warm: var(--powder-pink);
+    --accent: var(--bright-yellow);
+    /* semantic color variants */
+    --primary-dark-lighter-20-pct: color-mix(in srgb, var(--primary-dark), white 20%);
+    --primary-dark-lighter-40-pct: color-mix(in srgb, var(--primary-dark), white 40%);
+    --warm-darker-5-pct: color-mix(in srgb, var(--warm), black 5%);
+    --primary-brand-opacity-10-pct: color-mix(in srgb, var(--primary-brand) 10%, transparent);
+    --accent-opacity-20-pct: color-mix(in srgb, var(--accent) 20%, transparent);
+    /* ui colors */
+    --page-background: var(--warm);
+    --card-background: var(--warm);
+    --primary-text: var(--primary-dark);
+    --secondary-text: var(--primary-dark-lighter-40-pct);
+    --accent-text: var(--blush-pink);
+    --chip-background-view: var(--warm-darker-5-pct);
+    --chip-text-view: var(--primary-brand);
+    /* semantic gradients */
+    --brand-gradient: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand));
+    --warm-accent-gradient: linear-gradient(135deg, var(--warm), var(--accent));
+    --full-spectrum-gradient: linear-gradient(135deg, var(--primary-brand), var(--secondary-brand), var(--accent));
+    --warm-background-gradient: linear-gradient(to bottom right, var(--warm), var(--accent-opacity-20-pct), var(--primary-brand-opacity-10-pct));
+}
+
+.stats-container {
+    display: flex;
+    gap: 24px;
+    padding: 20px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    padding: 24px 32px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 280px;
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-box .material-icons {
+    font-size: 32px;
+}
+
+.blue {
+    background: #e3edff;
+    color: #1a73e8;
+}
+
+.green {
+    background: #d9ffe4;
+    color: #0f9d58;
+}
+
+.red {
+    background: #ffe1e1;
+    color: #d93025;
+}
+
+.label {
+    font-size: 18px;
+    color: #555;
+    margin: 0;
+}
+
+.value {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 4px 0 0;
+    color: #111;
+}

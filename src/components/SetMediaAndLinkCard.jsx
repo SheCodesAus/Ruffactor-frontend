@@ -1,4 +1,4 @@
-import "./GiveKudos.css";
+import "./EditKudos.css";
 import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 import {useState} from "react";
 

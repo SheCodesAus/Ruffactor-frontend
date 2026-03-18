@@ -1,6 +1,6 @@
 import React from "react";
 import {useEditingKudos} from "../context/EditingKudosContext.jsx";
-import "./GiveKudos.css";
+import "./EditKudos.css";
 import {getFullName, getInitials} from "./utility.js";
 
 function SelectRecipientsCard() {
