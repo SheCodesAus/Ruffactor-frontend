@@ -12,7 +12,7 @@ function UsersSummary() {
             <div className="stats-container">
                 <div className="stat-card">
                     <div className="icon-box blue">
-                        <span className="material-icons">groups</span>
+                            <span className="material-icons">T</span>
                     </div>
                     <div>
                         <p className="label">Total Users</p>
@@ -22,7 +22,7 @@ function UsersSummary() {
 
                 <div className="stat-card">
                     <div className="icon-box green">
-                        <span className="material-icons">power_settings_new</span>
+                        <span className="material-icons">A</span>
                     </div>
                     <div>
                         <p className="label">Active Users</p>
@@ -32,7 +32,7 @@ function UsersSummary() {
 
                 <div className="stat-card">
                     <div className="icon-box red">
-                        <span className="material-icons">power_settings_new</span>
+                        <span className="material-icons">I</span>
                     </div>
                     <div>
                         <p className="label">Inactive Users</p>
