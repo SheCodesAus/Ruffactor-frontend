@@ -4,36 +4,39 @@ import {useAdminDashboard} from "../context/AdminDashboardContext.jsx";
 
 function UsersSummary() {
     const {users} = useAdminDashboard();
+    const totalUserCount=users.length;
+    const activeUserCount=users.filter(user => user.is_active).length;
+    const inactiveUserCount=users.filter(user => !(user.is_active)).length;
     return (
         <div>
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="icon-box blue">
-                        <span class="material-icons">groups</span>
+            <div className="stats-container">
+                <div className="stat-card">
+                    <div className="icon-box blue">
+                        <span className="material-icons">groups</span>
                     </div>
                     <div>
-                        <p class="label">Total Users</p>
-                        <p class="value">8</p>
+                        <p className="label">Total Users</p>
+                        <p className="value">{totalUserCount}</p>
                     </div>
                 </div>
 
-                <div class="stat-card">
-                    <div class="icon-box green">
-                        <span class="material-icons">power_settings_new</span>
+                <div className="stat-card">
+                    <div className="icon-box green">
+                        <span className="material-icons">power_settings_new</span>
                     </div>
                     <div>
-                        <p class="label">Active Users</p>
-                        <p class="value">6</p>
+                        <p className="label">Active Users</p>
+                        <p className="value">{activeUserCount}</p>
                     </div>
                 </div>
 
-                <div class="stat-card">
-                    <div class="icon-box red">
-                        <span class="material-icons">power_settings_new</span>
+                <div className="stat-card">
+                    <div className="icon-box red">
+                        <span className="material-icons">power_settings_new</span>
                     </div>
                     <div>
-                        <p class="label">Inactive Users</p>
-                        <p class="value">2</p>
+                        <p className="label">Inactive Users</p>
+                        <p className="value">{inactiveUserCount}</p>
                     </div>
                 </div>
             </div>
