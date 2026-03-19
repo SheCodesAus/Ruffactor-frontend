@@ -8,20 +8,21 @@ import SignUp from "./pages/SignUp.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import GiveKudos from "./pages/GiveKudos.jsx";
 import Profile from "./pages/Profile.jsx";
-import ProfileActivity from "./pages/ProfileActivity.jsx";
+import ProfileMyKudos from "./pages/ProfileMyKudos.jsx";
 import ProfileSettings from "./pages/ProfileSettings.jsx";
-import ProfileNotifications from "./pages/ProfileNotifications.jsx";
-import UpdateKudos from "./pages/UpdateKudos.jsx";
-import AdminDashboard from "./pages/AdminDashboard.jsx";
+import ProfileAppearance from "./pages/ProfileAppearance.jsx";
 
 function App() {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
   const goToLogin = () => navigate("/login");
+
   const isAuthPage = ["/login", "/signup", "/forgot-password"].includes(
-    location.pathname,
+    location.pathname
   );
+
   return (
     <div className="app">
       {isLoggedIn && !isAuthPage && (
@@ -45,9 +46,6 @@ function App() {
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
-                <li>
-                    <Link to="/admin-dashboard">Admin Dashboard</Link>
-                </li>
             </ul>
 
             <div className="nav-right">
@@ -59,33 +57,29 @@ function App() {
         </header>
       )}
 
-      {/* Removed padding so pages control their own layout */}
       <main>
-      <Routes>
-  <Route
-    path="/"
-    element={
-      <Home
-        isLoggedIn={isLoggedIn}
-        handleLogin={goToLogin}
-        handleLogout={logout}
-      />
-    }
-  />
-  <Route path="/login" element={<Login />} />
-  <Route path="/signup" element={<SignUp />} />
-  <Route path="/forgot-password" element={<ForgotPassword />} />
-  <Route path="/give-kudos" element={<GiveKudos />} />
-  <Route path="/update-kudos/:updatingKudosId" element={<UpdateKudos />} />
-  <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                isLoggedIn={isLoggedIn}
+                handleLogin={goToLogin}
+                handleLogout={logout}
+              />
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/give-kudos" element={<GiveKudos />} />
 
-  <Route path="/profile" element={<Profile />}>
-    <Route index element={<ProfileActivity />} />
-    <Route path="activity" element={<ProfileActivity />} />
-    <Route path="settings" element={<ProfileSettings />} />
-    <Route path="notifications" element={<ProfileNotifications />} />
-  </Route>
-</Routes>
+          <Route path="/profile" element={<Profile />}>
+            <Route path="my-kudos" element={<ProfileMyKudos />} />
+            <Route path="settings" element={<ProfileSettings />} />
+            <Route path="appearance" element={<ProfileAppearance />} />
+          </Route>
+        </Routes>
       </main>
     </div>
   );

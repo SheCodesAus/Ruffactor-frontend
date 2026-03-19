@@ -1,47 +1,44 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
-import {useNavigate} from "react-router-dom";
 
 const STATS = [
   { value: 24, label: "Kudos Given", gradient: "var(--stat-gradient-1)" },
   { value: 18, label: "Recipients", gradient: "var(--stat-gradient-2)" },
-  { value: 9, label: "Skills Tagged", gradient: "var(--stat-gradient-3)" },
-  { value: 3, label: "New Members", gradient: "var(--stat-gradient-4)" },
+  //** { value: 9, label: "Skills Tagged", gradient: "var(--stat-gradient-3)" }, **//
+  //** { value: 3, label: "New Members", gradient: "var(--stat-gradient-4)" }, **//
 ];
 
 const KUDOS_FEED = [
   {
-    id: 7,
+    id: 1,
     giver: "Alex Chen",
     recipient: "Maria Lopez",
     timeAgo: "2h ago",
     tag: "Leadership",
     message:
       "Maria stepped up during the product launch and coordinated across 5 teams seamlessly. Her leadership made the difference!",
-    likes: 12,
-    comments: 4,
+   
   },
   {
-    id: 8,
+    id: 2,
     giver: "Sam Rivera",
     recipient: "Tom Bradley",
     timeAgo: "4h ago",
     tag: "Innovation",
     message:
       "Tom's new approach to the onboarding flow reduced drop-off by 40%. Incredible creative thinking!",
-    likes: 9,
-    comments: 2,
+    
   },
   {
-    id: 9,
+    id: 3,
     giver: "Priya Nair",
     recipient: "Jordan Kim",
     timeAgo: "Yesterday",
     tag: "Teamwork",
     message:
       "Jordan jumped in to help our team meet the deadline when things got hectic. Couldn't have done it without them!",
-    likes: 21,
-    comments: 7,
+    
   },
 ];
 
@@ -54,8 +51,32 @@ function AvatarIcon() {
   );
 }
 
+function CountUpNumber({ value, duration = 900 }) {
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    let start = 0;
+    const increment = value / (duration / 16);
+
+    const timer = setInterval(() => {
+      start += increment;
+
+      if (start >= value) {
+        setCount(value);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [value, duration]);
+
+  return count;
+}
+
 function Home() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="home-page">
 
@@ -67,6 +88,9 @@ function Home() {
       {/* Stats */}
       <section className="home-stats-panel">
         <p className="home-stats-title">This Week</p>
+        <p className="home-stats-subtitle">
+    A quick snapshot of team recognition activity.
+  </p>
         <div className="home-stats-grid">
           {STATS.map((stat) => (
             <div
@@ -74,8 +98,19 @@ function Home() {
               className="stat-card"
               style={{ background: stat.gradient }}
             >
-              <span className="stat-value">{stat.value}</span>
-              <span className="stat-label">{stat.label}</span>
+            <div className="stat-icon">
+              {stat.label === "Kudos Given" && "⭐"}
+              {stat.label === "Recipients" && "👥"}
+            </div>
+
+            <span className="stat-value">
+              <CountUpNumber value={stat.value} />
+            </span>
+
+            <span className="stat-label">
+              {stat.label}
+              <span className="stat-trend">+12%</span>
+            </span>
             </div>
           ))}
         </div>
@@ -87,14 +122,18 @@ function Home() {
           <svg className="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
-          <input type="text" placeholder="Search kudos or people..." className="search-input" />
+          <input type="text" placeholder="Search team or people..." className="search-input" />
         </div>
-        <button className="btn-give-kudos">
+        <button
+          className="btn-give-kudos"
+          onClick={() => navigate("/give-kudos")}
+          type="button"
+>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-          </svg>
-          Give Kudos
-        </button>
+        </svg>
+        Give Kudos
+      </button>
       </section>
 
       {/* Kudos Feed */}
@@ -129,10 +168,6 @@ function Home() {
                   {k.comments}
                 </button>
               </div>
-              <div className="kudos-actions">
-                  <button className="action-btn edit-btn" onClick={() => navigate(`/update-kudos/${k.id}`)}>
-                      Edit
-                  </button>
               <button className="action-btn share-btn">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
@@ -141,7 +176,6 @@ function Home() {
                 Share
               </button>
             </div>
-          </div>
           </div>
         ))}
       </section>
