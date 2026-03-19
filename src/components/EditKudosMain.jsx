@@ -26,16 +26,17 @@ function EditKudosMain() {
     const navigate = useNavigate();
     const dialogRef = useRef(null);
     const [showToast, setShowToast] = useState(false);
+    const confirmWithToast = false;
 
-    const showToastMessage=()=>{
+    const showToastMessage = () => {
         setShowToast(true);
 
         setTimeout(() => {
             navigate("/");
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            window.scrollTo({top: 0, left: 0, behavior: "smooth"});
         }, 1800);
     }
-    // Utility to open the dialog safely
+
     const openDialog = () => {
         const dlg = dialogRef.current;
         if (!dlg) return;
@@ -83,7 +84,9 @@ function EditKudosMain() {
                     mediaImage,
                     mediaLink,
                     visibility
-                ).then(() => showToastMessage());
+                ).then(() => {
+                    confirmWithToast ? showToastMessage() : openDialog();
+                });
             } else {
                 postCreateKudos(
                     selectedRecipients,
@@ -92,7 +95,9 @@ function EditKudosMain() {
                     mediaImage,
                     mediaLink,
                     visibility
-                ).then(() => showToastMessage());
+                ).then(() => {
+                    confirmWithToast ? showToastMessage() : openDialog();
+                });
             }
         }
     };
@@ -121,6 +126,10 @@ function EditKudosMain() {
         return () => dlg?.removeEventListener("cancel", onCancel);
     }, [navigate]);
 
+    const getRecipientsName = () => {
+        return selectedRecipients.map(recipient => recipient.first_name).join(", ").replace(/, ([^,]*)$/, ' and $1');
+    };
+
     return (
         <div className="give-kudos-main">
             <div className="give-kudos-header">
@@ -141,11 +150,11 @@ function EditKudosMain() {
             <SuccessToast
                 show={showToast}
                 onClose={() => setShowToast(false)}
-                recipient={"recipientName"}
+                recipient={getRecipientsName()}
             />
 
             <dialog ref={dialogRef} className="kudos-dialog">
-                <p style={{marginBottom: 16}}>{updatingKudosId ? ("Kudos Updated.") : ("Kudos Created.")}</p>
+                <p style={{marginBottom: 16}}>{updatingKudosId ? <>Kudos to <strong>{getRecipientsName()}</strong> updated.</> : <>Kudos to <strong>{getRecipientsName()}</strong> created.</>}</p>
                 <div style={{display: "flex", justifyContent: "flex-end", gap: 8}}>
                     <button onClick={handleOk} autoFocus>OK</button>
                 </div>
