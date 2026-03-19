@@ -62,6 +62,94 @@
     font-size: 32px;
 }
 
+.label {
+    font-size: 18px;
+    color: #555;
+    margin: 0;
+}
+
+.value {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 4px 0 0;
+    color: #111;
+}
+
+.container {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f0f1f3;
+    color: #444;
+    text-align: left;
+}
+
+th, td {
+    padding: 20px;
+    font-size: 1.5rem;
+}
+
+tbody tr {
+    border-top: 1px solid #eee;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #ccc;
+    border-radius: 26px;
+    transition: 0.3s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input:checked + .slider {
+    background-color: #16a34a;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
 .blue {
     background: #e3edff;
     color: #1a73e8;
@@ -77,15 +165,16 @@
     color: #d93025;
 }
 
-.label {
-    font-size: 18px;
-    color: #555;
-    margin: 0;
-}
-
-.value {
-    font-size: 32px;
-    font-weight: bold;
-    margin: 4px 0 0;
-    color: #111;
+.avatar2 {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--full-spectrum-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+    font-size: 1rem;
+    flex-shrink: 0;
 }

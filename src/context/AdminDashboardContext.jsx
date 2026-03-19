@@ -8,11 +8,11 @@ export const useAdminDashboard = () => {
 };
 
 export const AdminDashboardProvider = ({children}) => {
-    const {users, usersIsLoading, usersError} = useUsers();
+    const {users, setUsers, usersIsLoading, usersError} = useUsers();
     return (
         <AdminDashboardContext.Provider
             value={{
-                users, usersIsLoading, usersError
+                users, setUsers, usersIsLoading, usersError
             }}>
             {children}
         </AdminDashboardContext.Provider>

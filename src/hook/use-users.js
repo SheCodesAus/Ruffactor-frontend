@@ -17,5 +17,5 @@ export default function useUsers() {
                 setUsersIsLoading(false);
             });
     }, []);
-    return {users, usersIsLoading, usersError};
+    return {users, setUsers, usersIsLoading, usersError};
 }
