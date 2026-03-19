@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import SelectRecipientsCard from "../components/SelectRecipientsCard.jsx";
 import EditKudosMessageCard from "../components/EditKudosMessageCard.jsx";
@@ -8,6 +8,7 @@ import SetVisibilityCard from "../components/SetVisibilityCard.jsx";
 import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 import postCreateKudos from "../api/post-create-kudos.js";
 import patchUpdateKudos from "../api/patch-update-kudos.js";
+import SuccessToast from "./SuccessToast.jsx";
 
 function EditKudosMain() {
     const {
@@ -24,7 +25,16 @@ function EditKudosMain() {
     } = useEditingKudos();
     const navigate = useNavigate();
     const dialogRef = useRef(null);
+    const [showToast, setShowToast] = useState(false);
 
+    const showToastMessage=()=>{
+        setShowToast(true);
+
+        setTimeout(() => {
+            navigate("/");
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        }, 1800);
+    }
     // Utility to open the dialog safely
     const openDialog = () => {
         const dlg = dialogRef.current;
@@ -73,7 +83,7 @@ function EditKudosMain() {
                     mediaImage,
                     mediaLink,
                     visibility
-                ).then(() => openDialog());
+                ).then(() => showToastMessage());
             } else {
                 postCreateKudos(
                     selectedRecipients,
@@ -82,10 +92,20 @@ function EditKudosMain() {
                     mediaImage,
                     mediaLink,
                     visibility
-                ).then(() => openDialog());
+                ).then(() => showToastMessage());
             }
         }
     };
+
+    useEffect(() => {
+        if (!showToast) return;
+
+        const timer = setTimeout(() => {
+            setShowToast(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [showToast]);
 
     useEffect(() => {
         const onCancel = (ev) => {
@@ -117,6 +137,12 @@ function EditKudosMain() {
                     {updatingKudosId ? ("Update Kudos") : ("Send Kudos")}
                 </button>
             </form>
+
+            <SuccessToast
+                show={showToast}
+                onClose={() => setShowToast(false)}
+                recipient={"recipientName"}
+            />
 
             <dialog ref={dialogRef} className="kudos-dialog">
                 <p style={{marginBottom: 16}}>{updatingKudosId ? ("Kudos Updated.") : ("Kudos Created.")}</p>

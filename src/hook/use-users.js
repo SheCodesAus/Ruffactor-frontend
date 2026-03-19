@@ -5,7 +5,6 @@ export default function useUsers() {
     const [users, setUsers] = useState([]);
     const [usersIsLoading, setUsersIsLoading] = useState(true);
     const [usersError, setUsersError] = useState();
-
     useEffect(() => {
         getGetUsers()
             .then((usersResponse) => {
@@ -17,6 +16,6 @@ export default function useUsers() {
                 setUsersError(error);
                 setUsersIsLoading(false);
             });
-    });
+    }, []);
     return {users, usersIsLoading, usersError};
 }

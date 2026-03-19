@@ -1,5 +1,4 @@
 import {useState, useEffect} from "react";
-
 import getGetSkills from "../api/get-get-skills.js";
 
 export default function useSkills() {
