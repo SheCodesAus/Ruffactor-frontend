@@ -9,44 +9,34 @@ import { useEditingKudos } from "../context/EditingKudosContext.jsx";
 import postCreateKudos from "../api/post-create-kudos.js";
 import patchUpdateKudos from "../api/patch-update-kudos.js";
 import SuccessToast from "./SuccessToast.jsx";
+import {useAuth} from "../context/AuthContext.jsx";
 
 function EditKudosMain() {
-  const {
-    updatingKudosId,
-    selectedRecipients,
-    setRecipientsError,
-    message,
-    setMessageError,
-    selectedSkills,
-    setSkillsError,
-    mediaImage,
-    mediaLink,
-    visibility,
-  } = useEditingKudos();
-  const navigate = useNavigate();
-  const dialogRef = useRef(null);
-  const [showToast, setShowToast] = useState(false);
-  const confirmWithToast = false;
+    const {isLoggedIn, token, user} = useAuth();
+    const {
+        updatingKudosId,
+        selectedRecipients,
+        setRecipientsError,
+        message,
+        setMessageError,
+        selectedSkills,
+        setSkillsError,
+        mediaImage,
+        mediaLink,
+        visibility
+    } = useEditingKudos();
+    const navigate = useNavigate();
+    const dialogRef = useRef(null);
+    const [showToast, setShowToast] = useState(false);
+    const confirmWithToast = false;
 
-  const showToastMessage = () => {
-    setShowToast(true);
+    const showToastMessage = () => {
+        setShowToast(true);
 
-    setTimeout(() => {
-      navigate("/");
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    }, 1800);
-  };
-
-  const openDialog = () => {
-    const dlg = dialogRef.current;
-    if (!dlg) return;
-
-    // <dialog> needs showModal() to trap focus and show backdrop
-    if (typeof dlg.showModal === "function") {
-      dlg.showModal();
-    } else {
-      // Fallback if browser doesn’t support <dialog>
-      dlg.setAttribute("open", "");
+        setTimeout(() => {
+            navigate("/");
+            window.scrollTo({top: 0, left: 0, behavior: "smooth"});
+        }, 1800);
     }
   };
 
@@ -125,57 +115,103 @@ function EditKudosMain() {
         window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       });
     };
-    const dlg = dialogRef.current;
-    dlg?.addEventListener("cancel", onCancel);
-    return () => dlg?.removeEventListener("cancel", onCancel);
-  }, [navigate]);
 
-  const getRecipientsName = () => {
-    return selectedRecipients
-      .map((recipient) => recipient.first_name)
-      .join(", ")
-      .replace(/, ([^,]*)$/, " and $1");
-  };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const re = selectedRecipients.length > 0 ? "" : "Please select at least one recipient!";
+        const me = message.trim() ? "" : "Please add a message!";
+        const se = selectedSkills.length > 0 ? "" : "Please select at least one skill!";
+        const allGood = re.length === 0 && me.length === 0 && se.length === 0;
+        setRecipientsError(re);
+        setMessageError(me);
+        setSkillsError(se);
+        if (allGood) {
+            if (updatingKudosId) {
+                patchUpdateKudos(
+                    token,
+                    updatingKudosId,
+                    selectedRecipients,
+                    message,
+                    selectedSkills,
+                    mediaImage,
+                    mediaLink,
+                    visibility
+                ).then(() => {
+                    confirmWithToast ? showToastMessage() : openDialog();
+                });
+            } else {
+                postCreateKudos(
+                    token,
+                    selectedRecipients,
+                    message,
+                    selectedSkills,
+                    mediaImage,
+                    mediaLink,
+                    visibility
+                ).then(() => {
+                    confirmWithToast ? showToastMessage() : openDialog();
+                });
+            }
+        }
+    };
 
-  return (
-    <div className="give-kudos-main">
-      <div className="give-kudos-header">
-        {updatingKudosId ? <h1>Update Kudos</h1> : <h1>Give Kudos</h1>}
-      </div>
+    useEffect(() => {
+        if (!showToast) return;
 
-      <form className="give-kudos-form" onSubmit={handleSubmit}>
-        <SelectRecipientsCard />
-        <EditKudosMessageCard />
-        <SelectSkillsCard />
-        {/*<SetMediaAndLinkCard/>*/}
-        {/*<SetVisibilityCard/>*/}
-        <button type="submit" className="primary-button">
-          {updatingKudosId ? "Update Kudos" : "Send Kudos"}
-        </button>
-      </form>
+        const timer = setTimeout(() => {
+            setShowToast(false);
+        }, 3000);
 
-      <SuccessToast
-        show={showToast}
-        onClose={() => setShowToast(false)}
-        recipient={getRecipientsName()}
-      />
+        return () => clearTimeout(timer);
+    }, [showToast]);
 
-      <dialog ref={dialogRef} className="kudos-dialog">
-        <p style={{ marginBottom: 16 }}>
-          {updatingKudosId ? (
-            <>
-              Kudos to <strong>{getRecipientsName()}</strong> updated.
-            </>
-          ) : (
-            <>
-              Kudos to <strong>{getRecipientsName()}</strong> created.
-            </>
-          )}
-        </p>
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
-          <button onClick={handleOk} autoFocus>
-            OK
-          </button>
+    useEffect(() => {
+        const onCancel = (ev) => {
+            // for <dialog> cancel events (Esc), we still route home
+            ev.preventDefault();
+            navigate("/");
+            requestAnimationFrame(() => {
+                window.scrollTo({top: 0, left: 0, behavior: "smooth"});
+            });
+        };
+        const dlg = dialogRef.current;
+        dlg?.addEventListener("cancel", onCancel);
+        return () => dlg?.removeEventListener("cancel", onCancel);
+    }, [navigate]);
+
+    const getRecipientsName = () => {
+        return selectedRecipients.map(recipient => recipient.first_name).join(", ").replace(/, ([^,]*)$/, ' and $1');
+    };
+
+    return (
+        <div className="give-kudos-main">
+            <div className="give-kudos-header">
+                {updatingKudosId ? (<h1>Update Kudos</h1>) : (<h1>Give Kudos</h1>)}
+            </div>
+
+            <form className="give-kudos-form" onSubmit={handleSubmit}>
+                <SelectRecipientsCard/>
+                <EditKudosMessageCard/>
+                <SelectSkillsCard/>
+                {/*<SetMediaAndLinkCard/>*/}
+                {/*<SetVisibilityCard/>*/}
+                <button type="submit" className="primary-button">
+                    {updatingKudosId ? ("Update Kudos") : ("Send Kudos")}
+                </button>
+            </form>
+
+            <SuccessToast
+                show={showToast}
+                onClose={() => setShowToast(false)}
+                recipient={getRecipientsName()}
+            />
+
+            <dialog ref={dialogRef} className="kudos-dialog">
+                <p style={{marginBottom: 16}}>{updatingKudosId ? <>Kudos to <strong>{getRecipientsName()}</strong> updated.</> : <>Kudos to <strong>{getRecipientsName()}</strong> created.</>}</p>
+                <div style={{display: "flex", justifyContent: "flex-end", gap: 8}}>
+                    <button onClick={handleOk} autoFocus>OK</button>
+                </div>
+            </dialog>
         </div>
       </dialog>
     </div>

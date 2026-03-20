@@ -1,29 +1,32 @@
 import { useState, useEffect } from "react";
 import getGetKudosById from "../api/get-get-kudos-by-id.js";
+import {useAuth} from "../context/AuthContext.jsx";
 
 export default function useKudos(kudosId) {
-  const [kudos, setKudos] = useState();
-  const [kudosIsLoading, setKudosIsLoading] = useState(true);
-  const [kudosError, setKudosError] = useState();
+    const {isLoggedIn, token, user} = useAuth();
+    const [kudos, setKudos] = useState();
+    const [kudosIsLoading, setKudosIsLoading] = useState(true);
+    const [kudosError, setKudosError] = useState();
 
-  useEffect(() => {
-    if (kudosId) {
-      getGetKudosById(kudosId)
-        .then((kudosResponse) => {
-          console.log(kudosResponse);
-          setKudos(kudosResponse);
-          setKudosIsLoading(false);
-        })
-        .catch((error) => {
-          setKudosError(error);
-          setKudosIsLoading(false);
-        });
-    } else {
-      setTimeout(() => {
-        setKudos(null);
-        setKudosIsLoading(false);
-      });
-    }
-  }, [kudosId]);
-  return { kudos, kudosIsLoading, kudosError };
+    useEffect(() => {
+        if (kudosId) {
+            getGetKudosById(token, kudosId)
+                .then((kudosResponse) => {
+                    console.log(kudosResponse);
+                    setKudos(kudosResponse);
+                    setKudosIsLoading(false);
+                })
+                .catch((error) => {
+                    setKudosError(error);
+                    setKudosIsLoading(false);
+                });
+
+        } else {
+            setTimeout(() => {
+                setKudos(null);
+                setKudosIsLoading(false);
+            });
+        }
+    }, [kudosId]);
+    return {kudos, kudosIsLoading, kudosError};
 }
