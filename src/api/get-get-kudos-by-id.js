@@ -1,7 +1,4 @@
-async function getGetKudosById(kudosId) {
-    window.localStorage.setItem('loggedInUser', '{"username":"bridget008","token":"1962ce91f14eb704f8e9c4810449388c7a531853"}');
-    const loggedInUser = window.localStorage.getItem("loggedInUser");
-    const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
+async function getGetKudosById(token,kudosId) {
     const url = `${import.meta.env.VITE_API_URL}/api/kudos/${kudosId}`;
     const response = await fetch(url, {
         method: "GET", headers: {

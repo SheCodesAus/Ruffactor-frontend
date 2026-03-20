@@ -1,14 +1,16 @@
 import {useState, useEffect} from "react";
 import getGetKudosById from "../api/get-get-kudos-by-id.js";
+import {useAuth} from "../context/AuthContext.jsx";
 
 export default function useKudos(kudosId) {
+    const {isLoggedIn, token, user} = useAuth();
     const [kudos, setKudos] = useState();
     const [kudosIsLoading, setKudosIsLoading] = useState(true);
     const [kudosError, setKudosError] = useState();
 
     useEffect(() => {
         if (kudosId) {
-            getGetKudosById(kudosId)
+            getGetKudosById(token, kudosId)
                 .then((kudosResponse) => {
                     console.log(kudosResponse);
                     setKudos(kudosResponse);
