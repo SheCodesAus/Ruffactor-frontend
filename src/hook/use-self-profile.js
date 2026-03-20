@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 import getGetSelfProfile from "../api/get-get-self-profile.js";
 import {useAuth} from "../context/AuthContext.jsx";

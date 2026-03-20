@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SelectRecipientsCard from "../components/SelectRecipientsCard.jsx";
 import EditKudosMessageCard from "../components/EditKudosMessageCard.jsx";
 import SelectSkillsCard from "../components/SelectSkillsCard.jsx";
 import SetMediaAndLinkCard from "../components/SetMediaAndLinkCard.jsx";
 import SetVisibilityCard from "../components/SetVisibilityCard.jsx";
-import {useEditingKudos} from "../context/EditingKudosContext.jsx";
+import { useEditingKudos } from "../context/EditingKudosContext.jsx";
 import postCreateKudos from "../api/post-create-kudos.js";
 import patchUpdateKudos from "../api/patch-update-kudos.js";
 import SuccessToast from "./SuccessToast.jsx";
@@ -38,33 +38,82 @@ function EditKudosMain() {
             window.scrollTo({top: 0, left: 0, behavior: "smooth"});
         }, 1800);
     }
+  };
 
-    const openDialog = () => {
-        const dlg = dialogRef.current;
-        if (!dlg) return;
+  const closeDialog = () => {
+    const dlg = dialogRef.current;
+    if (!dlg) return;
+    if (dlg.open && typeof dlg.close === "function") dlg.close();
+    else dlg.removeAttribute("open");
+  };
 
-        // <dialog> needs showModal() to trap focus and show backdrop
-        if (typeof dlg.showModal === "function") {
-            dlg.showModal();
-        } else {
-            // Fallback if browser doesn’t support <dialog>
-            dlg.setAttribute("open", "");
-        }
-    };
+  const handleOk = () => {
+    closeDialog();
+    navigate("/");
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    });
+  };
 
-    const closeDialog = () => {
-        const dlg = dialogRef.current;
-        if (!dlg) return;
-        if (dlg.open && typeof dlg.close === "function") dlg.close();
-        else dlg.removeAttribute("open");
-    };
-
-    const handleOk = () => {
-        closeDialog();
-        navigate("/");
-        requestAnimationFrame(() => {
-            window.scrollTo({top: 0, left: 0, behavior: "smooth"});
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const re =
+      selectedRecipients.length > 0
+        ? ""
+        : "Please select at least one recipient!";
+    const me = message.trim() ? "" : "Please add a message!";
+    const se =
+      selectedSkills.length > 0 ? "" : "Please select at least one skill!";
+    const allGood = re.length === 0 && me.length === 0 && se.length === 0;
+    setRecipientsError(re);
+    setMessageError(me);
+    setSkillsError(se);
+    if (allGood) {
+      if (updatingKudosId) {
+        patchUpdateKudos(
+          updatingKudosId,
+          selectedRecipients,
+          message,
+          selectedSkills,
+          mediaImage,
+          mediaLink,
+          visibility,
+        ).then(() => {
+          confirmWithToast ? showToastMessage() : openDialog();
         });
+      } else {
+        postCreateKudos(
+          selectedRecipients,
+          message,
+          selectedSkills,
+          mediaImage,
+          mediaLink,
+          visibility,
+        ).then(() => {
+          confirmWithToast ? showToastMessage() : openDialog();
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!showToast) return;
+
+    const timer = setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [showToast]);
+
+  useEffect(() => {
+    const onCancel = (ev) => {
+      // for <dialog> cancel events (Esc), we still route home
+      ev.preventDefault();
+      navigate("/");
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      });
     };
 
     const handleSubmit = (event) => {
@@ -164,7 +213,9 @@ function EditKudosMain() {
                 </div>
             </dialog>
         </div>
-    );
+      </dialog>
+    </div>
+  );
 }
 
 export default EditKudosMain;

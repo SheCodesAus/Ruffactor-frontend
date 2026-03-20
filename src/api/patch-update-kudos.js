@@ -17,16 +17,16 @@ async function patchUpdateKudos(token, id, selectedRecipients, message, selected
         body: json
     });
 
-    if (!response.ok) {
-        const fallbackError = `Error trying to update kudos`;
-        const data = await response.json().catch(() => {
-            throw new Error(fallbackError);
-        });
-        const errorMessage = data?.detail ?? fallbackError;
-        throw new Error(errorMessage);
-    }
+  if (!response.ok) {
+    const fallbackError = `Error trying to update kudos`;
+    const data = await response.json().catch(() => {
+      throw new Error(fallbackError);
+    });
+    const errorMessage = data?.detail ?? fallbackError;
+    throw new Error(errorMessage);
+  }
 
-    return await response.json();
+  return await response.json();
 }
 
 export default patchUpdateKudos;

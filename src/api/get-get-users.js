@@ -28,7 +28,7 @@ async function getGetUsers(token) {
         throw new Error(errorMessage);
     }
 
-    return await response.json();
+  return await response.json();
 }
 
 export default getGetUsers;

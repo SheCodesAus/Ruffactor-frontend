@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import getGetSkills from "../api/get-get-skills.js";
 import {useAuth} from "../context/AuthContext.jsx";
 
