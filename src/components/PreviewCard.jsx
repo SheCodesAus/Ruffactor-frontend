@@ -1,10 +1,11 @@
-import "./GiveKudos.css";
+import "./EditKudos.css";
 import React from "react";
 import {useEditingKudos} from "../context/EditingKudosContext.jsx";
+import {getFullName, getInitials} from "./utility.js";
 
 function PreviewCard() {
     const {
-        currentSender,
+        selfProfile,
         selectedRecipients,
         message,
         selectedSkills,
@@ -12,6 +13,7 @@ function PreviewCard() {
         mediaLink,
         visibility
     } = useEditingKudos();
+
     return (
         <div className="section preview-section">
             <div className="section-header">
@@ -26,10 +28,10 @@ function PreviewCard() {
 
                 <div className="preview-sender-recipients">
                     <span
-                        key={currentSender.id}
+                        key={selfProfile?.id}
                         className="recipient selected">
-                        <div className="avatar">{currentSender.initial}</div>
-                        <span>{currentSender.name}</span>
+                        <div className="avatar">{getInitials(selfProfile?.first_name, selfProfile?.last_name)}</div>
+                        <span>{getFullName(selfProfile?.first_name, selfProfile?.last_name)}</span>
                     </span>
                     ↓
                     <div className="recipients-grid">
@@ -37,8 +39,8 @@ function PreviewCard() {
                             <span
                                 key={recipient.id}
                                 className="recipient selected">
-                                <div className="avatar">{recipient.initial}</div>
-                                <span>{recipient.name}</span>
+                                <div className="avatar">{getInitials(recipient.first_name, recipient.last_name)}</div>
+                                <span>{getFullName(recipient.first_name, recipient.last_name)}</span>
                             </span>))}
                     </div>
                 </div>

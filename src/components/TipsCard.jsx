@@ -1,4 +1,4 @@
-import "./GiveKudos.css";
+import "./EditKudos.css";
 import React from "react";
 import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 

@@ -11,6 +11,8 @@ import Profile from "./pages/Profile.jsx";
 import ProfileMyKudos from "./pages/ProfileMyKudos.jsx";
 import ProfileSettings from "./pages/ProfileSettings.jsx";
 import ProfileAppearance from "./pages/ProfileAppearance.jsx";
+import UpdateKudos from "./pages/UpdateKudos.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 function App() {
   const { isLoggedIn, logout } = useAuth();
@@ -73,6 +75,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/give-kudos" element={<GiveKudos />} />
+          <Route path="/update-kudos/:updatingKudosId" element={<UpdateKudos />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
           <Route path="/profile" element={<Profile />}>
             <Route path="my-kudos" element={<ProfileMyKudos />} />

@@ -1,14 +1,16 @@
 import React from "react";
+import {useParams} from "react-router-dom";
 import {EditingKudosProvider} from "../context/EditingKudosContext.jsx";
 import EditingKudosForm from "../components/EditingKudosForm.jsx";
 
+function UpdateKudos() {
+    const {updatingKudosId} = useParams();
 
-function GiveKudos() {
     return (
-        <EditingKudosProvider>
+        <EditingKudosProvider updatingKudosId={updatingKudosId}>
             <EditingKudosForm/>
         </EditingKudosProvider>
     );
 }
 
-export default GiveKudos;
+export default UpdateKudos;
