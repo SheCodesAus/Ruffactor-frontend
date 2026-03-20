@@ -9,8 +9,10 @@ import {useEditingKudos} from "../context/EditingKudosContext.jsx";
 import postCreateKudos from "../api/post-create-kudos.js";
 import patchUpdateKudos from "../api/patch-update-kudos.js";
 import SuccessToast from "./SuccessToast.jsx";
+import {useAuth} from "../context/AuthContext.jsx";
 
 function EditKudosMain() {
+    const {isLoggedIn, token, user} = useAuth();
     const {
         updatingKudosId,
         selectedRecipients,
@@ -77,6 +79,7 @@ function EditKudosMain() {
         if (allGood) {
             if (updatingKudosId) {
                 patchUpdateKudos(
+                    token,
                     updatingKudosId,
                     selectedRecipients,
                     message,
@@ -89,6 +92,7 @@ function EditKudosMain() {
                 });
             } else {
                 postCreateKudos(
+                    token,
                     selectedRecipients,
                     message,
                     selectedSkills,

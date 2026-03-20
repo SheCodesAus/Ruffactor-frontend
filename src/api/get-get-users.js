@@ -1,7 +1,4 @@
-async function getGetUsers() {
-    window.localStorage.setItem('loggedInUser', '{"username":"bridget008","token":"e225b05076be773d808905224624c662094d414f"}');
-    const loggedInUser = window.localStorage.getItem("loggedInUser");
-    const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
+async function getGetUsers(token) {
     const url = `${import.meta.env.VITE_API_URL}/api/users`;
     const response = await fetch(url, {
         method: "GET", headers: {

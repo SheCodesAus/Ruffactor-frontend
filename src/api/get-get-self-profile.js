@@ -1,7 +1,4 @@
-async function getGetSelfProfile() {
-    window.localStorage.setItem('loggedInUser', '{"username":"bridget008","token":"e225b05076be773d808905224624c662094d414f"}');
-    const loggedInUser = window.localStorage.getItem("loggedInUser");
-    const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
+async function getGetSelfProfile(token) {
     const url = `${import.meta.env.VITE_API_URL}/auth/profile`;
     const response = await fetch(url, {
         method: "GET", headers: {
