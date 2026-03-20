@@ -74,6 +74,12 @@
   gap: 1.25rem;
 }
 
+.auth-error-message {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -130,6 +136,11 @@
 
 .auth-submit-btn:hover {
   opacity: 0.95;
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 /* Dark background pages may need card contrast */

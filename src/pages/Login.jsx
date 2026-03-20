@@ -6,13 +6,41 @@ import "./Login.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  function getErrorText(error) {
+    if (!error || typeof error !== "object") {
+      return "Something went wrong. Please try again.";
+    }
+
+    if (Array.isArray(error.non_field_errors) && error.non_field_errors.length > 0) {
+      return error.non_field_errors[0];
+    }
+
+    const firstField = Object.keys(error)[0];
+    if (firstField && Array.isArray(error[firstField]) && error[firstField].length > 0) {
+      return error[firstField][0];
+    }
+
+    return "Unable to log in. Please check your details and try again.";
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login();
-    navigate("/");
+    setErrorMessage("");
+    setIsSubmitting(true);
+
+    try {
+      await login({ email, password });
+      navigate("/");
+    } catch (error) {
+      setErrorMessage(getErrorText(error));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -31,6 +59,7 @@ function Login() {
         </div>
         <h2 className="auth-heading">Log In</h2>
         <form className="auth-form" onSubmit={handleSubmit}>
+          {errorMessage ? <p className="auth-error-message">{errorMessage}</p> : null}
           <div className="form-group">
             <label htmlFor="login-email">Email</label>
             <input
@@ -58,8 +87,8 @@ function Login() {
               </Link>
             </div>
           </div>
-          <button type="submit" className="auth-submit-btn">
-            Log In
+          <button type="submit" className="auth-submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? "Logging In..." : "Log In"}
           </button>
         </form>
         <p className="auth-switch">

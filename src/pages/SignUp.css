@@ -44,6 +44,12 @@
   gap: 1.25rem;
 }
 
+.auth-error-message {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -95,6 +101,22 @@
   border-color: #8b5cf6;
 }
 
+.field-error-input {
+  border-color: #b91c1c !important;
+}
+
+.field-error-message {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #b91c1c;
+}
+
+.form-help-text {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
 .auth-submit-btn {
   margin-top: 0.25rem;
   padding: 14px 24px;
@@ -110,6 +132,11 @@
 
 .auth-submit-btn:hover {
   opacity: 0.95;
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 #root .auth-page {

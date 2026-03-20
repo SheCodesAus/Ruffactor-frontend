@@ -1,21 +1,60 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { getProfile, loginUser, signupUser } from "../api/auth.js";
 
 const AuthContext = createContext(null);
+const TOKEN_STORAGE_KEY = "auth_token";
 
 export function AuthProvider({ children }) {
-  const [isLoggedInState, setIsLoggedInState] = useState(false);
-  const isDevAuthMode = import.meta.env.DEV;
-  const isLoggedIn = isDevAuthMode ? true : isLoggedInState;
+  const [token, setToken] = useState(() => localStorage.getItem(TOKEN_STORAGE_KEY));
+  const [user, setUser] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
-  const login = () => setIsLoggedInState(true);
-  const logout = () => {
-    // Keep user "logged in" during local dev until backend auth is connected.
-    if (isDevAuthMode) return;
-    setIsLoggedInState(false);
-  };
+  const isLoggedIn = Boolean(token);
+
+  useEffect(() => {
+    async function restoreSession() {
+      if (!token) {
+        setIsAuthLoading(false);
+        return;
+      }
+
+      try {
+        const profile = await getProfile(token);
+        setUser(profile);
+      } catch {
+        localStorage.removeItem(TOKEN_STORAGE_KEY);
+        setToken(null);
+        setUser(null);
+      } finally {
+        setIsAuthLoading(false);
+      }
+    }
+
+    restoreSession();
+  }, [token]);
+
+  async function login(credentials) {
+    const data = await loginUser(credentials);
+    localStorage.setItem(TOKEN_STORAGE_KEY, data.token);
+    setToken(data.token);
+    setUser(data.user || null);
+    return data;
+  }
+
+  async function signup(payload) {
+    return signupUser(payload);
+  }
+
+  function logout() {
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    setToken(null);
+    setUser(null);
+  }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, isAuthLoading, token, user, login, signup, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
