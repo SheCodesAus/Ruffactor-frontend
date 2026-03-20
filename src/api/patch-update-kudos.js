@@ -1,5 +1,5 @@
 async function patchUpdateKudos(id, selectedRecipients, message, selectedSkills, mediaImage, mediaLink, visibility) {
-    window.localStorage.setItem('loggedInUser', '{"username":"bridget008","token":"1962ce91f14eb704f8e9c4810449388c7a531853"}');
+    window.localStorage.setItem('loggedInUser', '{"username":"bridget008","token":"e225b05076be773d808905224624c662094d414f"}');
     const loggedInUser = window.localStorage.getItem("loggedInUser");
     const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
     const url = `${import.meta.env.VITE_API_URL}/api/kudos/${id}/`;

@@ -1,5 +1,5 @@
 async function getGetUsers() {
-    window.localStorage.setItem('loggedInUser', '{"username":"bridget008","token":"1962ce91f14eb704f8e9c4810449388c7a531853"}');
+    window.localStorage.setItem('loggedInUser', '{"username":"bridget008","token":"e225b05076be773d808905224624c662094d414f"}');
     const loggedInUser = window.localStorage.getItem("loggedInUser");
     const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
     const url = `${import.meta.env.VITE_API_URL}/api/users`;
@@ -12,15 +12,16 @@ async function getGetUsers() {
     if (!response.ok) {
         // TEST ONLY. Remove when the endpoint is ready.
         return [
-            {id: 1, first_name: "Maria", last_name: "Lopez", "is_active": true},
-            {id: 2, first_name: "Tom", last_name: "Bradley", "is_active": false},
-            {id: 3, first_name: "Dana", last_name: "Wu", "is_active": true},
-            {id: 4, first_name: "Chris", last_name: "Nguyen", "is_active": true},
-            {id: 5, first_name: "Sam", last_name: "Rivera", "is_active": false},
-            {id: 6, first_name: "Alex", last_name: "Chen", "is_active": true},
-            {id: 7, first_name: "Sean", last_name: "Hwang", "is_active": true},
-            {id: 8, first_name: "Luke", last_name: "Shan", "is_active": false},
-            {id: 9, first_name: "James", last_name: "Douglas", "is_active": true},
+            { id: 1, first_name: "Maria", last_name: "Lopez", "is_active": true },
+            { id: 2, first_name: "Tom", last_name: "Bradley", "is_active": false },
+            { id: 3, first_name: "Dana", last_name: "Wu", "is_active": true },
+            { id: 4, first_name: "Chris", last_name: "Nguyen", "is_active": true },
+            { id: 5, first_name: "Sam", last_name: "Rivera", "is_active": false },
+            { id: 6, first_name: "Alex", last_name: "Chen", "is_active": true },
+            { id: 7, first_name: "Sean", last_name: "Hwang", "is_active": true },
+            { id: 8, first_name: "Luke", last_name: "Tseng", "is_active": false },
+            { id: 9, first_name: "James", last_name: "Douglas", "is_active": true },
+            { id: 10, first_name: "Kate", last_name: "Mcconaughy", "is_active": false },
         ];
         const fallbackError = "Error fetching users";
         const data = await response.json().catch(() => {
