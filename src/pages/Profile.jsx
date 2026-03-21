@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import "./Profile.css";
-
 
 const NAV_ITEMS = [
   {
@@ -45,39 +44,64 @@ const NAV_ITEMS = [
   },
 ];
 
+function getInitials(profile) {
+  const displayName = profile?.display_name?.trim();
+  const firstName = profile?.first_name?.trim();
+  const lastName = profile?.last_name?.trim();
 
-function ProfileHome() {
+  if (displayName) {
+    return displayName
+      .split(" ")
+      .map((part) => part[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+  }
+
+  return `${firstName?.[0] || ""}${lastName?.[0] || ""}`.toUpperCase() || "U";
+}
+
+function getFullName(profile) {
+  const fullName = `${profile?.first_name || ""} ${profile?.last_name || ""}`.trim();
+  return fullName || profile?.display_name || "User";
+}
+
+function ProfileHome({ profile }) {
+  const fullName = getFullName(profile);
+  const initials = getInitials(profile);
+  const activeTeamName = profile?.active_team?.name || "No active team";
+  const teamsCount = profile?.teams?.length || 0;
+  const kudosGiven = profile?.snapshot?.kudos_given || 0;
+  const kudosReceived = profile?.snapshot?.kudos_received || 0;
+
   return (
     <div className="profile-home">
-
-      {/* HERO */}
       <section className="profile-hero-card">
         <div className="profile-hero-left">
-          <div className="profile-hero-avatar">OK</div>
+          <div className="profile-hero-avatar">{initials}</div>
           <div>
-            <h2 className="profile-hero-name">Olga Kozlovskaia</h2>
-            <p className="profile-hero-role">Frontend Developer • Pixel Pulse Team</p>
-            <p className="profile-hero-meta">Brisbane, Australia</p>
+            <h2 className="profile-hero-name">{fullName}</h2>
+            <p className="profile-hero-role">{activeTeamName}</p>
+            <p className="profile-hero-meta">{profile?.email || "No email available"}</p>
           </div>
         </div>
 
         <div className="profile-hero-stats">
           <div className="profile-mini-stat">
-            <span className="mini-stat-value">24</span>
+            <span className="mini-stat-value">{kudosGiven}</span>
             <span className="mini-stat-label">Given</span>
           </div>
           <div className="profile-mini-stat">
-            <span className="mini-stat-value">18</span>
+            <span className="mini-stat-value">{kudosReceived}</span>
             <span className="mini-stat-label">Received</span>
           </div>
           <div className="profile-mini-stat">
-            <span className="mini-stat-value">8</span>
-            <span className="mini-stat-label">Team</span>
+            <span className="mini-stat-value">{teamsCount}</span>
+            <span className="mini-stat-label">Teams</span>
           </div>
         </div>
       </section>
 
-      {/* MY KUDOS */}
       <section className="settings-panel">
         <p className="settings-panel-title">My Kudos</p>
 
@@ -105,22 +129,22 @@ function ProfileHome() {
         <div className="profile-info-grid">
           <div className="profile-info-item">
             <span className="profile-info-label">Full Name</span>
-            <span className="profile-info-value">Olga Kozlovskaia</span>
+            <span className="profile-info-value">{fullName}</span>
           </div>
 
           <div className="profile-info-item">
             <span className="profile-info-label">Email</span>
-            <span className="profile-info-value">olga@pixelpulse.com</span>
+            <span className="profile-info-value">{profile?.email || "Not set"}</span>
           </div>
 
           <div className="profile-info-item">
-            <span className="profile-info-label">Team</span>
-            <span className="profile-info-value">Product & QA</span>
+            <span className="profile-info-label">Active Team</span>
+            <span className="profile-info-value">{activeTeamName}</span>
           </div>
 
           <div className="profile-info-item">
-            <span className="profile-info-label">Role</span>
-            <span className="profile-info-value">Frontend Developer</span>
+            <span className="profile-info-label">Bio</span>
+            <span className="profile-info-value">{profile?.bio || "No bio yet"}</span>
           </div>
         </div>
       </section>
@@ -128,20 +152,53 @@ function ProfileHome() {
   );
 }
 
-
 function Profile() {
   const location = useLocation();
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const isBaseProfile =
     location.pathname === "/profile" || location.pathname === "/profile/";
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setError("No auth token found. Please log in again.");
+      setLoading(false);
+      return;
+    }
+
+    fetch("http://127.0.0.1:8000/profile/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to load profile: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setProfile(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Profile fetch error:", error);
+        setError("Could not load profile.");
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className="settings-page">
       <h1 className="settings-title">Profile</h1>
 
       <div className="settings-layout">
-
-        
         <aside className="settings-sidebar">
           <nav className="settings-nav">
             {NAV_ITEMS.map(({ to, label, icon }) => {
@@ -164,9 +221,11 @@ function Profile() {
           </nav>
         </aside>
 
-      
         <main className="settings-content">
-          {isBaseProfile ? <ProfileHome /> : <Outlet />}
+          {loading && <p>Loading profile...</p>}
+          {error && <p>{error}</p>}
+          {!loading && !error && isBaseProfile && <ProfileHome profile={profile} />}
+          {!loading && !error && !isBaseProfile && <Outlet context={{ profile }} />}
         </main>
       </div>
     </div>
