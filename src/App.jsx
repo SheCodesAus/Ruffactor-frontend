@@ -103,7 +103,8 @@ function App() {
           />
           <Route
             path="/admin-dashboard"
-            element={guardRoute(<AdminDashboard />)}
+            // element={guardRoute(<AdminDashboard />)}
+            element={<AdminDashboard />}
           />
 
           <Route path="/profile" element={guardRoute(<Profile />)}>
