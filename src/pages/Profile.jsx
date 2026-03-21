@@ -170,7 +170,7 @@ function Profile() {
       return;
     }
 
-    fetch("http://127.0.0.1:8000/profile/", {
+    fetch("https://ruffactor-backend-f36fc347ab07.herokuapp.com/auth/profile/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
