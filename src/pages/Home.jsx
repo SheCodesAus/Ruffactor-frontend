@@ -82,7 +82,7 @@ function formatTimeAgo(value) {
 
 function mapKudosItem(item) {
   const giverName =
-    getDisplayName(item.giver) ||
+    getDisplayName(item.sender) ||
     item.giver_name ||
     getDisplayName(item.from_user) ||
     "Someone";
