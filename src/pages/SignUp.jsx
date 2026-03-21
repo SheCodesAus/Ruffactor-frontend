@@ -3,6 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
 const API_BASE = "https://ruffactor-backend-f36fc347ab07.herokuapp.com";
+function SignUp() {
+  const teamOptions = [
+    { id: 1, name: "Account Management" },
+    { id: 2, name: "Sales" },
+    { id: 3, name: "Tech" },
+    { id: 4, name: "Management" },
+    { id: 5, name: "Administration" },
+  ];
 
 function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -66,6 +74,7 @@ function SignUp() {
         <h2 className="auth-heading">Sign Up</h2>
 
         <form className="auth-form" onSubmit={handleSubmit}>
+          {errorMessage ? <p className="auth-error-message">{errorMessage}</p> : null}
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="signup-first">First Name</label>
@@ -74,9 +83,16 @@ function SignUp() {
                 type="text"
                 placeholder="Jane"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                  clearFieldError("firstName");
+                }}
+                className={fieldErrors.firstName ? "field-error-input" : ""}
                 required
               />
+              {fieldErrors.firstName ? (
+                <p className="field-error-message">{fieldErrors.firstName}</p>
+              ) : null}
             </div>
 
             <div className="form-group">
@@ -86,12 +102,18 @@ function SignUp() {
                 type="text"
                 placeholder="Doe"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                  clearFieldError("lastName");
+                }}
+                className={fieldErrors.lastName ? "field-error-input" : ""}
                 required
               />
+              {fieldErrors.lastName ? (
+                <p className="field-error-message">{fieldErrors.lastName}</p>
+              ) : null}
             </div>
           </div>
-
           <div className="form-group">
             <label htmlFor="signup-email">Email</label>
             <input
@@ -99,9 +121,16 @@ function SignUp() {
               type="email"
               placeholder="jane+pp@gmail.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                clearFieldError("email");
+              }}
+              className={fieldErrors.email ? "field-error-input" : ""}
               required
             />
+            {fieldErrors.email ? (
+              <p className="field-error-message">{fieldErrors.email}</p>
+            ) : null}
           </div>
 
           <div className="form-group">
@@ -111,9 +140,16 @@ function SignUp() {
               type="password"
               placeholder="••••••••"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                clearFieldError("password");
+              }}
+              className={fieldErrors.password ? "field-error-input" : ""}
               required
             />
+            {fieldErrors.password ? (
+              <p className="field-error-message">{fieldErrors.password}</p>
+            ) : null}
           </div>
 
           <div className="form-group">
@@ -123,9 +159,16 @@ function SignUp() {
               type="password"
               placeholder="••••••••"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                clearFieldError("confirmPassword");
+              }}
+              className={fieldErrors.confirmPassword ? "field-error-input" : ""}
               required
             />
+            {fieldErrors.confirmPassword ? (
+              <p className="field-error-message">{fieldErrors.confirmPassword}</p>
+            ) : null}
           </div>
 
           {error && <p className="auth-error">{error}</p>}

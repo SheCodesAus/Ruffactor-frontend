@@ -1,4 +1,11 @@
-import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 import { useAuth } from "./context/AuthContext.jsx";
 
@@ -11,17 +18,30 @@ import Profile from "./pages/Profile.jsx";
 import ProfileMyKudos from "./pages/ProfileMyKudos.jsx";
 import ProfileSettings from "./pages/ProfileSettings.jsx";
 import ProfileAppearance from "./pages/ProfileAppearance.jsx";
+import UpdateKudos from "./pages/UpdateKudos.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 function App() {
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, isAuthLoading, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const goToLogin = () => navigate("/login");
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   const isAuthPage = ["/login", "/signup", "/forgot-password"].includes(
-    location.pathname
+    location.pathname,
   );
+
+  const guardRoute = (element) =>
+    isLoggedIn ? element : <Navigate to="/login" replace />;
+
+  if (isAuthLoading) {
+    return null;
+  }
 
   return (
     <div className="app">
@@ -49,7 +69,11 @@ function App() {
             </ul>
 
             <div className="nav-right">
-              <button type="button" className="login-btn" onClick={logout}>
+              <button
+                type="button"
+                className="login-btn"
+                onClick={handleLogout}
+              >
                 Logout
               </button>
             </div>
@@ -61,23 +85,34 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
+            element={guardRoute(
               <Home
                 isLoggedIn={isLoggedIn}
                 handleLogin={goToLogin}
-                handleLogout={logout}
-              />
-            }
+                handleLogout={handleLogout}
+              />,
+            )}
           />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/give-kudos" element={<GiveKudos />} />
+          <Route path="/give-kudos" element={guardRoute(<GiveKudos />)} />
+          <Route
+            path="/update-kudos/:updatingKudosId"
+            element={guardRoute(<UpdateKudos />)}
+          />
+          <Route
+            path="/admin-dashboard"
+            element={guardRoute(<AdminDashboard />)}
+          />
 
-          <Route path="/profile" element={<Profile />}>
-            <Route path="my-kudos" element={<ProfileMyKudos />} />
-            <Route path="settings" element={<ProfileSettings />} />
-            <Route path="appearance" element={<ProfileAppearance />} />
+          <Route path="/profile" element={guardRoute(<Profile />)}>
+            <Route path="my-kudos" element={guardRoute(<ProfileMyKudos />)} />
+            <Route path="settings" element={guardRoute(<ProfileSettings />)} />
+            <Route
+              path="appearance"
+              element={guardRoute(<ProfileAppearance />)}
+            />
           </Route>
         </Routes>
       </main>

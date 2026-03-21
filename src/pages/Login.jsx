@@ -72,6 +72,7 @@ function Login() {
         <h2 className="auth-heading">Log In</h2>
 
         <form className="auth-form" onSubmit={handleSubmit}>
+          {errorMessage ? <p className="auth-error-message">{errorMessage}</p> : null}
           <div className="form-group">
             <label htmlFor="login-email">Email</label>
             <input

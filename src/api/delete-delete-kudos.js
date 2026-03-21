@@ -1,6 +1,4 @@
-async function deleteDeleteKudos(kudosId) {
-    const loggedInUser = window.localStorage.getItem("loggedInUser");
-    const token = loggedInUser ? JSON.parse(loggedInUser).token : "";
+async function deleteDeleteKudos(token, kudosId) {
     const url = `${import.meta.env.VITE_API_URL}/kudos/${kudosId}`;
     const response = await fetch(url, {
         method: "DELETE", // We need to tell the server that we are sending JSON data so we set the Content-Type header to application/json
