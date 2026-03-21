@@ -1,38 +1,70 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
 import "./SignUp.css";
 
-function SignUp() {
-  const teamOptions = [
-    "Account Management",
-    "Sales",
-    "Tech",
-    "Management",
-    "Administration",
-  ];
+const API_BASE = "https://ruffactor-backend-f36fc347ab07.herokuapp.com";
 
+function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [team, setTeam] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { login } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) return;
-    if (!team) return;
-    login();
-    navigate("/");
+    setError("");
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch(`${API_BASE}/auth/signup/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          password,
+          confirm_password: confirmPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const firstError =
+          typeof data === "object"
+            ? Object.values(data).flat().join(" ")
+            : "Sign up failed.";
+        throw new Error(firstError);
+      }
+
+      navigate("/login");
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError(err.message || "Could not create account.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="auth-page">
       <div className="auth-card">
         <h2 className="auth-heading">Sign Up</h2>
+
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
@@ -46,6 +78,7 @@ function SignUp() {
                 required
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="signup-last">Last Name</label>
               <input
@@ -58,35 +91,19 @@ function SignUp() {
               />
             </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="signup-team">Team</label>
-            <select
-              id="signup-team"
-              value={team}
-              onChange={(e) => setTeam(e.target.value)}
-              required
-            >
-              <option value="" disabled>
-                Select your team
-              </option>
-              {teamOptions.map((teamName) => (
-                <option key={teamName} value={teamName}>
-                  {teamName}
-                </option>
-              ))}
-            </select>
-          </div>
+
           <div className="form-group">
             <label htmlFor="signup-email">Email</label>
             <input
               id="signup-email"
               type="email"
-              placeholder="jane@company.com"
+              placeholder="jane+pp@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="signup-password">Password</label>
             <input
@@ -98,6 +115,7 @@ function SignUp() {
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="signup-confirm">Confirm Password</label>
             <input
@@ -109,10 +127,14 @@ function SignUp() {
               required
             />
           </div>
-          <button type="submit" className="auth-submit-btn">
-            Create Account
+
+          {error && <p className="auth-error">{error}</p>}
+
+          <button type="submit" className="auth-submit-btn" disabled={loading}>
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
+
         <p className="auth-switch">
           Already have an account? <Link to="/login">Log in</Link>
         </p>
