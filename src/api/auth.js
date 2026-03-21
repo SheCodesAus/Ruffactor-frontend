@@ -1,5 +1,9 @@
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV
+    ? "/heroku-api"
+    : "https://ruffactor-backend-f36fc347ab07.herokuapp.com");
 
 function getJsonHeaders(token) {
   const headers = {

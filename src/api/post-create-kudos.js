@@ -1,21 +1,31 @@
-async function postCreateKudos(token, selectedRecipients, message, selectedSkills, mediaImage, mediaLink, visibility) {
-    const url = `${import.meta.env.VITE_API_URL}/api/kudos/`;
-    const recipientIds = selectedRecipients.map(recipient => recipient.id);
-    const skillIds = selectedSkills.map(skill => skill.id);
-    const json = JSON.stringify({
-        "recipient_ids": recipientIds,
-        "message": message,
-        "skill_ids": skillIds
-    });
-    console.log(json);
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Token ${token}`
-        },
-        body: json
-    });
+import { getApiBaseUrl } from "./auth.js";
+
+async function postCreateKudos(
+  token,
+  selectedRecipients,
+  message,
+  selectedSkills,
+  mediaImage,
+  mediaLink,
+  visibility,
+) {
+  const url = `${getApiBaseUrl()}/api/kudos/`;
+  const recipientIds = selectedRecipients.map((recipient) => recipient.id);
+  const skillIds = selectedSkills.map((skill) => skill.id);
+  const json = JSON.stringify({
+    recipient_ids: recipientIds,
+    message: message,
+    skill_ids: skillIds,
+  });
+  console.log(json);
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+    body: json,
+  });
 
   if (!response.ok) {
     const fallbackError = `Error trying to create kudos`;

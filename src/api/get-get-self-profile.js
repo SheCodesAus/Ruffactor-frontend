@@ -1,5 +1,7 @@
+import { getApiBaseUrl } from "./auth.js";
+
 async function getGetSelfProfile(token) {
-    const url = `${import.meta.env.VITE_API_URL}/auth/profile`;
+    const url = `${getApiBaseUrl()}/auth/profile`;
     const response = await fetch(url, {
         method: "GET", headers: {
             "Authorization": `Token ${token}`

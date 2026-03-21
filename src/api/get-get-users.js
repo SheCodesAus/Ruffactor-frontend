@@ -1,5 +1,7 @@
+import { getApiBaseUrl } from "./auth.js";
+
 async function getGetUsers(token) {
-    const url = `${import.meta.env.VITE_API_URL}/api/users`;
+    const url = `${getApiBaseUrl()}/api/users`;
     const response = await fetch(url, {
         method: "GET", headers: {
             "Authorization": `Token ${token}`

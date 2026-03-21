@@ -1,5 +1,7 @@
+import { getApiBaseUrl } from "./auth.js";
+
 async function getGetSkills(token) {
-    const url = `${import.meta.env.VITE_API_URL}/api/skills`;
+    const url = `${getApiBaseUrl()}/api/skills`;
     const response = await fetch(url, {
         method: "GET", headers: {
             "Authorization": `Token ${token}`

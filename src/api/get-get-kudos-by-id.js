@@ -1,5 +1,7 @@
+import { getApiBaseUrl } from "./auth.js";
+
 async function getGetKudosById(token,kudosId) {
-    const url = `${import.meta.env.VITE_API_URL}/api/kudos/${kudosId}`;
+    const url = `${getApiBaseUrl()}/api/kudos/${kudosId}`;
     const response = await fetch(url, {
         method: "GET", headers: {
             "Content-Type": "application/json",
