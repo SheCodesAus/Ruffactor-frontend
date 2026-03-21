@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
 import "./SignUp.css";
 
+const API_BASE = "https://ruffactor-backend-f36fc347ab07.herokuapp.com";
 function SignUp() {
   const teamOptions = [
     { id: 1, name: "Account Management" },
@@ -12,102 +12,59 @@ function SignUp() {
     { id: 5, name: "Administration" },
   ];
 
+function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [selectedTeamId, setSelectedTeamId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [fieldErrors, setFieldErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login, signup } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
-
-  function parseBackendErrors(error) {
-    if (!error || typeof error !== "object") {
-      return {
-        globalError: "Something went wrong. Please try again.",
-        nextFieldErrors: {},
-      };
-    }
-
-    const nextFieldErrors = {};
-
-    if (Array.isArray(error.first_name) && error.first_name.length > 0) {
-      nextFieldErrors.firstName = error.first_name[0];
-    }
-    if (Array.isArray(error.last_name) && error.last_name.length > 0) {
-      nextFieldErrors.lastName = error.last_name[0];
-    }
-    if (Array.isArray(error.email) && error.email.length > 0) {
-      nextFieldErrors.email = error.email[0];
-    }
-    if (Array.isArray(error.password) && error.password.length > 0) {
-      nextFieldErrors.password = error.password[0];
-    }
-    if (Array.isArray(error.confirm_password) && error.confirm_password.length > 0) {
-      nextFieldErrors.confirmPassword = error.confirm_password[0];
-    }
-    if (Array.isArray(error.team_id) && error.team_id.length > 0) {
-      nextFieldErrors.team = error.team_id[0];
-    }
-
-    let globalError = "";
-    if (Array.isArray(error.non_field_errors) && error.non_field_errors.length > 0) {
-      globalError = error.non_field_errors[0];
-    } else if (Object.keys(nextFieldErrors).length === 0) {
-      globalError = "Unable to sign up. Please check your details and try again.";
-    }
-
-    return { globalError, nextFieldErrors };
-  }
-
-  function clearFieldError(fieldName) {
-    setFieldErrors((previousErrors) => {
-      if (!previousErrors[fieldName]) return previousErrors;
-      const updatedErrors = { ...previousErrors };
-      delete updatedErrors[fieldName];
-      return updatedErrors;
-    });
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage("");
-    setFieldErrors({});
+    setError("");
 
     if (password !== confirmPassword) {
-      setFieldErrors({ confirmPassword: "Passwords do not match." });
+      setError("Passwords do not match.");
       return;
     }
 
-    setIsSubmitting(true);
-
-    const teamId = selectedTeamId ? Number(selectedTeamId) : null;
-
-    const signupPayload = {
-      email,
-      first_name: firstName,
-      last_name: lastName,
-      password,
-      confirm_password: confirmPassword,
-    };
-
-    if (teamId) {
-      signupPayload.team_id = teamId;
-    }
+    setLoading(true);
 
     try {
-      await signup(signupPayload);
-      await login(teamId ? { email, password, team_id: teamId } : { email, password });
-      navigate("/");
-    } catch (error) {
-      const { globalError, nextFieldErrors } = parseBackendErrors(error);
-      setErrorMessage(globalError);
-      setFieldErrors(nextFieldErrors);
+      const response = await fetch(`${API_BASE}/auth/signup/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          password,
+          confirm_password: confirmPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const firstError =
+          typeof data === "object"
+            ? Object.values(data).flat().join(" ")
+            : "Sign up failed.";
+        throw new Error(firstError);
+      }
+
+      navigate("/login");
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError(err.message || "Could not create account.");
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
@@ -115,6 +72,7 @@ function SignUp() {
     <div className="auth-page">
       <div className="auth-card">
         <h2 className="auth-heading">Sign Up</h2>
+
         <form className="auth-form" onSubmit={handleSubmit}>
           {errorMessage ? <p className="auth-error-message">{errorMessage}</p> : null}
           <div className="form-row">
@@ -136,6 +94,7 @@ function SignUp() {
                 <p className="field-error-message">{fieldErrors.firstName}</p>
               ) : null}
             </div>
+
             <div className="form-group">
               <label htmlFor="signup-last">Last Name</label>
               <input
@@ -156,36 +115,11 @@ function SignUp() {
             </div>
           </div>
           <div className="form-group">
-            <label htmlFor="signup-team">Team</label>
-            <select
-              id="signup-team"
-              value={selectedTeamId}
-              onChange={(e) => {
-                setSelectedTeamId(e.target.value);
-                clearFieldError("team");
-              }}
-              className={fieldErrors.team ? "field-error-input" : ""}
-            >
-              <option value="">Select your team (optional)</option>
-              {teamOptions.map((team) => (
-                <option key={team.id} value={team.id}>
-                  {team.name}
-                </option>
-              ))}
-            </select>
-            <p className="form-help-text">
-              You can only belong to one team.
-            </p>
-            {fieldErrors.team ? (
-              <p className="field-error-message">{fieldErrors.team}</p>
-            ) : null}
-          </div>
-          <div className="form-group">
             <label htmlFor="signup-email">Email</label>
             <input
               id="signup-email"
               type="email"
-              placeholder="jane@company.com"
+              placeholder="jane+pp@gmail.com"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -198,6 +132,7 @@ function SignUp() {
               <p className="field-error-message">{fieldErrors.email}</p>
             ) : null}
           </div>
+
           <div className="form-group">
             <label htmlFor="signup-password">Password</label>
             <input
@@ -216,6 +151,7 @@ function SignUp() {
               <p className="field-error-message">{fieldErrors.password}</p>
             ) : null}
           </div>
+
           <div className="form-group">
             <label htmlFor="signup-confirm">Confirm Password</label>
             <input
@@ -234,10 +170,14 @@ function SignUp() {
               <p className="field-error-message">{fieldErrors.confirmPassword}</p>
             ) : null}
           </div>
-          <button type="submit" className="auth-submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? "Creating Account..." : "Create Account"}
+
+          {error && <p className="auth-error">{error}</p>}
+
+          <button type="submit" className="auth-submit-btn" disabled={loading}>
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
+
         <p className="auth-switch">
           Already have an account? <Link to="/login">Log in</Link>
         </p>
