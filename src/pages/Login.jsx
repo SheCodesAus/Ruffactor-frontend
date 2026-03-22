@@ -52,7 +52,7 @@ function Login() {
       <div className="auth-card">
         <div className="login-page-header">
           <img
-            src="img/pp-logo-v.png"
+            src="/pp-logo-v.png"
             alt="Pixel Pulse logo"
             className="login-page-logo"
           />
