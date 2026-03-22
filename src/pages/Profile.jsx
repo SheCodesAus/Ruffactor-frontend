@@ -58,6 +58,7 @@ function getInitials(profile) {
       .toUpperCase();
   }
 
+
   return `${firstName?.[0] || ""}${lastName?.[0] || ""}`.toUpperCase() || "U";
 }
 
@@ -162,7 +163,7 @@ function Profile() {
     location.pathname === "/profile" || location.pathname === "/profile/";
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("auth_token");
 
     if (!token) {
       setError("No auth token found. Please log in again.");

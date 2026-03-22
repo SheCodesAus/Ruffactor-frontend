@@ -50,7 +50,7 @@ function App() {
           <nav className="navbar">
             <div className="nav-left">
               <img
-                src="img/pp-logo-v.png"
+                src="/pp-logo-v.png"
                 alt="Pixel Pulse logo"
                 className="logo-image"
               />
