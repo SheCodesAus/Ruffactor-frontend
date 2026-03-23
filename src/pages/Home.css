@@ -47,11 +47,13 @@
 }
 
 .home-stats-panel {
-  background: #ffffff;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-5) var(--space-6);
   box-shadow: var(--shadow-sm);
 }
+
 .home-stats-title {
   font-size: 0.7rem;
   font-weight: var(--font-weight-bold);
@@ -114,7 +116,8 @@
 }
 
 .home-action-bar {
-  background: #ffffff;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-4) var(--space-5);
   display: flex;
@@ -122,7 +125,6 @@
   gap: var(--space-4);
   box-shadow: var(--shadow-sm);
 }
-
 .search-input-wrap {
   flex: 1;
   display: flex;
@@ -165,11 +167,12 @@
 .home-loading,
 .home-empty,
 .home-error {
-  background: #fff;
+  background: var(--color-bg-card);
   border-radius: var(--radius-lg);
   padding: var(--space-4);
   text-align: center;
   font-size: var(--font-size-body-2);
+  border: 1px solid var(--color-border);
 }
 
 .home-loading,
@@ -220,7 +223,8 @@
 }
 
 .kudos-card {
-  background: #ffffff;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-5) var(--space-6);
   box-shadow: var(--shadow-sm);
@@ -284,7 +288,7 @@
 }
 
 .kudos-message {
-  background: #fafafa;
+  background: var(--color-bg-card);
   border-radius: var(--radius-lg);
   padding: var(--space-4) var(--space-5);
   font-size: var(--font-size-body-1);
@@ -350,7 +354,8 @@
 
 .kudos-modal {
   width: min(560px, 100%);
-  background: #fff;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   box-shadow: var(--shadow-md);
@@ -380,21 +385,100 @@
   line-height: 1.6;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .home-page {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .home-header h1 {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .home-header p {
+    font-size: var(--font-size-body-2);
+  }
+
+  .home-stats-panel {
+    padding: var(--space-4);
+  }
+
   .home-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: var(--space-4);
+  }
+
+  .stat-card {
+    width: 100%;
+    min-width: 0;
+    min-height: 160px;
+    padding: var(--space-5);
   }
 
   .home-action-bar {
     flex-direction: column;
     align-items: stretch;
+    padding: var(--space-4);
+  }
+
+  .search-input-wrap {
+    width: 100%;
   }
 
   .skill-filter {
     width: 100%;
+    min-width: 0;
   }
 
   .btn-give-kudos {
+    width: 100%;
     justify-content: center;
+  }
+
+  .kudos-card {
+    padding: var(--space-4);
+  }
+
+  .kudos-card-header {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .kudos-tag {
+    white-space: normal;
+  }
+
+  .kudos-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .kudos-actions {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page {
+    padding: var(--space-5) var(--space-3);
+  }
+
+  .home-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .home-stats-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .stat-value {
+    font-size: 1.9rem;
+  }
+
+  .stat-label {
+    text-align: center;
   }
 }

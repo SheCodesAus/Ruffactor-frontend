@@ -162,3 +162,61 @@ main {
     justify-content: flex-start;
   }
 }
+.hamburger-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 1.75rem;
+  line-height: 1;
+  padding: var(--space-2);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    position: relative;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .hamburger-btn {
+    display: block;
+    margin-left: auto;
+  }
+
+  .main-nav,
+  .nav-right {
+    display: none;
+  }
+
+  .main-nav.main-nav-open,
+  .nav-right.nav-right-open {
+    display: flex;
+    width: 100%;
+  }
+
+  .main-nav.main-nav-open {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .nav-right.nav-right-open {
+    margin-top: var(--space-3);
+    justify-content: flex-start;
+  }
+
+  .main-nav li {
+    width: 100%;
+  }
+
+  .main-nav a,
+  .login-btn {
+    display: block;
+    width: 100%;
+  }
+}

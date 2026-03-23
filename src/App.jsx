@@ -6,6 +6,7 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { useAuth } from "./context/AuthContext.jsx";
 
@@ -25,12 +26,27 @@ function App() {
   const { isLoggedIn, isAuthLoading, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const goToLogin = () => navigate("/login");
+
   const handleLogout = () => {
+    setIsMenuOpen(false);
     logout();
     navigate("/login");
   };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    closeMenu();
+  }, [location.pathname]);
 
   const isAuthPage = ["/login", "/signup", "/forgot-password"].includes(
     location.pathname,
@@ -48,27 +64,45 @@ function App() {
       {isLoggedIn && !isAuthPage && (
         <header className="site-header">
           <nav className="navbar">
-            <div className="nav-left">
+          <div className="nav-left">
+            <Link to="/" onClick={closeMenu}>
               <img
                 src="/pp-logo-v.png"
                 alt="Pixel Pulse logo"
                 className="logo-image"
               />
-            </div>
+            </Link>
+        </div>
 
-            <ul className="main-nav">
+            <button
+              type="button"
+              className="hamburger-btn"
+              onClick={toggleMenu}
+              aria-label="Toggle navigation menu"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? "✕" : "☰"}
+            </button>
+
+            <ul className={`main-nav ${isMenuOpen ? "main-nav-open" : ""}`}>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/" onClick={closeMenu}>
+                  Home
+                </Link>
               </li>
               <li>
-                <Link to="/give-kudos">Give Kudos</Link>
+                <Link to="/give-kudos" onClick={closeMenu}>
+                  Give Kudos
+                </Link>
               </li>
               <li>
-                <Link to="/profile">Profile</Link>
+                <Link to="/profile" onClick={closeMenu}>
+                  Profile
+                </Link>
               </li>
             </ul>
 
-            <div className="nav-right">
+            <div className={`nav-right ${isMenuOpen ? "nav-right-open" : ""}`}>
               <button
                 type="button"
                 className="login-btn"
