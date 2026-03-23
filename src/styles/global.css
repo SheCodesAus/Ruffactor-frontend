@@ -107,12 +107,14 @@
 }
 
 body {
+  overflow-x: hidden;
   font-family: var(--font-body);
   color: var(--color-text-primary);
   line-height: 1.5;
   background: var(--gradient-page-bg);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
 
 /* Headings use our navy color */
@@ -148,4 +150,29 @@ button {
 img {
   max-width: 100%;
   height: auto;
+}
+body.dark-theme {
+  --color-deep-navy: #f3f4f6;
+  --color-soft-purple: #b39aff;
+  --color-blush-pink: #ff9fc8;
+  --color-powder-pink: #232938;
+  --color-bright-yellow: #ffe27a;
+
+  --color-text-primary: #f3f4f6;
+  --color-text-secondary: #c2cae0;
+  --color-text-muted: rgba(243, 244, 246, 0.65);
+  --color-text-accent: #ff9fc8;
+
+  --color-bg-card: #1b1f2a;
+  --color-bg-page: #12141a;
+  --color-border: #343b4d;
+
+  --gradient-primary: linear-gradient(135deg, #8e7ae6, #ff9fc8);
+
+  --gradient-page-bg: linear-gradient(
+    to bottom right,
+    #12141a,
+    rgba(142, 122, 230, 0.12),
+    rgba(255, 159, 200, 0.08)
+  );
 }
