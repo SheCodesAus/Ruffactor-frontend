@@ -1,7 +1,7 @@
 import { getApiBaseUrl } from "./auth.js";
 
 async function deleteDeleteKudos(token, kudosId) {
-  const url = `${getApiBaseUrl()}/kudos/${kudosId}`;
+  const url = `${getApiBaseUrl()}/api/kudos/${kudosId}/`;
   const response = await fetch(url, {
     method: "DELETE", // We need to tell the server that we are sending JSON data so we set the Content-Type header to application/json
     headers: {

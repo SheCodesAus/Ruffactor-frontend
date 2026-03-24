@@ -42,6 +42,10 @@ export async function fetchSkills(token) {
   return fetchJson(`${getApiBaseUrl()}/api/skills/`, token);
 }
 
+export async function fetchUsers(token) {
+  return fetchJson(`${getApiBaseUrl()}/api/users/`, token);
+}
+
 export async function fetchUserKudos(token, userId) {
   const [given, received] = await Promise.all([
     fetchJson(`${getApiBaseUrl()}/api/users/${userId}/given-kudos/`, token),
