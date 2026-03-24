@@ -100,6 +100,11 @@ function App() {
                   Profile
                 </Link>
               </li>
+              <li>
+                <Link to="/AdminDashboard" onClick={closeMenu}>
+                  Admin Dashboard
+                </Link>
+              </li>
             </ul>
 
             <div className={`nav-right ${isMenuOpen ? "nav-right-open" : ""}`}>
@@ -136,7 +141,7 @@ function App() {
             element={guardRoute(<UpdateKudos />)}
           />
           <Route
-            path="/admin-dashboard"
+            path="/AdminDashboard"
             element={guardRoute(<AdminDashboard />)}
           />
 
