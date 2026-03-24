@@ -287,6 +287,12 @@
   flex-shrink: 0;
 }
 
+.kudos-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
 .kudos-message {
   background: var(--color-bg-card);
   border-radius: var(--radius-lg);
@@ -310,12 +316,7 @@
 .kudos-card-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.kudos-actions {
-  display: flex;
-  gap: var(--space-4);
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -339,6 +340,12 @@
 
 .share-btn {
   color: var(--color-text-muted);
+}
+
+.edit-btn {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 6px;
 }
 
 .kudos-modal-backdrop {
@@ -450,14 +457,7 @@
   }
 
   .kudos-card-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-3);
-  }
-
-  .kudos-actions {
-    flex-wrap: wrap;
-    gap: var(--space-3);
+    justify-content: flex-start;
   }
 }
 

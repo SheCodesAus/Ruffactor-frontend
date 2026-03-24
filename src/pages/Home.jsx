@@ -80,6 +80,20 @@ function formatTimeAgo(value) {
   return `${Math.floor(seconds / 86400)}d ago`;
 }
 
+function getEntityId(entity) {
+  if (!entity) return null;
+  if (typeof entity === "number") return entity;
+  if (typeof entity === "string") {
+    const parsed = Number(entity);
+    return Number.isNaN(parsed) ? null : parsed;
+  }
+  if (typeof entity === "object") {
+    if (typeof entity.id === "number") return entity.id;
+    if (typeof entity.user_id === "number") return entity.user_id;
+  }
+  return null;
+}
+
 function mapKudosItem(item) {
   const giverName =
     getDisplayName(item.sender) ||
@@ -97,7 +111,16 @@ function mapKudosItem(item) {
     "a teammate";
 
   const skills = Array.isArray(item.skills) ? item.skills : [];
-  const primarySkill = skills.length > 0 ? skills[0] : null;
+  const skillTags =
+    skills.length > 0 ? skills.map((skill) => skill.name) : ["General"];
+
+  // Keep ownership logic resilient to backend serializer differences.
+  const ownerId =
+    getEntityId(item.sender) ??
+    getEntityId(item.from_user) ??
+    getEntityId(item.giver) ??
+    getEntityId(item.sender_id) ??
+    getEntityId(item.giver_id);
 
   return {
     id: item.id,
@@ -106,8 +129,9 @@ function mapKudosItem(item) {
     timeAgo:
       formatTimeAgo(item.created_at || item.createdAt || item.timestamp) ||
       "Recently",
-    tag: primarySkill?.name || "General",
+    skillTags,
     message: item.message || "No message provided.",
+    ownerId,
     raw: item,
   };
 }
@@ -115,7 +139,7 @@ function mapKudosItem(item) {
 function Home() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const userIdFilter = React.useMemo(
     () => new URLSearchParams(location.search).get("userId") || "",
     [location.search],
@@ -130,6 +154,7 @@ function Home() {
   const [isFeedLoading, setIsFeedLoading] = React.useState(false);
   const [error, setError] = React.useState("");
   const [selectedKudos, setSelectedKudos] = React.useState(null);
+  const currentUserId = getEntityId(user);
 
   const stats = React.useMemo(
     () => [
@@ -320,7 +345,6 @@ function Home() {
                 </p>
                 <p className="kudos-time">{k.timeAgo}</p>
               </div>
-              <span className="kudos-tag">{k.tag}</span>
             </div>
             <button
               type="button"
@@ -329,57 +353,38 @@ function Home() {
             >
               "{k.message}"
             </button>
+            <div className="kudos-skills">
+              {k.skillTags.map((tag, index) => (
+                <span key={`${k.id}-${tag}-${index}`} className="kudos-tag">
+                  {tag}
+                </span>
+              ))}
+            </div>
             <div className="kudos-card-footer">
-              <div className="kudos-actions">
-                <button className="action-btn" type="button">
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z" />
-                    <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
-                  </svg>
-                </button>
-                <button className="action-btn" type="button">
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                  </svg>
-                </button>
-              </div>
-              <button className="action-btn share-btn" type="button">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+              {/* Show edit only for kudos owner to avoid exposing unauthorized actions. */}
+              {currentUserId && currentUserId === k.ownerId ? (
+                <button
+                  className="action-btn edit-btn"
+                  type="button"
+                  onClick={() => navigate(`/update-kudos/${k.id}`)}
+                  aria-label="Edit kudos"
+                  title="Edit kudos"
                 >
-                  <circle cx="18" cy="5" r="3" />
-                  <circle cx="6" cy="12" r="3" />
-                  <circle cx="18" cy="19" r="3" />
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-                </svg>
-                Share
-              </button>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                  </svg>
+                </button>
+              ) : null}
             </div>
           </div>
         ))}
@@ -406,7 +411,16 @@ function Home() {
               <strong>{selectedKudos.recipient}</strong>
             </p>
             <p className="kudos-modal-time">{selectedKudos.timeAgo}</p>
-            <span className="kudos-tag">{selectedKudos.tag}</span>
+            <div className="kudos-skills">
+              {selectedKudos.skillTags.map((tag, index) => (
+                <span
+                  key={`modal-${selectedKudos.id}-${tag}-${index}`}
+                  className="kudos-tag"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
             <p className="kudos-modal-message">{selectedKudos.message}</p>
           </div>
         </div>
