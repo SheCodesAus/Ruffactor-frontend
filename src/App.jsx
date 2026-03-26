@@ -23,7 +23,7 @@ import UpdateKudos from "./pages/UpdateKudos.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 function App() {
-  const { isLoggedIn, isAuthLoading, logout } = useAuth();
+  const { isLoggedIn, isAuthLoading, logout, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,24 +55,30 @@ function App() {
   const guardRoute = (element) =>
     isLoggedIn ? element : <Navigate to="/login" replace />;
 
+  const adminGuardRoute = (element) =>
+    isLoggedIn && user?.is_admin
+      ? element
+      : <Navigate to="/" replace />;
+
   if (isAuthLoading) {
     return null;
   }
+  
 
   return (
     <div className="app">
       {isLoggedIn && !isAuthPage && (
         <header className="site-header">
           <nav className="navbar">
-          <div className="nav-left">
-            <Link to="/" onClick={closeMenu}>
-              <img
-                src="/pp-logo-v.png"
-                alt="Pixel Pulse logo"
-                className="logo-image"
-              />
-            </Link>
-        </div>
+            <div className="nav-left">
+              <Link to="/" onClick={closeMenu}>
+                <img
+                  src="/pp-logo-v.png"
+                  alt="Pixel Pulse logo"
+                  className="logo-image"
+                />
+              </Link>
+            </div>
 
             <button
               type="button"
@@ -100,11 +106,13 @@ function App() {
                   Profile
                 </Link>
               </li>
-              <li>
-                <Link to="/AdminDashboard" onClick={closeMenu}>
-                  Admin Dashboard
-                </Link>
-              </li>
+              {user?.is_admin && (
+                <li>
+                  <Link to="/AdminDashboard" onClick={closeMenu}>
+                    Admin Dashboard
+                  </Link>
+                </li>
+              )}
             </ul>
 
             <div className={`nav-right ${isMenuOpen ? "nav-right-open" : ""}`}>
@@ -142,9 +150,8 @@ function App() {
           />
           <Route
             path="/AdminDashboard"
-            element={guardRoute(<AdminDashboard />)}
+            element={adminGuardRoute(<AdminDashboard />)}
           />
-
           <Route path="/profile" element={guardRoute(<Profile />)}>
             <Route path="my-kudos" element={guardRoute(<ProfileMyKudos />)} />
             <Route path="settings" element={guardRoute(<ProfileSettings />)} />
