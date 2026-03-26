@@ -14,6 +14,7 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 import GiveKudos from "./pages/GiveKudos.jsx";
 import Profile from "./pages/Profile.jsx";
 import ProfileMyKudos from "./pages/ProfileMyKudos.jsx";
@@ -48,7 +49,7 @@ function App() {
     closeMenu();
   }, [location.pathname]);
 
-  const isAuthPage = ["/login", "/signup", "/forgot-password"].includes(
+  const isAuthPage = ["/login", "/signup", "/forgot-password", "/reset-password"].includes(
     location.pathname,
   );
 
@@ -143,6 +144,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/give-kudos" element={guardRoute(<GiveKudos />)} />
           <Route
             path="/update-kudos/:updatingKudosId"

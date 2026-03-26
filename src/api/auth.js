@@ -73,6 +73,38 @@ export async function getProfile(token) {
   return data;
 }
 
+export async function requestPasswordReset(payload) {
+  const response = await fetch(`${API_BASE_URL}/auth/forgot-password/`, {
+    method: "POST",
+    headers: getJsonHeaders(),
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw data;
+  }
+
+  return data;
+}
+
+export async function confirmPasswordReset(payload) {
+  const response = await fetch(`${API_BASE_URL}/auth/reset-password/`, {
+    method: "POST",
+    headers: getJsonHeaders(),
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw data;
+  }
+
+  return data;
+}
+
 export function getApiBaseUrl() {
   return API_BASE_URL;
 }
