@@ -253,7 +253,6 @@
   color: var(--color-soft-purple);
 }
 
-
 .profile-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -314,14 +313,33 @@
 }
 
 /* Responsive */
-
 @media (max-width: 640px) {
   .settings-page {
     padding: var(--space-6) var(--space-4);
   }
 
+  .settings-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  .settings-sidebar {
+    position: static;
+    top: auto;
+  }
+
+  .settings-nav-item {
+    padding: 10px var(--space-3);
+  }
+
+  .settings-panel {
+    padding: var(--space-5);
+  }
+
   .profile-hero-card {
     padding: var(--space-5);
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .profile-hero-left {
@@ -345,5 +363,21 @@
   .profile-mini-stat {
     flex: 1;
     min-width: 0;
+  }
+
+  .profile-links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-save-row {
+    justify-content: stretch;
+  }
+
+  .btn-save {
+    width: 100%;
   }
 }
