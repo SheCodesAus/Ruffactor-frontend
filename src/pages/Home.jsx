@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   fetchKudosFeed,
-  fetchKudosSnapshot,
+  fetchKudosAnalytics,
   fetchSkills,
   fetchUsers,
   fetchUserKudos,
@@ -158,6 +158,37 @@ function normalizeListResponse(payload) {
   return [];
 }
 
+function toCount(value) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function normalizeAnalyticsMetrics(payload) {
+  const currentMetrics =
+    payload?.current ||
+    payload?.current_period ||
+    payload?.current_metrics ||
+    payload;
+
+  return {
+    totalKudos: toCount(
+      currentMetrics?.total_kudos ??
+        currentMetrics?.kudos_total ??
+        currentMetrics?.total,
+    ),
+    activeGivers: toCount(
+      currentMetrics?.active_givers ??
+        currentMetrics?.unique_senders ??
+        currentMetrics?.givers,
+    ),
+    skillsTagged: toCount(
+      currentMetrics?.skills_tagged ??
+        currentMetrics?.skill_tags ??
+        currentMetrics?.tags_total,
+    ),
+  };
+}
+
 function Home() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -167,7 +198,13 @@ function Home() {
     [location.search],
   );
 
-  const [snapshot, setSnapshot] = React.useState(null);
+  const [analyticsPeriod, setAnalyticsPeriod] = React.useState("weekly");
+  const [analyticsMetrics, setAnalyticsMetrics] = React.useState({
+    totalKudos: 0,
+    activeGivers: 0,
+    skillsTagged: 0,
+  });
+  const [isAnalyticsLoading, setIsAnalyticsLoading] = React.useState(false);
   const [kudosFeed, setKudosFeed] = React.useState([]);
   const [skills, setSkills] = React.useState([]);
   const [usersCache, setUsersCache] = React.useState([]);
@@ -186,9 +223,7 @@ function Home() {
     if (!query || selectedUserId || isSuggestionLocked) return [];
 
     const peopleSuggestions = usersCache
-      .filter((person) =>
-        getDisplayName(person).toLowerCase().includes(query),
-      )
+      .filter((person) => getDisplayName(person).toLowerCase().includes(query))
       .slice(0, 8)
       .map((person) => ({
         type: "person",
@@ -211,7 +246,9 @@ function Home() {
         payload: skill,
       }));
 
-    const uniqueTeams = [...new Set(usersCache.map(getTeamName).filter(Boolean))];
+    const uniqueTeams = [
+      ...new Set(usersCache.map(getTeamName).filter(Boolean)),
+    ];
     const teamSuggestions = uniqueTeams
       .filter((teamName) => teamName.toLowerCase().includes(query))
       .slice(0, 8)
@@ -228,19 +265,25 @@ function Home() {
   const stats = React.useMemo(
     () => [
       {
-        value: snapshot?.kudos_given ?? 0,
-        label: "Kudos Given",
+        value: analyticsMetrics.totalKudos,
+        label: "Total Kudos",
         gradient: "var(--stat-gradient-1)",
         icon: "⭐",
       },
       {
-        value: snapshot?.kudos_received ?? 0,
-        label: "Kudos Received",
+        value: analyticsMetrics.activeGivers,
+        label: "Active Givers",
         gradient: "var(--stat-gradient-2)",
         icon: "👥",
       },
+      {
+        value: analyticsMetrics.skillsTagged,
+        label: "Skills Tagged",
+        gradient: "var(--stat-gradient-4)",
+        icon: "🏷️",
+      },
     ],
-    [snapshot],
+    [analyticsMetrics],
   );
 
   React.useEffect(() => {
@@ -250,9 +293,8 @@ function Home() {
       setIsLoading(true);
       setError("");
       try {
-        const [snapshotResponse, skillsResponse, usersResponse, kudosResponse] =
+        const [skillsResponse, usersResponse, kudosResponse] =
           await Promise.all([
-            fetchKudosSnapshot(token),
             fetchSkills(token),
             fetchUsers(token),
             userIdFilter
@@ -260,7 +302,6 @@ function Home() {
               : fetchKudosFeed({ token }),
           ]);
 
-        setSnapshot(snapshotResponse);
         setSkills(normalizeListResponse(skillsResponse));
         setUsersCache(normalizeListResponse(usersResponse));
         setKudosFeed(normalizeListResponse(kudosResponse).map(mapKudosItem));
@@ -278,6 +319,32 @@ function Home() {
 
     loadInitialData();
   }, [token, userIdFilter]);
+
+  React.useEffect(() => {
+    if (!token) return;
+
+    async function loadAnalyticsData() {
+      setIsAnalyticsLoading(true);
+      try {
+        const analyticsResponse = await fetchKudosAnalytics(
+          token,
+          analyticsPeriod,
+        );
+        setAnalyticsMetrics(normalizeAnalyticsMetrics(analyticsResponse));
+      } catch (apiError) {
+        // Keep the dashboard clean locally if analytics access is restricted.
+        setAnalyticsMetrics({
+          totalKudos: 0,
+          activeGivers: 0,
+          skillsTagged: 0,
+        });
+      } finally {
+        setIsAnalyticsLoading(false);
+      }
+    }
+
+    loadAnalyticsData();
+  }, [token, analyticsPeriod]);
 
   React.useEffect(() => {
     if (!token || isLoading) return;
@@ -398,7 +465,9 @@ function Home() {
     try {
       await deleteDeleteKudos(token, kudosId);
       // Update local feed immediately after a successful delete.
-      setKudosFeed((previousFeed) => previousFeed.filter((item) => item.id !== kudosId));
+      setKudosFeed((previousFeed) =>
+        previousFeed.filter((item) => item.id !== kudosId),
+      );
       setSelectedKudos((currentSelected) =>
         currentSelected?.id === kudosId ? null : currentSelected,
       );
@@ -416,7 +485,31 @@ function Home() {
 
       {/* Stats */}
       <section className="home-stats-panel">
-        <p className="home-stats-title">This Week</p>
+        <div className="home-stats-head">
+          <p className="home-stats-title">
+            {analyticsPeriod === "weekly" ? "This Week" : "This Month"}
+          </p>
+          <div
+            className="home-stats-toggle"
+            role="tablist"
+            aria-label="Metrics period"
+          >
+            <button
+              type="button"
+              className={`stats-toggle-btn ${analyticsPeriod === "weekly" ? "active" : ""}`}
+              onClick={() => setAnalyticsPeriod("weekly")}
+            >
+              This Week
+            </button>
+            <button
+              type="button"
+              className={`stats-toggle-btn ${analyticsPeriod === "monthly" ? "active" : ""}`}
+              onClick={() => setAnalyticsPeriod("monthly")}
+            >
+              This Month
+            </button>
+          </div>
+        </div>
         <p className="home-stats-subtitle">
           A quick snapshot of team recognition activity.
         </p>
@@ -430,7 +523,11 @@ function Home() {
               <div className="stat-icon">{stat.icon}</div>
 
               <span className="stat-value">
-                <CountUpNumber value={stat.value} />
+                {isAnalyticsLoading ? (
+                  "..."
+                ) : (
+                  <CountUpNumber value={stat.value} />
+                )}
               </span>
 
               <span className="stat-label">{stat.label}</span>
@@ -495,7 +592,9 @@ function Home() {
                       handleTeamSelect(suggestion.value);
                     }}
                   >
-                    <span className="search-suggestion-main">{suggestion.label}</span>
+                    <span className="search-suggestion-main">
+                      {suggestion.label}
+                    </span>
                     <span
                       className={`search-suggestion-type search-suggestion-type-${suggestion.type}`}
                     >

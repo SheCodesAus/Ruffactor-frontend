@@ -38,6 +38,12 @@ export async function fetchKudosSnapshot(token) {
   return fetchJson(`${getApiBaseUrl()}/api/kudos/snapshot/`, token);
 }
 
+export async function fetchKudosAnalytics(token, period = "weekly") {
+  const params = new URLSearchParams();
+  params.set("period", period === "monthly" ? "monthly" : "weekly");
+  return fetchJson(`${getApiBaseUrl()}/api/kudos/analytics/?${params}`, token);
+}
+
 export async function fetchSkills(token) {
   return fetchJson(`${getApiBaseUrl()}/api/skills/`, token);
 }
